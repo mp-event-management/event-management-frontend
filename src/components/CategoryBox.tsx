@@ -53,7 +53,7 @@ const CategoryBox: FC<CategoryBoxProps> = ({ icon: Icon, label, selected }) => {
         }
       )}
     >
-      <Icon size={18} />
+      <Icon size={24} />
       <div className="font-medium text-sm">{label}</div>
     </div>
   );
