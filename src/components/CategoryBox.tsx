@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import { useRouter, useSearchParams } from "next/navigation";
 import queryString from "query-string";
 import { FC, useCallback } from "react";
@@ -21,7 +22,7 @@ const CategoryBox: FC<CategoryBoxProps> = ({ icon: Icon, label, selected }) => {
     if (params) {
       currentQuerry = queryString.parse(params.toString());
 
-      const updatedQuery: any = {
+      const updatedQuery: Record<string, string | string[] | null> = {
         ...currentQuerry,
         category: label,
       };
@@ -44,10 +45,13 @@ const CategoryBox: FC<CategoryBoxProps> = ({ icon: Icon, label, selected }) => {
   return (
     <div
       onClick={handleClick}
-      className={`flex flex-col items-center justify-center gap-2 p-3 border-b-2 hover:text-neutral-800 transition cursor-pointer 
-      ${selected ? "border-b-neutral-800" : "border-transparent"} ${
-        selected ? "text-neutral-800" : "text-neutral-500"
-      }`}
+      className={cn(
+        "flex flex-col items-center justify-center gap-2 p-3 border-b-2 hover:text-neutral-800 transition cursor-pointer ",
+        {
+          "border-b-neutral-800 text-neutral-800": selected,
+          "text-neutral-500 border-transparent": !selected,
+        }
+      )}
     >
       <Icon size={18} />
       <div className="font-medium text-sm">{label}</div>

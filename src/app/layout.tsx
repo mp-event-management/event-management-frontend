@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${nunito.className}`}>
         <Navbar />
-        {children}
+        <div className="pb-20 pt-28">{children}</div>
       </body>
     </html>
   );

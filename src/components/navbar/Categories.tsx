@@ -93,7 +93,7 @@ const Categories: FC = () => {
             label={item.label}
             selected={category === item.label}
             icon={item.icon}
-          ></CategoryBox>
+          />
         ))}
       </div>
     </Container>
