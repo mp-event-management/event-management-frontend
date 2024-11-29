@@ -3,7 +3,8 @@ import { Event } from "@/app/page";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FC } from "react";
-import { BsPerson } from "react-icons/bs";
+import { BsPerson, BsTicket } from "react-icons/bs";
+import { CgCalendar } from "react-icons/cg";
 
 interface EventListCardProps {
   data: Event;
@@ -29,13 +30,16 @@ const EventListCard: FC<EventListCardProps> = ({ data }) => {
         <div className="font-bold text-lg">
           {data.title}, {data.city.cityName}
         </div>
-        <div className="font-light text-neutral-500">{data.startDate}</div>
-        <div className="font-semibold">Rp {data.ticketPrice}</div>
-        <div className="flex flex-row items-center gap-1">
-          <BsPerson size={18} />
-          <div className="font-normal">
-            {data.availableTicket} / {data.totalTicket}
-          </div>
+        <div className="flex flex-row items-center gap-3 font-light text-neutral-500">
+          <CgCalendar size={16} /> {data.startDate}
+        </div>
+        <div className="flex flex-row items-center gap-3 font-semibold">
+          <BsTicket size={16} />
+          Rp {data.ticketPrice}
+        </div>
+        <div className="flex flex-row items-center gap-3 font-normal">
+          <BsPerson size={16} />
+          {data.availableTicket} / {data.totalTicket}
         </div>
       </div>
     </div>

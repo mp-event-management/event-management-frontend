@@ -8,12 +8,16 @@ const getAllEvents = async () => {
       cache: "no-store",
     });
 
-    if (!response.ok) throw new Error("Error fetching events");
+    // Handle HTTP errors
+    if (!response.ok) {
+      const errorMessage = `HTTP ${response.status}: ${response.statusText}`;
+      throw new Error(errorMessage);
+    }
 
     const data = await response.json();
     return data.data.events;
   } catch (error) {
-    throw error;
+    throw new Error(`Failed to fetch events. ${error}`);
   }
 };
 

@@ -85,8 +85,8 @@ const Categories: FC = () => {
   }
 
   return (
-    <Container>
-      <div className="flex flex-row items-center justify-between overflow-x-auto pt-4">
+    <div className="overflow-x-auto">
+      <div className="flex flex-nowrap items-center justify-between max-w-[2020px] xl:px-20 md:px-10 sm:px-8 pt-4 px-6">
         {categories.map((item) => (
           <CategoryBox
             key={item.label}
@@ -96,7 +96,7 @@ const Categories: FC = () => {
           />
         ))}
       </div>
-    </Container>
+    </div>
   );
 };
 
