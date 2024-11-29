@@ -35,7 +35,7 @@ const UserMenu: FC = () => {
       </div>
 
       {isOpen && (
-        <div className="absolute rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white overflow-hidden right-0 top-12 text-sm">
+        <div className="absolute rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white overflow-hidden right-0 top-14 font-medium text-md">
           {currentUser ? (
             <>
               <MenuItem onClick={() => {}} label="Profile" />

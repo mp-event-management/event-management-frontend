@@ -1,5 +1,5 @@
-import Container from "@/components/Container";
 import { ApiResponse, Event } from "@/types/GetEvents";
+import Image from "next/image";
 import { FC } from "react";
 
 const getEventDetail = async (id: string): Promise<ApiResponse<Event>> => {
@@ -22,17 +22,32 @@ type EventDetailProps = {
 };
 
 const EventDetailPage: FC<EventDetailProps> = async ({ params }) => {
-  const { id } = await params;
+  const { id } = params;
   const { data }: ApiResponse<Event> = await getEventDetail(id);
   console.log(data);
 
   return (
-    <Container>
-      <div className="mt-10">
-        <h1 className="font-bold text-2xl mb-5">{data.title}</h1>
-        <h1 className="text-black">{data.category.name}</h1>
+    <div className="w-full sm:w-[90%] md:w-[80%] lg:w-[70%] 2xl:w-[60%] mx-auto lg:mt-6 md:mt-4 sm:mt-2 px-[24px] transition">
+      <h1 className="font-extrabold text-2xl md:text-3xl lg:text-4xl mb-5">
+        {data.title}
+      </h1>
+      <div className="aspect-square w-full mb-6 h-[300px] md:h-[600px] relative overflow-hidden rounded-xl transition">
+        <Image
+          fill
+          alt="Event"
+          src="https://placehold.co/600x600"
+          className="object-cover h-full w-full group-hover:scale-110 transition"
+        />
       </div>
-    </Container>
+      <div className="text-lg font-bold flex flex-row gap-2 items-center">
+        <p>
+          <span className="text-neutral-400">start</span> {data.startDate} -{" "}
+          <span className="text-neutral-400">end</span> {data.endDate},
+        </p>
+        <span>{data.city.cityName}</span>
+      </div>
+      <p className="text-xl text-muted-foreground">{data.description}</p>
+    </div>
   );
 };
 
