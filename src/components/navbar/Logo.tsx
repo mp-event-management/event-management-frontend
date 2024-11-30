@@ -6,7 +6,7 @@ import { FC } from "react";
 
 const Logo: FC = () => {
   return (
-    <Link href={"/"}>
+    <Link href="/">
       <Image
         alt="logo"
         className="hidden md:block cursor-pointer"

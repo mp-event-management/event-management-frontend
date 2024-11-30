@@ -1,5 +1,5 @@
 "use client";
-import { Event } from "@/app/page";
+import { Event } from "@/types/GetEvents";
 import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";

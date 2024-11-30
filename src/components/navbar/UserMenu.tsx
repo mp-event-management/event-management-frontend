@@ -1,21 +1,36 @@
 "use client";
 
-import { FC, useCallback, useState } from "react";
-import { AiOutlineMenu } from "react-icons/ai";
+import { FC, useCallback, useEffect, useRef, useState } from "react";
 import Avatar from "../Avatar";
 import MenuItem from "./MenuItem";
 import { signOut } from "next-auth/react";
+import { MenuIcon } from "lucide-react";
 
 const UserMenu: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
   }, []);
 
+  const handleClose = useCallback((event: MouseEvent) => {
+    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      setIsOpen(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClose);
+    return () => {
+      document.removeEventListener("mousedown", handleClose);
+    };
+  }, [handleClose]);
+
   const currentUser = false;
 
   return (
-    <div className="relative">
+    <div className="relative" ref={menuRef}>
       <div className="flex flex-row items-center gap-3">
         <div
           onClick={() => {}}
@@ -27,7 +42,7 @@ const UserMenu: FC = () => {
           onClick={toggleOpen}
           className="p-4 md:py-2 md:px-3 border-[1px] border-neutral-300 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:shadow-md transition"
         >
-          <AiOutlineMenu />
+          <MenuIcon className="w-4 h-4" />
           <div className="hidden md:block">
             <Avatar />
           </div>

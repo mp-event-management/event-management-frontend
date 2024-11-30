@@ -31,7 +31,7 @@ const EventDetailPage: FC<EventDetailProps> = async ({ params }) => {
       <h1 className="font-extrabold text-2xl md:text-3xl lg:text-4xl mb-5">
         {data.title}
       </h1>
-      <div className="aspect-square w-full mb-6 h-[300px] md:h-[600px] relative overflow-hidden rounded-xl transition">
+      <div className="aspect-square w-full mb-8 h-[300px] md:h-[600px] relative overflow-hidden rounded-xl transition">
         <Image
           fill
           alt="Event"
