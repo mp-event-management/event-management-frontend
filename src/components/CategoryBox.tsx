@@ -46,15 +46,25 @@ const CategoryBox: FC<CategoryBoxProps> = ({ icon: Icon, label, selected }) => {
     <div
       onClick={handleClick}
       className={cn(
-        "flex flex-col items-center justify-center text-center gap-2 min-w-[140px] max-w-[200px] p-2 border-b-2 w-full hover:text-neutral-800 transition cursor-pointer",
-        {
-          "border-b-neutral-950 text-black": selected,
-          "text-neutral-600 border-transparent": !selected,
-        }
+        "flex flex-col items-center justify-center text-center gap-2 px-6 w-full hover:text-neutral-800 transition cursor-pointer",
+        selected ? "text-neutral-800" : "text-neutral-500"
       )}
     >
       <Icon size={22} />
-      <div className="font-semibold text-[14px]">{label}</div>
+      <div
+        className={cn(
+          "flex pb-6 flex-wrap relative transition",
+          selected
+            ? "border-b-2 border-neutral-800"
+            : "border-b-2 border-transparent"
+        )}
+      >
+        <div className="flex">
+          <span className="font-semibold text-[14px] whitespace-nowrap">
+            {label}
+          </span>
+        </div>
+      </div>
     </div>
   );
 };
