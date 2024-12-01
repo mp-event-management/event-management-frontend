@@ -17,7 +17,8 @@ const EventListCard: FC<EventListCardProps> = ({ data }) => {
         <div className="flex flex-col gap-2 w-full">
           <div className="aspect-square w-full relative overflow-hidden rounded-xl">
             <Image
-              fill
+              height={400}
+              width={400}
               alt="Event"
               src="https://placehold.co/400x400"
               className="object-cover h-full w-full group-hover:scale-110 transition"

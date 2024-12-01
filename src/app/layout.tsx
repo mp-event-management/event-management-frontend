@@ -5,8 +5,18 @@ import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/footer/Footer";
 
 export const metadata: Metadata = {
-  title: "Eventsbro",
+  title: "Eventbro",
   description: "Choose your desired event to join",
+  icons: {
+    icon: [
+      {
+        rel: "icon",
+        type: "image/svg",
+        sizes: "42x42",
+        url: "/favicon.svg",
+      },
+    ],
+  },
 };
 
 const nunito = Nunito({
