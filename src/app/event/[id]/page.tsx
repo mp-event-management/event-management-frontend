@@ -55,7 +55,7 @@ const EventDetailPage: FC<EventDetailProps> = async ({ params }) => {
       {/* Detail and Purchase */}
       <div className="flex flex-row justify-between gap-14">
         {/* Details side */}
-        <div className="flex flex-col">
+        <div className="flex flex-col mb-40">
           <div className="text-[16px] font-bold mb-2 flex flex-row gap-2 items-center">
             <p>{data.startDate},</p>
             <span>{data.city.cityName}</span>
@@ -69,11 +69,11 @@ const EventDetailPage: FC<EventDetailProps> = async ({ params }) => {
 
           {/* Organized by */}
           <div className="flex flex-row items-center gap-4 w-full bg-[#F8F7FA] p-8 rounded-2xl">
-            <div className="relative h-12 w-12 rounded-full">
+            <div className="relative h-14 w-14 rounded-full">
               <Image
                 fill
                 alt="Organizer"
-                src="https://placehold.co/30x30"
+                src="https://placehold.co/40x40"
                 className="object-cover h-full w-full rounded-full"
               />
             </div>
@@ -115,12 +115,27 @@ const EventDetailPage: FC<EventDetailProps> = async ({ params }) => {
         </div>
 
         {/* Purchase and payment side */}
-        <div className="flex flex-col items-center border-[1px] rounded-xl p-8 w-[340px] min-h-[200px] max-h-[220px]">
-          <p className="flex gap-2 items-center text-[24px] font-bold">
+
+        {/* Small screen */}
+        <div className="lg:hidden fixed bottom-0 left-0 right-0 z-10 bg-white border-t-[1px] w-full flex flex-col items-center gap-4 border-[1px] p-8 h-[160px] shadow">
+          <p className="flex gap-2 items-center text-[24px] font-bold w-full text-center">
             Rp{data.ticketPrice}
-            <span className="font-normal text-neutral-800">per ticket</span>
+            <span className="font-normal text-[18px] text-neutral-800">
+              per ticket
+            </span>
           </p>
           <Button color="primary">Get tickets</Button>
+        </div>
+
+        {/* Large screen */}
+        <div className="hidden lg:flex flex-col items-center justify-between border-[1px] rounded-xl p-8 lg:w-[340px] min-h-[160px] max-h-[200px]">
+          <div className="flex flex-col items-center gap-1 justify-between text-[24px] font-bold w-full">
+            <p>Rp{data.ticketPrice}</p>
+            <span className="font-normal text-[18px] text-neutral-800">
+              per ticket
+            </span>
+          </div>
+          <Button>Get tickets</Button>
         </div>
       </div>
     </div>
