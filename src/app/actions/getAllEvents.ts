@@ -1,12 +1,15 @@
 const getAllEvents = async () => {
   try {
-    const response = await fetch("http://localhost:8080/api/v1/events", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      cache: "no-store",
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_DEVELEOPMENT_URL}/api/v1/events`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        cache: "no-store",
+      }
+    );
 
     // Handle HTTP errors
     if (!response.ok) {

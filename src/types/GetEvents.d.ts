@@ -7,7 +7,7 @@ export type ApiResponse<T> = {
 
 export type Event = {
   eventId: number;
-  userOrganizerId: number;
+  userOrganizer: UserOrganizer;
   title: string;
   description: string;
   category: Category;
@@ -20,6 +20,19 @@ export type Event = {
   eventStatus: string;
   city: City;
   address: string;
+};
+
+export type UserOrganizer = {
+  userId: number;
+  role: Role;
+  name: string;
+  email: string;
+  profilepictureUrl: string;
+};
+
+export type Role = {
+  roleId: number;
+  name: string;
 };
 
 export type Category = {
