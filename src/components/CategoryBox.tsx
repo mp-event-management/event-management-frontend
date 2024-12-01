@@ -48,7 +48,7 @@ const CategoryBox: FC<CategoryBoxProps> = ({ icon: Icon, label, selected }) => {
       className={cn(
         "flex flex-col items-center justify-center text-center gap-2 min-w-[140px] max-w-[200px] p-2 border-b-2 w-full hover:text-neutral-800 transition cursor-pointer",
         {
-          "border-b-neutral-800 text-neutral-800": selected,
+          "border-b-neutral-800 text-black": selected,
           "text-neutral-500 border-transparent": !selected,
         }
       )}
