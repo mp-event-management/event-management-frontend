@@ -27,7 +27,7 @@ const UserMenu: FC = () => {
     };
   }, [handleClose]);
 
-  const currentUser = false;
+  const currentUser = true;
 
   return (
     <div className="relative" ref={menuRef}>
@@ -50,7 +50,7 @@ const UserMenu: FC = () => {
       </div>
 
       {isOpen && (
-        <div className="absolute rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white overflow-hidden right-0 top-14 font-medium text-md">
+        <div className="absolute rounded-xl shadow-md w-[40vw] md:w-[12vw] bg-white overflow-hidden right-0 top-14 font-medium text-md z-[11]">
           {currentUser ? (
             <>
               <MenuItem onClick={() => {}} label="Profile" />

@@ -58,7 +58,7 @@ const EventDetailPage: FC<EventDetailProps> = async ({ params }) => {
   // }
 
   return (
-    <div className="w-full sm:w-[90%] md:w-[80%] lg:w-[70%] 2xl:w-[60%] mx-auto lg:mt-6 md:mt-4 sm:mt-2 px-[24px] transition">
+    <div className="w-full sm:w-[90%] md:w-[80%] lg:w-[70%] 2xl:w-[60%] mx-auto lg:mt-4 md:mt-4 sm:mt-2 px-[24px] transition">
       {/* Arrow back */}
       <div className="flex lg:flex-row flex-col lg:items-center items-start lg:gap-6 gap-4 mt-2 lg:mb-6 md:mb-5 mb-4">
         <Link
@@ -90,7 +90,7 @@ const EventDetailPage: FC<EventDetailProps> = async ({ params }) => {
           <h1 className="font-extrabold lg:text-5xl md:text-4xl text-3xl">
             {data.title}
           </h1>
-          <p className="text-xl text-muted-foreground my-8">
+          <p className="lg:text-xl text-lg text-muted-foreground my-8">
             {data.description}
           </p>
 

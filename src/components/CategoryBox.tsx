@@ -46,21 +46,21 @@ const CategoryBox: FC<CategoryBoxProps> = ({ icon: Icon, label, selected }) => {
     <div
       onClick={handleClick}
       className={cn(
-        "flex flex-col items-center justify-center text-center gap-2 px-6 w-full hover:text-neutral-800 transition cursor-pointer",
-        selected ? "text-neutral-800" : "text-neutral-500"
+        "flex flex-col items-center justify-center text-center gap-2 px-6 w-full hover:text-neutral-900 transition cursor-pointer",
+        selected ? "text-neutral-900" : "text-neutral-500"
       )}
     >
       <Icon size={22} />
       <div
         className={cn(
-          "flex pb-6 flex-wrap relative transition",
+          "flex pb-4 flex-wrap relative transition",
           selected
             ? "border-b-2 border-neutral-800"
             : "border-b-2 border-transparent"
         )}
       >
         <div className="flex">
-          <span className="font-semibold text-[14px] whitespace-nowrap">
+          <span className="font-bold text-[14px] whitespace-nowrap">
             {label}
           </span>
         </div>
