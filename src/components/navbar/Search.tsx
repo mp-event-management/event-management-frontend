@@ -22,7 +22,8 @@ const Search: FC<SearchBoxProps> = ({ onSearch }) => {
     <label
       htmlFor="search-input"
       className={cn(
-        "border-[1px] w-full md:max-w-sm py-2 px-2 rounded-full shadow-sm hover:shadow-md transition cursor-pointer", isFocused ? "shadow-md" : ""
+        "border-[1px] w-full md:max-w-sm py-2 px-2 rounded-full shadow-sm hover:shadow-md transition cursor-pointer md:mr-3 mr-3",
+        isFocused ? "shadow-md" : ""
       )}
     >
       <div className="flex flex-row items-center justify-between">
