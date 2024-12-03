@@ -50,20 +50,28 @@ const CategoryBox: FC<CategoryBoxProps> = ({ icon: Icon, label, selected }) => {
         selected ? "text-neutral-900" : "text-neutral-500"
       )}
     >
-      <Icon size={22} />
       <div
         className={cn(
-          "flex pb-4 flex-wrap relative transition",
+          "flex flex-wrap relative transition duration-100",
           selected
             ? "border-b-2 border-neutral-800"
             : "border-b-2 border-transparent"
         )}
       >
-        <div className="flex">
+        <div className="flex flex-col items-center gap-2">
+          <Icon size={24} />
           <span className="font-bold text-[14px] whitespace-nowrap">
             {label}
           </span>
         </div>
+        <span
+          className={cn(
+            "flex flex-col items-end border-b-2",
+            selected
+              ? "border-b-2 border-neutral-800"
+              : "border-b-2 border-transparent"
+          )}
+        />
       </div>
     </div>
   );

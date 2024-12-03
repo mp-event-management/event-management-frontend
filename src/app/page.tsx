@@ -7,21 +7,25 @@ import EventListCard from "@/components/events/EventListCard";
 import { Event } from "@/types/getEvents";
 import { Button } from "@/components/ui/Button";
 import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 export default function Home() {
   const [events, setEvents] = useState<Event[]>([]);
   const [currentPage, setCurrentpage] = useState(0);
   const [totalPage, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(false);
+  const searchParams = useSearchParams();
 
   useEffect(() => {
+    console.log("home:", searchParams.get("search"));
     const dataPerPage = 10;
 
     const fetchEvents = async () => {
       setLoading(true);
 
       try {
-        const data = await getAllEvents(currentPage, dataPerPage);
+        const params = searchParams.get("search")?.toString();
+        const data = await getAllEvents(currentPage, dataPerPage, params);
 
         // Check if the data structured as expected
         if (!data || !data.data || !data.data.events) {
@@ -39,7 +43,7 @@ export default function Home() {
     };
 
     fetchEvents();
-  }, [currentPage]);
+  }, [currentPage, searchParams]);
 
   const handlePrevPage = () => {
     setCurrentpage((prevPage) => prevPage - 1);
@@ -51,7 +55,7 @@ export default function Home() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center text-lg font-bold text-rose-500 h-[calc(100vh-187px)]">
+      <div className="flex items-center justify-center text-lg font-bold text-rose-500 h-[calc(100vh-190px)]">
         Loading...
       </div>
     );
@@ -63,12 +67,12 @@ export default function Home() {
 
   return (
     <Container>
-      <div className="pt-[120px] lg:pt-[124px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-5 gap-8">
-        {events.map((event: Event, idx: number) => {
-          return <EventListCard key={idx} data={event} />;
+      <div className="pt-[122px] lg:pt-[128px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-5 gap-8">
+        {events.map((event: Event) => {
+          return <EventListCard key={event.eventId} data={event} />;
         })}
       </div>
-      <div className="flex items-center w-1/3 mx-auto gap-4 mt-24">
+      <div className="flex items-center justify-center w-1/3 mx-auto gap-4 mt-24">
         <Button disabled={currentPage === 0} onClick={() => handlePrevPage()}>
           Previous
         </Button>

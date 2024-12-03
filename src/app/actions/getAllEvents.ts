@@ -1,4 +1,8 @@
-const getAllEvents = async (page: number = 0, size: number = 10) => {
+const getAllEvents = async (
+  page: number = 0,
+  size: number = 10,
+  searchQuerry: string | undefined
+) => {
   const url = new URL(
     `${process.env.NEXT_PUBLIC_DEVELEOPMENT_URL}/api/v1/events`
   );
@@ -6,6 +10,7 @@ const getAllEvents = async (page: number = 0, size: number = 10) => {
   // Append pagination parameters
   url.searchParams.append("page", page.toString());
   url.searchParams.append("size", size.toString());
+  url.searchParams.append("search", searchQuerry.toString());
 
   console.log(url.toString());
   try {
