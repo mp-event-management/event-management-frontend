@@ -22,12 +22,12 @@ const Search: FC<SearchBoxProps> = ({ onSearch }) => {
     <label
       htmlFor="search-input"
       className={cn(
-        "border-[1px] w-full md:max-w-sm py-2 px-2 rounded-full shadow-sm hover:shadow-md transition cursor-pointer md:mr-3 mr-3",
-        isFocused ? "shadow-md" : ""
+        "border-[1px] w-full md:max-w-lg py-2 px-2 rounded-full shadow-sm hover:shadow-md transition cursor-pointer md:mr-3 mr-3",
+        isFocused ? "shadow-md border-neutral-300" : ""
       )}
     >
       <div className="flex flex-row items-center justify-between">
-        <div className="text-lg pl-4 pr-6">
+        <div className="text-lg pl-4 pr-6 w-full">
           <input
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
@@ -41,13 +41,13 @@ const Search: FC<SearchBoxProps> = ({ onSearch }) => {
         </div>
         <div
           className={cn(
-            "flex items-center gap-2 transition-all bg-rose-500 text-white rounded-full",
-            isFocused ? "px-4 py-2 bg-rose-500 text-white rounded-full" : "p-2"
+            "flex items-center gap-2 transition-all duration-100 bg-rose-500 text-white rounded-full",
+            isFocused ? "px-4 py-3 bg-rose-500 text-white" : "p-3"
           )}
         >
           <div className="flex items-center gap-2">
             <BiSearch size={20} />
-            {isFocused && <span className="text-sm font-semibold">Search</span>}
+            {isFocused && <span className="text-sm font-bold">Search</span>}
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/Button";
-import { ApiResponse, Event } from "@/types/GetEvents";
+import { ApiResponse, Event } from "@/types/getEvents";
 import { CalendarCheck2, MapPinned } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";

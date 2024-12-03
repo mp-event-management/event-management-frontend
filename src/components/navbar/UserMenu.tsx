@@ -5,6 +5,8 @@ import Avatar from "../Avatar";
 import MenuItem from "./MenuItem";
 import { signOut } from "next-auth/react";
 import { MenuIcon } from "lucide-react";
+import { redirect } from "next/navigation";
+import Link from "next/link";
 
 const UserMenu: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,12 +34,12 @@ const UserMenu: FC = () => {
   return (
     <div className="relative" ref={menuRef}>
       <div className="flex flex-row items-center gap-3">
-        <div
-          onClick={() => {}}
+        <Link
+          href={"/create-event"}
           className="hidden md:block text-md font-bold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
         >
           Create your event
-        </div>
+        </Link>
         <div
           onClick={toggleOpen}
           className="p-4 md:py-2 md:px-3 border-[1px] border-neutral-300 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:shadow-md transition"
@@ -53,8 +55,18 @@ const UserMenu: FC = () => {
         <div className="absolute rounded-xl shadow-md w-[40vw] md:w-[12vw] bg-white overflow-hidden right-0 top-14 font-medium text-md z-[11]">
           {currentUser ? (
             <>
-              <MenuItem onClick={() => {}} label="Profile" />
-              <MenuItem onClick={() => {}} label="My Events" />
+              <MenuItem
+                onClick={() => {
+                  redirect("/profile");
+                }}
+                label="Profile"
+              />
+              <MenuItem
+                onClick={() => {
+                  redirect("/my-events");
+                }}
+                label="My Events"
+              />
               <hr />
               <MenuItem onClick={() => signOut()} label="Logout" />
             </>

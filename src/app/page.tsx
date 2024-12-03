@@ -4,7 +4,7 @@ import Container from "@/components/Container";
 import EmptyState from "@/components/EmptyState";
 import getAllEvents from "./actions/getAllEvents";
 import EventListCard from "@/components/events/EventListCard";
-import { Event } from "@/types/GetEvents";
+import { Event } from "@/types/getEvents";
 import { Button } from "@/components/ui/Button";
 import { useEffect, useState } from "react";
 
@@ -31,7 +31,7 @@ export default function Home() {
         setEvents(data.data.events);
         setTotalPages(data.data.totalPages);
       } catch (error) {
-        console.error(error);
+        console.log(error);
         throw new Error("Failed to fetch the events");
       } finally {
         setLoading(false);
@@ -40,13 +40,6 @@ export default function Home() {
 
     fetchEvents();
   }, [currentPage]);
-
-  // const events = await getAllEvents();
-
-  console.log("total page", totalPage);
-  console.log("current page", currentPage);
-  // console.log("Events homepage", events);
-  // console.log("Events totalPage homepage", events);
 
   const handlePrevPage = () => {
     setCurrentpage((prevPage) => prevPage - 1);
@@ -58,7 +51,7 @@ export default function Home() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center text-lg font-bold text-rose-500 h-screen">
+      <div className="flex items-center justify-center text-lg font-bold text-rose-500 h-[calc(100vh-187px)]">
         Loading...
       </div>
     );
@@ -70,12 +63,12 @@ export default function Home() {
 
   return (
     <Container>
-      <div className="pt-[116px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-5 gap-8">
+      <div className="pt-[120px] lg:pt-[124px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-5 gap-8">
         {events.map((event: Event, idx: number) => {
           return <EventListCard key={idx} data={event} />;
         })}
       </div>
-      <div className="flex items-center w-full gap-4 mt-20">
+      <div className="flex items-center w-1/3 mx-auto gap-4 mt-24">
         <Button disabled={currentPage === 0} onClick={() => handlePrevPage()}>
           Previous
         </Button>

@@ -1,4 +1,4 @@
-import { ApiResponse, Event } from "@/types/GetEvents";
+import { ApiResponse, Event } from "@/types/getEvents";
 
 // export const getEventDetail = async (
 //   id: string

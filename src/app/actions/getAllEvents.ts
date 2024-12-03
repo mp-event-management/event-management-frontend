@@ -24,7 +24,7 @@ const getAllEvents = async (page: number = 0, size: number = 10) => {
     }
 
     const data = await response.json();
-    console.log("data from actions", data);
+    // console.log("data from actions", data);
     return data;
   } catch (error) {
     throw new Error(`Failed to fetch events. ${error}`);
