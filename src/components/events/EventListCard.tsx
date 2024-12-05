@@ -15,11 +15,12 @@ const EventListCard: FC<EventListCardProps> = ({ data }) => {
     <Link href={`/event/${data.eventId}`}>
       <div className="col-span-1 cursor-pointer group">
         <div className="flex flex-col gap-2 w-full">
-          <div className="aspect-square w-full relative overflow-hidden rounded-xl">
+          <div className="aspect-square w-full overflow-hidden rounded-xl">
             <Image
               height={400}
               width={400}
-              alt="Event"
+              alt={data.title}
+              priority
               src="https://placehold.co/400x400"
               className="object-cover h-full w-full group-hover:scale-110 transition"
             />

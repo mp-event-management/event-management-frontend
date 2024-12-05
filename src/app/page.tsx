@@ -36,7 +36,7 @@ export default function Home() {
         setTotalPages(data.data.totalPages);
       } catch (error) {
         console.log(error);
-        throw new Error("Failed to fetch the events");
+        throw new Error("Failed to fetch the events lists");
       } finally {
         setLoading(false);
       }
@@ -44,6 +44,8 @@ export default function Home() {
 
     fetchEvents();
   }, [currentPage, searchParams]);
+
+  console.log(events);
 
   const handlePrevPage = () => {
     setCurrentpage((prevPage) => prevPage - 1);
@@ -55,7 +57,7 @@ export default function Home() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center text-lg font-bold text-rose-500 h-[calc(100vh-190px)]">
+      <div className="flex items-center justify-center text-lg font-bold text-rose-500 h-[calc(100vh-180px)]">
         Loading...
       </div>
     );
