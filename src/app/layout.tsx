@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/navbar/Navbar";
-import Footer from "@/components/footer/Footer";
 
 export const metadata: Metadata = {
   title: "Eventbro",
@@ -21,6 +19,7 @@ export const metadata: Metadata = {
 
 const nunito = Nunito({
   subsets: ["latin"],
+  variable: "--font-nunito",
 });
 
 export default function RootLayout({
@@ -31,9 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${nunito.className}`}>
-        <Navbar />
-        <div className="pb-20 pt-24">{children}</div>
-        <Footer />
+        <div>{children}</div>
       </body>
     </html>
   );

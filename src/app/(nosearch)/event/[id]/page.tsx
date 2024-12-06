@@ -28,7 +28,7 @@ type EventDetailProps = {
 };
 
 const EventDetailPage: FC<EventDetailProps> = async ({ params }) => {
-  const id = (await params).id;
+  const id = params.id;
   const { data }: ApiResponse<Event> = await getEventDetail(id);
   console.log(data);
   // const [eventData, setEventData] = useState<Event | null>(null);
@@ -60,7 +60,7 @@ const EventDetailPage: FC<EventDetailProps> = async ({ params }) => {
   return (
     <div className="w-full sm:w-[90%] md:w-[80%] lg:w-[70%] 2xl:w-[60%] mx-auto lg:mt-4 md:mt-4 sm:mt-2 px-[24px] transition">
       {/* Arrow back */}
-      <div className="flex lg:flex-row flex-col lg:items-center items-start lg:gap-6 gap-4 mt-2 lg:mb-6 md:mb-5 mb-4">
+      <div className="flex lg:flex-row flex-col lg:items-center items-start lg:gap-6 gap-4 my-4 lg:mb-6 md:mb-5">
         <Link
           href="/"
           className="lg:hover:bg-neutral-100 lg:rounded-full lg:p-4 rounded-full transition"
@@ -82,7 +82,7 @@ const EventDetailPage: FC<EventDetailProps> = async ({ params }) => {
       {/* Detail and Purchase */}
       <div className="flex flex-row  justify-between gap-14">
         {/* Details side */}
-        <div className="flex flex-col mb-40 w-full">
+        <div className="flex flex-col mb-32 w-full">
           <div className="text-[16px] font-bold mb-2 flex flex-row gap-2 items-center">
             <p>{data.startDate},</p>
             <span>{data.city.cityName}</span>
@@ -112,7 +112,7 @@ const EventDetailPage: FC<EventDetailProps> = async ({ params }) => {
           </div>
 
           {/* Date and time */}
-          <div className="flex flex-col gap-3 my-9">
+          <div className="flex flex-col gap-3 mt-16 mb-9">
             <h3 className="text-[24px] font-extrabold">Date and time</h3>
             <p className="flex flex-row gap-4 items-center text-[16px] font-semibold">
               <CalendarCheck2 size={18} />
@@ -137,7 +137,7 @@ const EventDetailPage: FC<EventDetailProps> = async ({ params }) => {
           <div className="flex flex-col gap-3 my-9">
             <h3 className="text-[24px] font-extrabold">Tags</h3>
             <div className="flex flex-wrap gap-2">
-              <span className="text-[14px] py-4 px-6 rounded-full font-bold inline-block w-auto bg-[#F8F7FA]">
+              <span className="text-[16px] py-4 px-6 rounded-full font-bold inline-block w-auto bg-[#F8F7FA]">
                 {data.category.name}
               </span>
             </div>

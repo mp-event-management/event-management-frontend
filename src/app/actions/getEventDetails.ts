@@ -1,23 +1,10 @@
-import { ApiResponse, Event } from "@/types/getEvents";
-
-// export const getEventDetail = async (
-//   id: string
-// ): Promise<ApiResponse<Event>> => {
-//   try {
-//     const data = await fetch(
-//       `${process.env.NEXT_PUBLIC_DEVELEOPMENT_URL}/api/v1/events/${id}`
-//     );
-
-//     if (!data.ok) throw new Error("Failed to fetch event details");
-
-//     return await data.json();
-//   } catch (error) {
-//     console.log(error);
-//     throw new Error("error");
-//   }
-// };
-
 const getEventDetail = async (id: string) => {
+  if (!process.env.NEXT_PUBLIC_DEVELOPMENT_URL) {
+    throw new Error(
+      "Environment variable NEXT_PUBLIC_DEVELOPMENT_URL is not defined."
+    );
+  }
+
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_DEVELEOPMENT_URL}/api/v1/events/${id}`,
@@ -32,7 +19,7 @@ const getEventDetail = async (id: string) => {
 
     // Handle HTTP errors
     if (!response.ok) {
-      const errorMessage = `HTTP ${response.status}: ${response.statusText}`;
+      const errorMessage = `Failed to fetch event details. HTTP ${response.status}: ${response.statusText}`;
       throw new Error(errorMessage);
     }
 

@@ -7,7 +7,6 @@ const ROLE_PATHS = {
   ORGANIZER: ["/dashboard"],
 
   // Admin can access all
-  ADMIN: ["*"],
   CUSTOMER: ["*"],
 };
 
