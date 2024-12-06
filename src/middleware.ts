@@ -4,15 +4,15 @@ import { auth } from "./auth";
 const PUBLIC_PATHS = ["/login", "/register", "/transactiondetail"];
 const PROTECTED_PATHS = ["/dashboard", "/trx/reports"];
 const ROLE_PATHS = {
-  ORGANIZER: ["/dashboard"],
+  ORGANIZER: ["/", "/manage-events", "/create-event"],
 
-  // Admin can access all
-  CUSTOMER: ["*"],
+  // Customer can access all excepts organizer menu
+  CUSTOMER: ["/", "*"],
 };
 
-// async function getSession() {
-//   return await auth();
-// }
+async function getSession() {
+  return await auth();
+}
 
 function isPublicPath(pathname: string) {
   return PUBLIC_PATHS.some((path) => pathname.startsWith(path));
@@ -39,24 +39,28 @@ function hasRequiredRole(userRoles: string[], pathname: string) {
 }
 
 export async function middleware(request: NextRequest) {
-  // const session = await getSession();
+  const session = await getSession();
   const { pathname } = request.nextUrl;
 
   if (isPublicPath(pathname)) {
     return NextResponse.next();
   }
 
-  // if (isProtectedPath(pathname)) {
-  //   if (!session) {
-  //     return NextResponse.redirect(new URL("/login", request.url));
-  //   }
+  if (pathname === "/login" && session?.user) {
+    return NextResponse.redirect(new URL("/", request.url));
+  }
 
-  //   const userRoles = session.user?.roles || [];
+  if (isProtectedPath(pathname)) {
+    if (!session) {
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
 
-  //   if (!hasRequiredRole(userRoles, pathname)) {
-  //     return NextResponse.redirect(new URL("/unauthorized", request.url));
-  //   }
-  // }
+    const userRoles = session.user?.roles || [];
+
+    if (!hasRequiredRole(userRoles, pathname)) {
+      return NextResponse.redirect(new URL("/unauthorized", request.url));
+    }
+  }
 
   return NextResponse.next();
 }
