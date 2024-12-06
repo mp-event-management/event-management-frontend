@@ -2,7 +2,7 @@
 
 import Container from "@/components/Container";
 import EmptyState from "@/components/EmptyState";
-import getAllEvents from "../actions/getAllEvents";
+import getAllEvents from "../actions/getAllEvents.actions";
 import EventListCard from "@/components/lists/EventListCard";
 import { Event } from "@/types/getEvents";
 import { Button } from "@/components/ui/Button";

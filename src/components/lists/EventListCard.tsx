@@ -27,7 +27,11 @@ const EventListCard: FC<EventListCardProps> = ({ data }) => {
           </div>
           <div className="flex flex-row items-center gap-3 font-semibol">
             <span className="flex items-center gap-2 bg-yellow-100 text-[14px] px-4 py-2 rounded-full font-extrabold text-yellow-700">
-              Rp {data.ticketPrice}
+              {data.ticketPrice === 0 ? (
+                <span>FREE</span>
+              ) : (
+                <span>Rp {data.ticketPrice}</span>
+              )}
             </span>
             <span className="flex items-center gap-2 bg-slate-100 text-[14px] px-4 py-2 rounded-full font-extrabold text-neutral-500">
               {data.category.name}

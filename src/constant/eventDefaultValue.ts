@@ -1,16 +1,13 @@
-import { number } from "zod";
-
 export const eventDefaultValues = {
-  userOrganizerId: 1,
   title: "",
   description: "",
-  categoryId: 1,
-  eventImageUrl: "",
+  categoryId: "",
+  eventImagesUrl: "",
   startDate: new Date(),
   endDate: new Date(),
-  ticketPrice: 0,
-  totalTicket: 1,
+  ticketPrice: '0',
+  totalTicket: '1',
   eventStatus: "UPCOMING",
-  cityId: 1,
+  cityId: "",
   address: "",
 };

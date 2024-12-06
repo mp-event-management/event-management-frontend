@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import {
@@ -9,7 +9,6 @@ import {
   FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -23,9 +22,13 @@ import { CalendarClockIcon, TicketIcon } from "lucide-react";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { IoPricetag, IoPricetagOutline } from "react-icons/io5";
 import { GiPriceTag } from "react-icons/gi";
 import { GrStatusInfo } from "react-icons/gr";
+import { cities } from "@/constant/cities";
+import { availableCategories } from "@/constant/categories";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { createNewEvent } from "@/app/actions/createNewEvent.actions";
 
 type EventFormProps = {
   organizerId: number;
@@ -33,9 +36,8 @@ type EventFormProps = {
 };
 
 const EventForm: FC<EventFormProps> = ({ organizerId, type }) => {
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
   const initialValues = eventDefaultValues;
+  const router = useRouter();
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof eventFormSchema>>({
@@ -44,9 +46,40 @@ const EventForm: FC<EventFormProps> = ({ organizerId, type }) => {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof eventFormSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+  async function onSubmit(values: z.infer<typeof eventFormSchema>) {
+    const ORGANIZER_ID = 1;
+
+    const userOrganizerId = ORGANIZER_ID;
+    const availableTicket = Number(values.totalTicket);
+    const categoryId = Number(values.categoryId);
+    const cityId = Number(values.cityId);
+    const ticketPrice = Number(values.ticketPrice);
+    const totalTicket = Number(values.totalTicket);
+
+    if (type === "create") {
+      try {
+        const newEvent = await createNewEvent({
+          event: {
+            userOrganizerId,
+            ...values,
+            availableTicket,
+            categoryId,
+            cityId,
+            ticketPrice,
+            totalTicket,
+          },
+        });
+
+        if (newEvent) {
+          form.reset();
+          router.push(`/`);
+        }
+      } catch (error) {
+        console.log(error);
+        throw error;
+      }
+    }
+
     console.log(values);
   }
 
@@ -64,9 +97,10 @@ const EventForm: FC<EventFormProps> = ({ organizerId, type }) => {
               <FormItem className="w-full">
                 <FormControl>
                   <Input
+                    type="text"
                     placeholder="Event title"
                     {...field}
-                    className="bg-neutral-100 h-[54px] focus-visible:ring-offset-0 placeholder:text-grey-500 rounded-full text-[16px] px-4 py-3 border-none focus-visible:ring-transparent"
+                    className="bg-neutral-100 h-[54px] focus-visible:ring-offset-0 placeholder:text-grey-500 placeholder:text-[16px] rounded-full text-[16px] px-4 py-3 border-none focus-visible:ring-transparent"
                   />
                 </FormControl>
                 <FormMessage />
@@ -85,7 +119,7 @@ const EventForm: FC<EventFormProps> = ({ organizerId, type }) => {
                   <Textarea
                     placeholder="Description"
                     {...field}
-                    className="bg-neutral-100 flex flex-1 placeholder:text-grey-500 text-[16px] px-5 py-3 border-none rounded-2xl focus-visible:ring-transparent"
+                    className="bg-neutral-100 flex flex-1 placeholder:text-grey-500 placeholder:text-[16px] text-[16px] px-5 py-3 border-none rounded-2xl focus-visible:ring-transparent"
                   />
                 </FormControl>
                 <FormMessage />
@@ -102,10 +136,15 @@ const EventForm: FC<EventFormProps> = ({ organizerId, type }) => {
               <FormItem className="w-full">
                 <FormControl>
                   <Dropdown
+                    datas={availableCategories}
+                    placeholder="Category"
                     onChangeHandler={field.onChange}
                     value={field.value}
                   />
                 </FormControl>
+                <FormDescription>
+                  Make sure you choose the category
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -115,16 +154,17 @@ const EventForm: FC<EventFormProps> = ({ organizerId, type }) => {
         <div className="flex flex-col gap-5 md:flex-row">
           <FormField
             control={form.control}
-            name="eventImageUrl"
+            name="eventImagesUrl"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
                   <Input
-                    placeholder="Paste your image url"
+                    placeholder="Event Image url"
                     {...field}
-                    className="bg-neutral-100 h-[54px] focus-visible:ring-offset-0 placeholder:text-grey-500 rounded-full text-[16px] px-4 py-3 border-none focus-visible:ring-transparent"
+                    className="bg-neutral-100 h-[54px] focus-visible:ring-offset-0 placeholder:text-grey-500 placeholder:text-[16px] rounded-full text-[16px] px-4 py-3 border-none focus-visible:ring-transparent"
                   />
                 </FormControl>
+                <FormDescription>Paste your event image link</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -140,7 +180,7 @@ const EventForm: FC<EventFormProps> = ({ organizerId, type }) => {
                 <FormControl>
                   <div className="flex items-center h-[54px] w-full overflow-hidden rounded-full bg-neutral-100 px-4 py-2">
                     <CalendarClockIcon size={18} />
-                    <p className="ml-3 whitespace-nowrap text-gray-600 mr-2">
+                    <p className="ml-3 whitespace-nowrap text-[16px] mr-2 text-gray-500">
                       Start Date
                     </p>
                     <DatePicker
@@ -169,7 +209,7 @@ const EventForm: FC<EventFormProps> = ({ organizerId, type }) => {
                 <FormControl>
                   <div className="flex items-center h-[54px] w-full overflow-hidden rounded-full bg-neutral-100 px-4 py-2">
                     <CalendarClockIcon size={18} />
-                    <p className="ml-3 whitespace-nowrap text-gray-600 mr-2">
+                    <p className="ml-3 whitespace-nowrap text-gray-500 mr-2">
                       End Date
                     </p>
                     <DatePicker
@@ -198,15 +238,18 @@ const EventForm: FC<EventFormProps> = ({ organizerId, type }) => {
                 <FormControl>
                   <div className="flex items-center h-[54px] w-full overflow-hidden rounded-full bg-neutral-100 px-4 py-2">
                     <GiPriceTag size={18} />
-                    <p className="ml-3 whitespace-nowrap text-gray-600">Rp</p>
+                    <p className="ml-3 whitespace-nowrap text-gray-500">Rp</p>
                     <Input
                       type="number"
                       placeholder="Ticket price"
                       {...field}
-                      className="bg-neutral-100 h-[54px] focus-visible:ring-offset-0 placeholder:text-grey-500 rounded-full text-[16px] px-4 py-3 border-none focus-visible:ring-transparent"
+                      className="bg-neutral-100 h-[54px] focus-visible:ring-offset-0 placeholder:text-grey-500 placeholder:text-[16px] rounded-full text-[16px] px-4 py-3 border-none focus-visible:ring-transparent"
                     />
                   </div>
                 </FormControl>
+                <FormDescription>
+                  Leave it Rp 0 if you want the price to be FREE
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -222,14 +265,13 @@ const EventForm: FC<EventFormProps> = ({ organizerId, type }) => {
                 <FormControl>
                   <div className="flex items-center h-[54px] w-full overflow-hidden rounded-full bg-neutral-100 px-4 py-2">
                     <TicketIcon size={18} />
-                    <p className="ml-3 whitespace-nowrap text-gray-600">
+                    <p className="ml-3 whitespace-nowrap text-gray-500">
                       Total ticket
                     </p>
                     <Input
-                      type="number"
                       placeholder="Ticket price"
                       {...field}
-                      className="bg-neutral-100 h-[54px] focus-visible:ring-offset-0 placeholder:text-grey-500 rounded-full text-[16px] px-4 py-3 border-none focus-visible:ring-transparent"
+                      className="bg-neutral-100 h-[54px] focus-visible:ring-offset-0 placeholder:text-grey-500 placeholder:text-[16px] rounded-full text-[16px] px-4 py-3 border-none focus-visible:ring-transparent"
                     />
                   </div>
                 </FormControl>
@@ -248,15 +290,38 @@ const EventForm: FC<EventFormProps> = ({ organizerId, type }) => {
                 <FormControl>
                   <div className="flex items-center h-[54px] w-full overflow-hidden rounded-full bg-neutral-100 px-4 py-2">
                     <GrStatusInfo size={18} />
-                    <p className="ml-3 whitespace-nowrap text-gray-600">
+                    <p className="ml-3 whitespace-nowrap text-gray-500">
                       Event status
                     </p>
                     <Input
                       placeholder="UPCOMING"
                       {...field}
-                      className="bg-neutral-100 h-[54px] focus-visible:ring-offset-0 placeholder:text-grey-500 rounded-full text-[16px] px-4 py-3 border-none focus-visible:ring-transparent"
+                      className="bg-neutral-100 h-[54px] focus-visible:ring-offset-0 placeholder:text-grey-500 placeholder:text-[16px] rounded-full text-[16px] px-4 py-3 border-none focus-visible:ring-transparent"
                     />
                   </div>
+                </FormControl>
+                <FormDescription>
+                  Leave it by default is UPCOMING
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="flex flex-col gap-5 md:flex-row">
+          <FormField
+            control={form.control}
+            name="cityId"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <Dropdown
+                    datas={cities}
+                    placeholder="City"
+                    onChangeHandler={field.onChange}
+                    value={field.value}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -264,7 +329,29 @@ const EventForm: FC<EventFormProps> = ({ organizerId, type }) => {
           />
         </div>
 
-        <Button type="submit">Submit</Button>
+        <div className="flex flex-col gap-5 md:flex-row">
+          <FormField
+            control={form.control}
+            name="address"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl className="h-44">
+                  <Textarea
+                    placeholder="Where the event address"
+                    {...field}
+                    className="bg-neutral-100 flex flex-1 placeholder:text-grey-500 placeholder:text-[16px] text-[16px] px-5 py-3 border-none rounded-2xl focus-visible:ring-transparent"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <Button type="submit">Create the event</Button>
+        <Button asChild variant={"ghost"}>
+          <Link href="/">Cancel</Link>
+        </Button>
       </form>
     </Form>
   );
