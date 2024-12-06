@@ -3,6 +3,7 @@ import { Nunito } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/footer/Footer";
+import { SessionProvider } from "next-auth/react"
 
 export const metadata: Metadata = {
   title: "Eventbro",
@@ -31,9 +32,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${nunito.className}`}>
-        <Navbar />
+      <SessionProvider>
+      <Navbar />
         <div className="pb-20 pt-24">{children}</div>
         <Footer />
+      </SessionProvider>
+        
       </body>
     </html>
   );

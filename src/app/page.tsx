@@ -8,6 +8,7 @@ import { Event } from "@/types/getEvents";
 import { Button } from "@/components/ui/Button";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 export default function Home() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -15,6 +16,7 @@ export default function Home() {
   const [totalPage, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(false);
   const searchParams = useSearchParams();
+  const {data} = useSession();
 
   useEffect(() => {
     console.log("home:", searchParams.get("search"));
@@ -69,6 +71,15 @@ export default function Home() {
 
   return (
     <Container>
+      <div>
+        {data?.user.roles.includes("ADMIN") ? (
+          <div>Admin Dashboard</div>
+
+        )
+          :(
+            <div>Organizer Dashboard</div>
+        )}
+      </div>
       <div className="pt-[122px] lg:pt-[128px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-5 gap-8">
         {events.map((event: Event) => {
           return <EventListCard key={event.eventId} data={event} />;

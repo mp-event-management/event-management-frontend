@@ -11,9 +11,9 @@ const ROLE_PATHS = {
   CUSTOMER: ["*"],
 };
 
-// async function getSession() {
-//   return await auth();
-// }
+async function getSession() {
+  return await auth();
+}
 
 function isPublicPath(pathname: string) {
   return PUBLIC_PATHS.some((path) => pathname.startsWith(path));
@@ -40,24 +40,27 @@ function hasRequiredRole(userRoles: string[], pathname: string) {
 }
 
 export async function middleware(request: NextRequest) {
-  // const session = await getSession();
+  const session = await getSession();
   const { pathname } = request.nextUrl;
-
+  
+  if(pathname === "/login" && session?.user) {
+    return NextResponse.redirect(new URL("/", request.url));
+  }
   if (isPublicPath(pathname)) {
     return NextResponse.next();
   }
 
-  // if (isProtectedPath(pathname)) {
-  //   if (!session) {
-  //     return NextResponse.redirect(new URL("/login", request.url));
-  //   }
+  if (isProtectedPath(pathname)) {
+    if (!session) {
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
 
-  //   const userRoles = session.user?.roles || [];
+    const userRoles = session.user?.roles || [];
 
-  //   if (!hasRequiredRole(userRoles, pathname)) {
-  //     return NextResponse.redirect(new URL("/unauthorized", request.url));
-  //   }
-  // }
+    if (!hasRequiredRole(userRoles, pathname)) {
+      return NextResponse.redirect(new URL("/unauthorized", request.url));
+    }
+  }
 
   return NextResponse.next();
 }
