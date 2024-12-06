@@ -59,7 +59,7 @@ export default function Home() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center text-lg font-bold text-rose-500 h-[calc(100vh-180px)]">
+      <div className="flex items-center justify-center text-lg font-bold text-rose-500 h-[calc(100vh-170px)] pt-14">
         Loading...
       </div>
     );

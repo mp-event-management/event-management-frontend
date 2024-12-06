@@ -19,7 +19,7 @@ const EmptyState: FC<EmptyState> = ({
   const router = useRouter();
 
   return (
-    <div className="h-[calc(100vh-180px)] w-full px-8 flex flex-col gap-2 justify-center items-center">
+    <div className="h-[calc(100vh-170px)] w-full px-8 flex flex-col gap-2 justify-center items-center pt-14">
       <Heading title={title} subtitle={subtitle} />
       <div className="w-auto mt-4">
         {showReset && (
