@@ -7,6 +7,7 @@ import { signOut } from "next-auth/react";
 import { MenuIcon } from "lucide-react";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import { Separator } from "../ui/separator";
 
 const UserMenu: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,7 +30,24 @@ const UserMenu: FC = () => {
     };
   }, [handleClose]);
 
-  const currentUser = true;
+  const userOrganizer = {
+    id: 1,
+    role: 2,
+    name: "John Doe",
+    email: "johndoe@example.com",
+    password: "johndoehash",
+  };
+
+  const userCustomer = {
+    id: 2,
+    role: 1,
+    name: "Naruto",
+    email: "naruto@example.com",
+    password: "narutohash",
+    referralCode: "REF1",
+  };
+
+  const currentUser = userOrganizer;
 
   return (
     <div className="relative" ref={menuRef}>
@@ -55,6 +73,11 @@ const UserMenu: FC = () => {
         <div className="absolute rounded-xl shadow-md w-[40vw] md:w-[12vw] bg-white overflow-hidden right-0 top-14 font-medium text-md z-[11]">
           {currentUser ? (
             <>
+              <div className="flex flex-col gap-4 w-full items-center justify-center py-4">
+                <span className="text-lg font-bold">{currentUser.name}</span>
+                <span>{currentUser.role}</span>
+              </div>
+              <Separator />
               <MenuItem
                 onClick={() => {
                   redirect("/profile");
@@ -65,9 +88,15 @@ const UserMenu: FC = () => {
                 onClick={() => {
                   redirect("/my-events");
                 }}
-                label="My Events"
+                label="My Tickets"
               />
-              <hr />
+              <MenuItem
+                onClick={() => {
+                  redirect("/manage-events");
+                }}
+                label="Manage My Events"
+              />
+              <Separator />
               <MenuItem onClick={() => signOut()} label="Logout" />
             </>
           ) : (

@@ -22,20 +22,20 @@ import { CalendarClockIcon, TicketIcon } from "lucide-react";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { GiPriceTag } from "react-icons/gi";
 import { GrStatusInfo } from "react-icons/gr";
 import { cities } from "@/constant/cities";
 import { availableCategories } from "@/constant/categories";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createNewEvent } from "@/app/actions/createNewEvent.actions";
+import { IoPricetagOutline } from "react-icons/io5";
 
 type EventFormProps = {
-  organizerId: number;
+  // organizerId: number;
   type: "create" | "update";
 };
 
-const EventForm: FC<EventFormProps> = ({ organizerId, type }) => {
+const EventForm: FC<EventFormProps> = ({ type }) => {
   const initialValues = eventDefaultValues;
   const router = useRouter();
 
@@ -79,7 +79,6 @@ const EventForm: FC<EventFormProps> = ({ organizerId, type }) => {
         throw error;
       }
     }
-
     console.log(values);
   }
 
@@ -87,7 +86,7 @@ const EventForm: FC<EventFormProps> = ({ organizerId, type }) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col gap-6 text-[16px]"
+        className="flex flex-col gap-6 text-[16px] font-bold"
       >
         <div className="flex flex-col gap-5 md:flex-row">
           <FormField
@@ -237,7 +236,7 @@ const EventForm: FC<EventFormProps> = ({ organizerId, type }) => {
               <FormItem className="w-full">
                 <FormControl>
                   <div className="flex items-center h-[54px] w-full overflow-hidden rounded-full bg-neutral-100 px-4 py-2">
-                    <GiPriceTag size={18} />
+                    <IoPricetagOutline size={18} />
                     <p className="ml-3 whitespace-nowrap text-gray-500">Rp</p>
                     <Input
                       type="number"

@@ -13,7 +13,7 @@ const CreateEventPage: FC = () => {
           className="flex flex-col my-12 px-6
         "
         >
-          <EventForm organizerId={1} type="create" />
+          <EventForm type="create" />
         </div>
       </section>
     </>

@@ -8,7 +8,7 @@ export const eventFormSchema = z.object({
   description: z
     .string()
     .min(10, "Description must be at least 10 characters")
-    .max(600, "Description must be less than 600 characters"),
+    .max(1000, "Description must be less than 600 characters"),
   categoryId: z.string().min(1, "Category id must be at least 1 digit"),
   eventImagesUrl: z
     .string()
@@ -28,5 +28,5 @@ export const eventFormSchema = z.object({
   address: z
     .string()
     .min(10, "Address must be at least 10 characters")
-    .max(600, "Address must be less than 255 characters"),
+    .max(800, "Address must be less than 255 characters"),
 });

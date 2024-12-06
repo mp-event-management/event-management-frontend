@@ -3,7 +3,7 @@ import { ApiResponse, Event } from "@/types/getEvents";
 import { CalendarCheck2, MapPinned } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { FC, useEffect, useState } from "react";
+import React, { FC } from "react";
 import { IoArrowBack } from "react-icons/io5";
 
 const getEventDetail = async (id: string): Promise<ApiResponse<Event>> => {
@@ -159,7 +159,11 @@ const EventDetailPage: FC<EventDetailProps> = async ({ params }) => {
         {/* Large screen */}
         <div className="hidden lg:flex flex-col items-center justify-between border-[1px] rounded-xl p-8 lg:min-w-[320px] min-h-[160px] max-h-[200px]">
           <div className="flex flex-col items-center gap-1 justify-between text-[24px] font-bold w-full">
-            <p>Rp{data.ticketPrice}</p>
+            {data.ticketPrice === 0 ? (
+              <span>FREE</span>
+            ) : (
+              <span>Rp {data.ticketPrice}</span>
+            )}
             <span className="font-normal text-[18px] text-neutral-800">
               per ticket
             </span>
