@@ -6,6 +6,7 @@ import EmptyState from "@/components/EmptyState";
 import EventListCard from "@/components/lists/EventListCard";
 import { Button } from "@/components/ui/Button";
 import { Event } from "@/types/getEvents";
+import { PlusIcon } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -19,7 +20,6 @@ const ManageEvents: FC = () => {
   const searchParams = useSearchParams();
   // const { data } = useSession();
 
-  // TODO: This is still harcoded, need to get from session
   // TODO : this data still hardcoded, need to get from session
   const organizer = {
     userId: 1,
@@ -82,15 +82,17 @@ const ManageEvents: FC = () => {
             Manage my events
           </h1>
           <Button variant="notFull" asChild>
-            <Link href={"/events/create"}>Create new event</Link>
+            <Link href={"/events/create"}>
+              Create new event
+              <PlusIcon size={24} />
+            </Link>
           </Button>
         </div>
-        {loading && (
+        {loading ? (
           <div className="flex items-center justify-center text-lg font-bold text-rose-500 h-[calc(100vh-280px)] pt-14">
             Loading...
           </div>
-        )}
-        {events.length <= 0 ? (
+        ) : events.length <= 0 ? (
           <EmptyState
             title="You dont have any event"
             subtitle="Please make a new event first"

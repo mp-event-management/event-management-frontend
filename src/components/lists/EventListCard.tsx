@@ -27,13 +27,15 @@ const EventListCard: FC<EventListCardProps> = ({
       {isShown &&
         organizer.role.name === "ORGANIZER" &&
         organizer.userId === data.userOrganizer.userId && (
-          <div className="flex w-full items-center justify-end gap-2 pb-4">
+          <div className="flex items-center justify-end gap-2 pb-4 w-full">
             <DeleteConfirmation eventId={data.eventId} />
-
-            <Button variant="default" size="sm">
-              <MdDiscount />
-              Add Promo
-            </Button>
+            
+            <div>
+              <Button variant="notFull" size="sm">
+                <MdDiscount />
+                Add Promo
+              </Button>
+            </div>
 
             <Button variant="secondary" size="sm" asChild>
               <Link href={`/events/${data.eventId}/update`}>

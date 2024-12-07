@@ -20,6 +20,17 @@ export type Event = {
   eventStatus: string;
   city: City;
   address: string;
+  promotions: Promotions[];
+};
+
+export type Promotions = {
+  promotionId: number;
+  promotionType: string;
+  promotionCode: string;
+  discountPercentage: number;
+  availableUses: number | null;
+  startDate: Date;
+  endDate: Date;
 };
 
 export type UserOrganizer = {
