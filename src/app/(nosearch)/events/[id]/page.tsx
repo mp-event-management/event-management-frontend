@@ -1,4 +1,5 @@
 import getEventDetail from "@/app/actions/getEventDetails.actions";
+import CheckoutButton from "@/components/checkout/CheckoutButton";
 import PromotionsLists from "@/components/promotions/PromotionsLists";
 import { Button } from "@/components/ui/Button";
 import { formatDateTime, formatPrice } from "@/lib/utils";
@@ -148,10 +149,11 @@ const EventDetailPage: FC<EventDetailProps> = async ({ params }) => {
             )}
             <p className="flex items-center gap-2 text-[16px] font-bold  bg-blue-50 px-6 py-2 rounded-lg text-slate-700">
               <Ticket />
-              {data.availableTicket} left
+              {data.availableTicket} Tickets left
             </p>
           </div>
-          <Button>Get tickets</Button>
+          <CheckoutButton event={data}/>
+          
         </div>
       </div>
     </section>

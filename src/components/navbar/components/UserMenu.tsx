@@ -45,6 +45,7 @@ const UserMenu: FC = () => {
     email: "naruto@example.com",
     password: "narutohash",
     referralCode: "REF1",
+    isFirstTimeDiscount: false,
   };
 
   const currentUser = userOrganizer;

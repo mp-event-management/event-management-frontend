@@ -29,12 +29,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${nunito.className}`}>
-        <SessionProvider>
+    <SessionProvider>
+      <html lang="en">
+        <body className={`${nunito.className}`}>
           <div>{children}</div>
-        </SessionProvider>
-      </body>
-    </html>
+        </body>
+      </html>
+    </SessionProvider>
   );
 }
