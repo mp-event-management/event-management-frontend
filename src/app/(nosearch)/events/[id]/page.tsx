@@ -1,8 +1,9 @@
 import getEventDetail from "@/app/actions/getEventDetails.actions";
+import PromotionsLists from "@/components/promotions/PromotionsLists";
 import { Button } from "@/components/ui/Button";
 import { formatDateTime, formatPrice } from "@/lib/utils";
 import { ApiResponse, Event } from "@/types/getEvents";
-import { CalendarCheck2, MapPinned } from "lucide-react";
+import { CalendarCheck2, MapPinned, Ticket } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { FC } from "react";
@@ -48,41 +49,18 @@ const EventDetailPage: FC<EventDetailProps> = async ({ params }) => {
       <div className="flex flex-row  justify-between gap-14">
         {/* Details side */}
         <div className="flex flex-col mb-32 w-full">
-          <div className="text-[16px] font-bold mb-4 flex flex-row gap-2 items-center">
-            <p>{formatDateTime(data.startDate).formattedDateTime},</p>
-            <span>{data.city.cityName}</span>
+          <div className="text-[18px] font-bold mb-2 flex flex-row gap-2 items-center">
+            <p>{formatDateTime(data.startDate).formattedDate}</p>
           </div>
-          <h1 className="font-extrabold lg:text-5xl lg:leading-[62px] md:text-4xl md:leading-[52px] text-3xl">
+          <h1 className="font-extrabold lg:text-[52px] lg:leading-[62px] md:text-4xl md:leading-[52px] text-3xl">
             {data.title}
           </h1>
-          <p className="lg:text-xl text-lg text-muted-foreground my-8">
+          <p className="lg:text-lg text-[16px] text-muted-foreground my-8">
             {data.description}
           </p>
 
           {/* Promotions */}
-          <div className="flex flex-col items-start gap-4 w-full bg-[#F8F7FA] px-10 py-8 rounded-2xl mb-8">
-            <h3 className="text-[24px] font-extrabold">Available promo code</h3>
-            {data.promotions.map((promo) => (
-              <div
-                key={promo.promotionId}
-                className="flex flex-col items-start gap-1 bg-white py-6 px-8 rounded-lg w-full"
-              >
-                <div className="flex flex-col items-start gap-1 mb-2 font-bold">
-                  <p>Get {promo.discountPercentage * 100}% off &#128293;</p>
-                  <span className="flex items-center gap-2">
-                    <p>Use before</p>
-                    {formatDateTime(promo.endDate).formattedDateTime}
-                  </span>
-                </div>
-                <div className="w-full flex items-center gap-3">
-                  <p className="text-lg font-extrabold bg-neutral-50 w-full px-4 py-2">
-                    {promo.promotionCode}
-                  </p>
-                  <Button variant="outline">Copy</Button>
-                </div>
-              </div>
-            ))}
-          </div>
+          <PromotionsLists promotions={data.promotions} />
 
           {/* Organized by */}
           <div className="flex flex-row items-center gap-4 w-full bg-[#F8F7FA] p-8 rounded-2xl">
@@ -145,26 +123,33 @@ const EventDetailPage: FC<EventDetailProps> = async ({ params }) => {
         {/* Purchase and payment side */}
         {/* Small screen */}
         <div className="lg:hidden fixed bottom-0 left-0 right-0 z-10 bg-white border-t-[1px] w-full flex flex-col items-center gap-4 border-[1px] p-8 h-[160px] shadow">
-          <p className="flex gap-2 items-center text-[24px] font-bold w-full text-center">
-            Rp{data.ticketPrice}
-            <span className="font-normal text-[18px] text-neutral-800">
-              per ticket
-            </span>
-          </p>
+          <div className="flex justify-between items-center w-full">
+            <p className="flex gap-2 items-center text-[24px] font-extrabold text-center">
+              Rp{data.ticketPrice}
+              <span className="font-normal text-[18px] text-neutral-800">
+                per ticket
+              </span>
+            </p>
+            <p className="flex items-center gap-2 text-[16px] font-bold  bg-blue-50 px-6 py-2 rounded-lg text-slate-700">
+              <Ticket />
+              {data.availableTicket} left
+            </p>
+          </div>
           <Button color="primary">Get tickets</Button>
         </div>
 
         {/* Large screen */}
-        <div className="hidden lg:flex flex-col items-center justify-between border-[1px] rounded-xl p-8 lg:min-w-[320px] min-h-[160px] max-h-[200px]">
-          <div className="flex flex-col items-center gap-1 justify-between text-[24px] font-extrabold w-full">
+        <div className="hidden lg:flex flex-col items-center justify-between border-[1px] rounded-xl p-6 lg:min-w-[320px] min-h-[160px] max-h-[210px]">
+          <div className="flex flex-col items-center gap-2 justify-between text-[24px] font-extrabold w-full">
             {data.ticketPrice === 0 ? (
               <p>FREE</p>
             ) : (
               <p>{formatPrice(String(data.ticketPrice))}</p>
             )}
-            <span className="font-normal text-[18px] text-neutral-800">
-              per ticket
-            </span>
+            <p className="flex items-center gap-2 text-[16px] font-bold  bg-blue-50 px-6 py-2 rounded-lg text-slate-700">
+              <Ticket />
+              {data.availableTicket} left
+            </p>
           </div>
           <Button>Get tickets</Button>
         </div>
