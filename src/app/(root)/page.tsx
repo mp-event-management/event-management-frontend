@@ -18,6 +18,18 @@ export default function Home() {
   const searchParams = useSearchParams();
   const { data } = useSession();
 
+  // TODO : this data still hardcoded, need to get from session
+  const organizer = {
+    userId: 1,
+    role: {
+      roleId: 2,
+      name: "ORGANIZER",
+    },
+    name: "John Doe",
+    email: "johndoe@example.com",
+    profilepictureUrl: "",
+  };
+
   useEffect(() => {
     console.log("home:", searchParams.get("search"));
     const dataPerPage = 10;
@@ -64,7 +76,7 @@ export default function Home() {
   }
 
   if (events.length <= 0) {
-    return <EmptyState showReset={false} />;
+    return <EmptyState height="h-[calc(100vh-90px)]" showReset={false} />;
   }
 
   return (
@@ -79,7 +91,14 @@ export default function Home() {
         </div>
         <div className="pt-[122px] lg:pt-[128px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8">
           {events.map((event: Event) => {
-            return <EventListCard key={event.eventId} data={event} />;
+            return (
+              <EventListCard
+                isShown={false}
+                organizer={organizer}
+                key={event.eventId}
+                data={event}
+              />
+            );
           })}
         </div>
         <div className="flex items-center justify-center w-1/3 mx-auto gap-4 mt-24">

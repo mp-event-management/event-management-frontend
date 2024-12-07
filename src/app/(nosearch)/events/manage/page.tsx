@@ -20,7 +20,17 @@ const ManageEvents: FC = () => {
   // const { data } = useSession();
 
   // TODO: This is still harcoded, need to get from session
-  const ORGANIZER_ID = 1;
+  // TODO : this data still hardcoded, need to get from session
+  const organizer = {
+    userId: 1,
+    role: {
+      roleId: 2,
+      name: "ORGANIZER",
+    },
+    name: "John Doe",
+    email: "johndoe@example.com",
+    profilepictureUrl: "",
+  };
 
   useEffect(() => {
     console.log("home:", searchParams.get("search"));
@@ -32,7 +42,7 @@ const ManageEvents: FC = () => {
       try {
         const params = searchParams.get("search")?.toString();
         const data = await getEventsByOrganizeraId(
-          ORGANIZER_ID,
+          organizer.userId,
           currentPage,
           dataPerPage,
           params
@@ -75,12 +85,12 @@ const ManageEvents: FC = () => {
   return (
     <section className="min-h-[calc(100vh-210px)]">
       <Container>
-        <div className="flex items-center justify-between mt-8">
-          <h1 className="text-3xl lg:text-4xl font-extrabold">
+        <div className="flex flex-col lg:flex-row gap-4 lg:items-center lg:justify-between lg:mt-8 mt-2">
+          <h1 className="text-3xl lg:text-4xl font-extrabold text-start">
             Manage my events
           </h1>
           <Button variant="notFull" asChild>
-            <Link href={"/events/create"}>Create event</Link>
+            <Link href={"/events/create"}>Create new event</Link>
           </Button>
         </div>
 
@@ -95,7 +105,14 @@ const ManageEvents: FC = () => {
           <>
             <div className="pt-12 lg:pt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8">
               {events.map((event: Event) => {
-                return <EventListCard key={event.eventId} data={event} />;
+                return (
+                  <EventListCard
+                    isShown={true}
+                    organizer={organizer}
+                    key={event.eventId}
+                    data={event}
+                  />
+                );
               })}
             </div>
             <div className="flex items-center justify-center w-1/3 mx-auto gap-4 mt-24">
