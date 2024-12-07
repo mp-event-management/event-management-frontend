@@ -74,14 +74,6 @@ const ManageEvents: FC = () => {
     setCurrentpage((prevPage) => prevPage + 1);
   };
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center text-lg font-bold text-rose-500 h-[calc(100vh-170px)] pt-14">
-        Loading...
-      </div>
-    );
-  }
-
   return (
     <section className="min-h-[calc(100vh-210px)]">
       <Container>
@@ -93,7 +85,11 @@ const ManageEvents: FC = () => {
             <Link href={"/events/create"}>Create new event</Link>
           </Button>
         </div>
-
+        {loading && (
+          <div className="flex items-center justify-center text-lg font-bold text-rose-500 h-[calc(100vh-280px)] pt-14">
+            Loading...
+          </div>
+        )}
         {events.length <= 0 ? (
           <EmptyState
             title="You dont have any event"
