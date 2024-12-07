@@ -7,6 +7,7 @@ import EventListCard from "@/components/lists/EventListCard";
 import { Button } from "@/components/ui/Button";
 import { Event } from "@/types/getEvents";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import React, { FC, useEffect, useState } from "react";
 
@@ -78,7 +79,9 @@ const ManageEvents: FC = () => {
           <h1 className="text-3xl lg:text-4xl font-extrabold">
             Manage my events
           </h1>
-          <Button variant="notFull">Create event</Button>
+          <Button variant="notFull" asChild>
+            <Link href={"/events/create"}>Create event</Link>
+          </Button>
         </div>
 
         {events.length <= 0 ? (
