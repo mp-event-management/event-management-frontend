@@ -1,10 +1,6 @@
-const getEventDetail = async (id: string) => {
-  if (!process.env.NEXT_PUBLIC_DEVELOPMENT_URL) {
-    throw new Error(
-      "Environment variable NEXT_PUBLIC_DEVELOPMENT_URL is not defined."
-    );
-  }
+import { ApiResponse, Event } from "@/types/getEvents";
 
+const getEventDetail = async (id: string): Promise<ApiResponse<Event>> => {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_DEVELEOPMENT_URL}/api/v1/events/${id}`,
@@ -26,7 +22,7 @@ const getEventDetail = async (id: string) => {
     const data = await response.json();
     return data;
   } catch (error) {
-    throw new Error(`Failed to fetch events. ${error}`);
+    throw new Error(`Failed to fetch event details. ${error}`);
   }
 };
 

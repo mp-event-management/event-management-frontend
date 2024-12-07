@@ -12,8 +12,8 @@ export type Event = {
   description: string;
   category: Category;
   eventImagesUrl: string;
-  startDate: string; // ISO 8601 date string
-  endDate: string; // ISO 8601 date string
+  startDate: Date; // ISO 8601 date string
+  endDate: Date; // ISO 8601 date string
   ticketPrice: number;
   totalTicket: number;
   availableTicket: number;

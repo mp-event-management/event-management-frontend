@@ -47,8 +47,6 @@ export default function Home() {
     fetchEvents();
   }, [currentPage, searchParams]);
 
-  // console.log(events);
-
   const handlePrevPage = () => {
     setCurrentpage((prevPage) => prevPage - 1);
   };
@@ -65,7 +63,7 @@ export default function Home() {
     );
   }
 
-  if (events.length === 0) {
+  if (events.length <= 0) {
     return <EmptyState showReset={false} />;
   }
 
