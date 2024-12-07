@@ -88,7 +88,7 @@ const UserMenu: FC = () => {
               />
               <MenuItem
                 onClick={() => {
-                  redirect("/my-events");
+                  redirect("/my-tickets");
                 }}
                 label="My Tickets"
               />
