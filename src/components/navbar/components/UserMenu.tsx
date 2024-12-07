@@ -70,7 +70,7 @@ const UserMenu: FC = () => {
       </div>
 
       {isOpen && (
-        <div className="absolute rounded-xl shadow-md  w-[50vw] lg:w-[14vw] bg-white overflow-hidden right-0 top-14 font-medium text-md z-[11]">
+        <div className="absolute rounded-xl shadow-md  w-[300px] bg-white overflow-hidden right-0 top-14 font-medium text-md z-20">
           {currentUser ? (
             <>
               <div className="flex flex-col gap-2 w-full items-center justify-center py-4">

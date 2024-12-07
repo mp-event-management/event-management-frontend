@@ -4,7 +4,7 @@ import { auth } from "./auth";
 const PUBLIC_PATHS = ["/login", "/register", "/transactiondetail"];
 const PROTECTED_PATHS = ["/dashboard", "/trx/reports"];
 const ROLE_PATHS = {
-  ORGANIZER: ["/", "/manage-events", "/create-event"],
+  ORGANIZER: ["/", "/events/manage", "/events/create"],
 
   // Customer can access all excepts organizer menu
   CUSTOMER: ["/", "*"],

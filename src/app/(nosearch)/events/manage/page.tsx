@@ -115,7 +115,7 @@ const ManageEvents: FC = () => {
                 );
               })}
             </div>
-            <div className="flex items-center justify-center w-1/3 mx-auto gap-4 mt-24">
+            <div className="flex items-center justify-center w-1/3 mx-auto gap-4 mt-20">
               <Button
                 disabled={currentPage === 0}
                 onClick={() => handlePrevPage()}
