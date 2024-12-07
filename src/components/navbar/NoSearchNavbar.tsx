@@ -1,8 +1,8 @@
 import { FC } from "react";
 import Container from "../Container";
-import Logo from "./Logo";
-import UserMenu from "./UserMenu";
-import Categories from "./Categories";
+import Logo from "./components/Logo";
+import UserMenu from "./components/UserMenu";
+import Categories from "./components/Categories";
 
 const NoSearchNavbar: FC = () => {
   return (

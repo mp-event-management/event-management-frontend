@@ -1,13 +1,13 @@
 "use client";
 
 import { FC, useCallback, useEffect, useRef, useState } from "react";
-import Avatar from "../Avatar";
+import Avatar from "../../Avatar";
 import MenuItem from "./MenuItem";
 import { signOut } from "next-auth/react";
 import { MenuIcon } from "lucide-react";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { Separator } from "../ui/separator";
+import { Separator } from "../../ui/separator";
 
 const UserMenu: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -53,7 +53,7 @@ const UserMenu: FC = () => {
     <div className="relative" ref={menuRef}>
       <div className="flex flex-row items-center gap-3">
         <Link
-          href={"/create-event"}
+          href={"/events/create"}
           className="hidden md:block text-md font-bold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
         >
           Create your event
@@ -92,7 +92,7 @@ const UserMenu: FC = () => {
               />
               <MenuItem
                 onClick={() => {
-                  redirect("/manage-events");
+                  redirect("/events/manage");
                 }}
                 label="Manage My Events"
               />
@@ -102,7 +102,7 @@ const UserMenu: FC = () => {
           ) : (
             <>
               <MenuItem onClick={() => {}} label="Login" />
-              <MenuItem onClick={() => {}} label="Sign Up" />
+              <MenuItem onClick={() => {}} label="Register" />
             </>
           )}
         </div>

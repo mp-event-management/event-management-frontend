@@ -2,10 +2,10 @@
 
 import { FC, useEffect, useState } from "react";
 import Container from "../Container";
-import Logo from "./Logo";
-import Search from "./Search";
-import UserMenu from "./UserMenu";
-import Categories from "./Categories";
+import Logo from "./components/Logo";
+import Search from "./components/Search";
+import UserMenu from "./components/UserMenu";
+import Categories from "./components/Categories";
 import useDebounce from "@/hooks/useDebounce";
 import { useRouter, useSearchParams } from "next/navigation";
 

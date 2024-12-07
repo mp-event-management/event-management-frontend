@@ -9,9 +9,10 @@ export const eventFormSchema = z.object({
     .string()
     .min(10, "Description must be at least 10 characters")
     .max(1000, "Description must be less than 600 characters"),
-  categoryId: z.string().min(1, "Category id must be at least 1 digit"),
+  categoryId: z.string().min(1, "Select category for your event"),
   eventImagesUrl: z
     .string()
+    .url()
     .min(10, "Event image url must be at least 10 characters")
     .max(600, "Event image url must be less than 255 characters"),
   startDate: z.date(),
@@ -24,7 +25,7 @@ export const eventFormSchema = z.object({
     .string()
     .min(5, "Event status must be at least 10 characters")
     .max(100, "Event status must be less than 100 characters"),
-  cityId: z.string().min(1, "City id must be at least 1 digit"),
+  cityId: z.string().min(1, "Select city for your event location"),
   address: z
     .string()
     .min(10, "Address must be at least 10 characters")

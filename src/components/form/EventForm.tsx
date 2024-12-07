@@ -32,7 +32,7 @@ import { IoPricetagOutline } from "react-icons/io5";
 
 type EventFormProps = {
   // organizerId: number;
-  type: "create" | "update";
+  type: "Create" | "Update";
 };
 
 const EventForm: FC<EventFormProps> = ({ type }) => {
@@ -50,13 +50,13 @@ const EventForm: FC<EventFormProps> = ({ type }) => {
     const ORGANIZER_ID = 1;
 
     const userOrganizerId = ORGANIZER_ID;
+    const totalTicket = Number(values.totalTicket);
     const availableTicket = Number(values.totalTicket);
     const categoryId = Number(values.categoryId);
     const cityId = Number(values.cityId);
     const ticketPrice = Number(values.ticketPrice);
-    const totalTicket = Number(values.totalTicket);
 
-    if (type === "create") {
+    if (type === "Create") {
       try {
         const newEvent = await createNewEvent({
           event: {
@@ -72,7 +72,7 @@ const EventForm: FC<EventFormProps> = ({ type }) => {
 
         if (newEvent) {
           form.reset();
-          router.push(`/`);
+          router.push(`/events/manage`);
         }
       } catch (error) {
         console.log(error);
@@ -80,6 +80,10 @@ const EventForm: FC<EventFormProps> = ({ type }) => {
       }
     }
     console.log(values);
+  }
+
+  if (type === "Update") {
+    console.log("update");
   }
 
   return (
@@ -347,7 +351,9 @@ const EventForm: FC<EventFormProps> = ({ type }) => {
           />
         </div>
 
-        <Button type="submit">Create the event</Button>
+        <Button type="submit" disabled={form.formState.isSubmitting}>
+          {form.formState.isSubmitting ? "Submitting..." : `${type} Event`}
+        </Button>
         <Button asChild variant={"ghost"}>
           <Link href="/">Cancel</Link>
         </Button>

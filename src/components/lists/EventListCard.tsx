@@ -12,7 +12,7 @@ interface EventListCardProps {
 
 const EventListCard: FC<EventListCardProps> = ({ data }) => {
   return (
-    <Link href={`/event/${data.eventId}`}>
+    <Link href={`/events/${data.eventId}`}>
       <div className="col-span-1 cursor-pointer group">
         <div className="flex flex-col gap-2 w-full">
           <div className="aspect-square w-full h-[300px] overflow-hidden rounded-xl mb-2">

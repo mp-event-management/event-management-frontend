@@ -8,13 +8,13 @@ import { IoArrowBack } from "react-icons/io5";
 
 const getEventDetail = async (id: string): Promise<ApiResponse<Event>> => {
   try {
-    const data = await fetch(
+    const response = await fetch(
       `${process.env.NEXT_PUBLIC_DEVELEOPMENT_URL}/api/v1/events/${id}`
     );
 
-    if (!data.ok) throw new Error("Failed to fetch event details");
+    if (!response.ok) throw new Error("Failed to fetch event details");
 
-    return await data.json();
+    return await response.json();
   } catch (error) {
     console.log(error);
     throw new Error("error");

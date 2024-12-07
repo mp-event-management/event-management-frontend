@@ -1,7 +1,7 @@
 "use client";
 
 import { FC } from "react";
-import CategoryBox from "../CategoryBox";
+import CategoryBox from "../../CategoryBox";
 import { usePathname, useSearchParams } from "next/navigation";
 import { categories } from "@/constant/categories";
 import Filter from "./Filter";

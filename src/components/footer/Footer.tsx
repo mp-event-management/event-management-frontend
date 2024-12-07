@@ -1,5 +1,5 @@
 import { FC } from "react";
-import Logo from "../navbar/Logo";
+import Logo from "../navbar/components/Logo";
 
 const Footer: FC = () => {
   return (
