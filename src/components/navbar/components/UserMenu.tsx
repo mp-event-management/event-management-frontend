@@ -70,12 +70,14 @@ const UserMenu: FC = () => {
       </div>
 
       {isOpen && (
-        <div className="absolute rounded-xl shadow-md w-[40vw] md:w-[12vw] bg-white overflow-hidden right-0 top-14 font-medium text-md z-[11]">
+        <div className="absolute rounded-xl shadow-md w-[14vw] bg-white overflow-hidden right-0 top-14 font-medium text-md z-[11]">
           {currentUser ? (
             <>
-              <div className="flex flex-col gap-4 w-full items-center justify-center py-4">
-                <span className="text-lg font-bold">{currentUser.name}</span>
-                <span>{currentUser.role}</span>
+              <div className="flex flex-col gap-2 w-full items-center justify-center py-4">
+                <p className="text-lg font-bold">{currentUser.name}</p>
+                <p className="text-sm">
+                  {currentUser.role === 2 ? "ORGANIZER" : "CUSTOMER"}
+                </p>
               </div>
               <Separator />
               <MenuItem

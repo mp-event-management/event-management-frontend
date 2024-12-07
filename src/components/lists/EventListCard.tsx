@@ -1,11 +1,10 @@
 "use client";
-import { formatDateTime, formatPrice } from "@/lib/utils";
+import { formatDateTime } from "@/lib/utils";
 import { Event } from "@/types/getEvents";
 import { TicketIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
-import { CgCalendar } from "react-icons/cg";
 
 interface EventListCardProps {
   data: Event;
@@ -28,7 +27,7 @@ const EventListCard: FC<EventListCardProps> = ({ data }) => {
           </div>
           <div className="flex flex-row items-center gap-3 font-semibol">
             <span className="flex items-center gap-2 bg-green-100 text-[14px] px-4 py-2 rounded-full font-extrabold text-green-700">
-              {data.ticketPrice === 0 ? <p>FREE</p> : <p>{data.ticketPrice}</p>}
+              {data.ticketPrice === 0 ? <p>FREE</p> : <p>IDR {data.ticketPrice}</p>}
             </span>
             <span className="flex items-center gap-2 bg-slate-100 text-[14px] px-4 py-2 rounded-full font-extrabold text-neutral-500">
               {data.category.name}
