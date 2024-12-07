@@ -12,7 +12,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Trash } from "lucide-react";
+import { Trash2Icon } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { Button } from "./ui/Button";
 import deleteEventById from "@/app/actions/deleteEventById";
@@ -29,7 +29,7 @@ const DeleteConfirmation: FC<DeleteConfirmationProps> = ({ eventId }) => {
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button variant="outline" size="sm">
-          <Trash />
+          <Trash2Icon />
         </Button>
       </AlertDialogTrigger>
 

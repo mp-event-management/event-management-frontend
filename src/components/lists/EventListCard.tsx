@@ -30,17 +30,16 @@ const EventListCard: FC<EventListCardProps> = ({
           <div className="flex w-full items-center justify-end gap-2 pb-4">
             <DeleteConfirmation eventId={data.eventId} />
 
-            <div className="">
-              <Button variant="default" size="sm">
-                <MdDiscount />
-                Add Promo
-              </Button>
-            </div>
-            <div className="">
-              <Button variant="secondary" size="sm">
+            <Button variant="default" size="sm">
+              <MdDiscount />
+              Add Promo
+            </Button>
+
+            <Button variant="secondary" size="sm" asChild>
+              <Link href={`/events/${data.eventId}/update`}>
                 <Edit /> Edit
-              </Button>
-            </div>
+              </Link>
+            </Button>
           </div>
         )}
 

@@ -35,7 +35,7 @@ const Dropdown: FC<DropdownProps> = ({
               value={data.id.toString()}
               className="py-3 cursor-pointer  focus:bg-primary-50 text-[14px] font-normal leading-[20px]"
             >
-              {data.label}
+              <p className="text-[16px] font-bold">{data.label}</p>
             </SelectItem>
           ))}
       </SelectContent>

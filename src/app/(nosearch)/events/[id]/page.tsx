@@ -81,17 +81,17 @@ const EventDetailPage: FC<EventDetailProps> = async ({ params }) => {
             <h3 className="text-[24px] font-extrabold">Date and time</h3>
             <div className="flex flex-row gap-4 items-center text-[16px] font-semibold">
               <CalendarCheck2 size={18} />
-              <span>
-                Start : {formatDateTime(data.startDate).formattedDate}{" "}
-                {formatDateTime(data.endDate).formattedTime}
-              </span>
+              <div className="flex items-center gap-2">
+                <p>Start : {formatDateTime(data.startDate).formattedDate}</p>
+                <p>{formatDateTime(data.startDate).formattedTime}</p>
+              </div>
             </div>
             <div className="flex flex-row gap-4 items-center text-[16px] font-semibold">
               <CalendarCheck2 size={18} />
-              <span>
-                End : {formatDateTime(data.endDate).formattedDate}{" "}
-                {formatDateTime(data.endDate).formattedTime}
-              </span>
+              <div className="flex items-center gap-2">
+                <p>Start : {formatDateTime(data.endDate).formattedDate}</p>
+                <p>{formatDateTime(data.endDate).formattedTime}</p>
+              </div>
             </div>
           </div>
 
