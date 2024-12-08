@@ -8,30 +8,34 @@ import UserMenu from "./components/UserMenu";
 import Categories from "./components/Categories";
 import useDebounce from "@/hooks/useDebounce";
 import { useRouter, useSearchParams } from "next/navigation";
+import { formUrlQuery, removeKeysFromQuery } from "@/lib/utils";
 
 const Navbar: FC = () => {
   const router = useRouter();
-  const [onSearch, setOnSearch] = useState<string>("");
-  const debouncedSearch = useDebounce(onSearch);
-
-  // const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [onSearch, setOnSearch] = useState("");
+  // const debouncedSearch = useDebounce(onSearch);
   const searchParams = useSearchParams();
-  // console.log("search : ", onSearch);
 
   useEffect(() => {
-    // native way
-    // window.history.pushState(null, "", `?search=${debouncedSearch}`);
+    let newUrl = "";
+    const delayDeboundeFunction = setTimeout(() => {
+      if (onSearch) {
+        newUrl = formUrlQuery({
+          params: searchParams.toString(),
+          key: "search",
+          value: onSearch,
+        });
+      } else {
+        newUrl = removeKeysFromQuery({
+          params: searchParams.toString(),
+          keysToRemove: ["search"],
+        });
+      }
+      router.push(newUrl, { scroll: false });
+    }, 500);
 
-    // nextjs way
-    router.push(`?search=${debouncedSearch}`, {
-      scroll: false,
-    });
-
-    //   // native way to read url
-    //   // window.location.search
-  }, [debouncedSearch, router]);
-
-  console.log(searchParams.get("onSearch"));
+    return () => clearTimeout(delayDeboundeFunction);
+  }, [searchParams, onSearch, router]);
 
   return (
     <header className="fixed w-full bg-white z-10 shadow-sm">

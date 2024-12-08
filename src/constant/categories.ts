@@ -11,11 +11,11 @@ import { SiEventstore, SiStudyverse } from "react-icons/si";
 import { MdTravelExplore } from "react-icons/md";
 
 export const categories = [
-  {
-    label: "All Events",
-    icon: SiEventstore,
-    description: "All events",
-  },
+  // {
+  //   label: "All Events",
+  //   icon: SiEventstore,
+  //   description: "All events",
+  // },
   {
     id: 1,
     label: "Music",

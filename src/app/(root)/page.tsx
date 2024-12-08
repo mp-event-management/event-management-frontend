@@ -16,6 +16,9 @@ export default function Home() {
   const [totalPage, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(false);
   const searchParams = useSearchParams();
+  const category = searchParams.get("categoryId") || "";
+  const city = searchParams.get("cityId") || "";
+
   const { data } = useSession();
 
   // TODO : this data still hardcoded, need to get from session
@@ -38,8 +41,14 @@ export default function Home() {
       setLoading(true);
 
       try {
-        const params = searchParams.get("search")?.toString();
-        const data = await getAllEvents(currentPage, dataPerPage, params);
+        const query = searchParams.get("search")?.toString();
+        const data = await getAllEvents(
+          currentPage,
+          dataPerPage,
+          query,
+          category,
+          city
+        );
 
         // Check if the data structured as expected
         if (!data || !data.data || !data.data.events) {

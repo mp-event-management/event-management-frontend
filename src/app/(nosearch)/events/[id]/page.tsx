@@ -1,4 +1,6 @@
+import React, { FC } from "react";
 import getEventDetail from "@/app/actions/getEventDetails.actions";
+import BackButton from "@/components/BackButton";
 import CheckoutButton from "@/components/checkout/CheckoutButton";
 import PromotionsLists from "@/components/promotions/PromotionsLists";
 import { Button } from "@/components/ui/Button";
@@ -6,9 +8,6 @@ import { formatDateTime, formatPrice } from "@/lib/utils";
 import { ApiResponse, Event } from "@/types/getEvents";
 import { CalendarCheck2, MapPinned, Ticket } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
-import React, { FC } from "react";
-import { IoArrowBack } from "react-icons/io5";
 
 type EventDetailProps = {
   params: {
@@ -24,15 +23,8 @@ const EventDetailPage: FC<EventDetailProps> = async ({ params }) => {
 
   return (
     <section className="w-full sm:w-[90%] md:w-[80%] lg:w-[70%] 2xl:w-[60%] mx-auto lg:mt-4 md:mt-4 sm:mt-2 px-[24px] transition">
-      {/* Arrow back */}
-      <div className="flex lg:flex-row flex-col lg:items-center items-start lg:gap-6 gap-4 my-4 lg:mb-6 md:mb-5">
-        <Link
-          href="/"
-          className="lg:hover:bg-neutral-100 lg:rounded-full lg:p-4 rounded-full transition"
-        >
-          <IoArrowBack size={24} />
-        </Link>
-      </div>
+      {/* Back button */}
+      <BackButton />
 
       {/* Event hero image */}
       <div className="aspect-square w-full mb-10 h-[300px] md:h-[540px] relative overflow-hidden rounded-xl transition">
@@ -49,7 +41,7 @@ const EventDetailPage: FC<EventDetailProps> = async ({ params }) => {
       {/* Detail and Purchase */}
       <div className="flex flex-row  justify-between gap-14">
         {/* Details side */}
-        <div className="flex flex-col mb-32 w-full">
+        <div className="flex flex-col mb-4 lg:mb-32 w-full">
           <div className="text-[18px] font-bold mb-2 flex flex-row gap-2 items-center">
             <p>{formatDateTime(data.startDate).formattedDate}</p>
           </div>
@@ -111,7 +103,7 @@ const EventDetailPage: FC<EventDetailProps> = async ({ params }) => {
           </div>
 
           {/* Tags */}
-          <div className="flex flex-col gap-3 my-9">
+          <div className="flex flex-col gap-3 mt-9">
             <h3 className="text-[24px] font-extrabold">Tags</h3>
             <div className="flex flex-wrap gap-2">
               <span className="text-[16px] py-4 px-6 rounded-full font-bold inline-block w-auto bg-[#F8F7FA]">
@@ -124,13 +116,12 @@ const EventDetailPage: FC<EventDetailProps> = async ({ params }) => {
         {/* Purchase and payment side */}
         {/* Small screen */}
         <div className="lg:hidden fixed bottom-0 left-0 right-0 z-10 bg-white border-t-[1px] w-full flex flex-col items-center gap-4 border-[1px] p-8 h-[160px] shadow">
-          <div className="flex justify-between items-center w-full">
-            <p className="flex gap-2 items-center text-[24px] font-extrabold text-center">
-              Rp{data.ticketPrice}
-              <span className="font-normal text-[18px] text-neutral-800">
-                per ticket
-              </span>
-            </p>
+          <div className="flex justify-between items-center w-full text-[18px] font-extrabold">
+            {data.ticketPrice === 0 ? (
+              <p>FREE</p>
+            ) : (
+              <p>{formatPrice(String(data.ticketPrice))}</p>
+            )}
             <p className="flex items-center gap-2 text-[16px] font-bold  bg-blue-50 px-6 py-2 rounded-lg text-slate-700">
               <Ticket />
               {data.availableTicket} left
@@ -152,8 +143,9 @@ const EventDetailPage: FC<EventDetailProps> = async ({ params }) => {
               {data.availableTicket} Tickets left
             </p>
           </div>
-          <CheckoutButton event={data}/>
-          
+
+          {/* Checkout button */}
+          <CheckoutButton event={data} />
         </div>
       </div>
     </section>

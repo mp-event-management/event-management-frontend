@@ -1,20 +1,32 @@
 const getAllEvents = async (
   page: number = 0,
   size: number = 10,
-  searchQuerry?: string
+  searchQuerry?: string,
+  category?: string,
+  city?: string
 ) => {
   const url = new URL(
     `${process.env.NEXT_PUBLIC_DEVELEOPMENT_URL}/api/v1/events`
   );
 
+  // Append search params only if it exists
+  if (searchQuerry?.trim()) {
+    url.searchParams.append("search", searchQuerry);
+  }
+
+  // Append category params only if it exists
+  if (category?.trim()) {
+    url.searchParams.append("categoryId", category);
+  }
+
+  // Append city params only if it exists
+  if (city?.trim()) {
+    url.searchParams.append("cityId", city);
+  }
+
   // Append pagination parameters
   url.searchParams.append("page", page.toString());
   url.searchParams.append("size", size.toString());
-
-  // Append search params only if it exists
-  if (searchQuerry) {
-    url.searchParams.append("search", searchQuerry.toString());
-  }
 
   console.log(url.toString());
   try {

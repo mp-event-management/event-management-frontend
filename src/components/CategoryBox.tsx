@@ -9,10 +9,16 @@ import { IconType } from "react-icons";
 interface CategoryBoxProps {
   icon: IconType;
   label: string;
+  id: string;
   selected: boolean;
 }
 
-const CategoryBox: FC<CategoryBoxProps> = ({ icon: Icon, label, selected }) => {
+const CategoryBox: FC<CategoryBoxProps> = ({
+  icon: Icon,
+  label,
+  id,
+  selected,
+}) => {
   const router = useRouter();
   const params = useSearchParams();
 
@@ -24,11 +30,12 @@ const CategoryBox: FC<CategoryBoxProps> = ({ icon: Icon, label, selected }) => {
 
       const updatedQuery: Record<string, string | string[] | null> = {
         ...currentQuerry,
-        category: label,
+        categoryId: id,
       };
 
-      if (params?.get("category") === label) {
-        delete updatedQuery.category;
+      // check if params label is the same
+      if (params?.get("categoryId") === id) {
+        delete updatedQuery.categoryId;
       }
 
       const url = queryString.stringifyUrl(

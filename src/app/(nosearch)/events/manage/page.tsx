@@ -88,6 +88,7 @@ const ManageEvents: FC = () => {
             </Link>
           </Button>
         </div>
+        
         {loading ? (
           <div className="flex items-center justify-center text-lg font-bold text-rose-500 h-[calc(100vh-280px)] pt-14">
             Loading...

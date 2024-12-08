@@ -4,11 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { formatDateTime } from "@/lib/utils";
 import { Event, UserOrganizer } from "@/types/getEvents";
-import { Edit, TicketIcon, Trash } from "lucide-react";
+import { Edit, TicketIcon } from "lucide-react";
 import { FC } from "react";
 import { Button } from "../ui/Button";
 import { MdDiscount } from "react-icons/md";
-import DeleteConfirmation from "../DeleteConfirmation";
+import DeleteConfirmation from "../deleteEvent/DeleteConfirmation";
 
 interface EventListCardProps {
   data: Event;
@@ -23,13 +23,13 @@ const EventListCard: FC<EventListCardProps> = ({
 }) => {
   return (
     <div className="col-span-1">
-      {/* SHOW if only logged in as ORGANIZER and the event is created by the exact organizer */}
+      {/* SHOW if only logged in as an ORGANIZER and the event is created by the exact organizer */}
       {isShown &&
         organizer.role.name === "ORGANIZER" &&
         organizer.userId === data.userOrganizer.userId && (
           <div className="flex items-center justify-end gap-2 pb-4 w-full">
             <DeleteConfirmation eventId={data.eventId} />
-            
+
             <div>
               <Button variant="notFull" size="sm">
                 <MdDiscount />

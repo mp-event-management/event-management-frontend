@@ -1,4 +1,4 @@
-const deleteEventById = async (eventId: number ) => {
+const deleteEventById = async (eventId: number) => {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_DEVELEOPMENT_URL}/api/v1/events/${eventId}`,

@@ -1,5 +1,4 @@
-"use client";
-
+import { usePathname } from "next/navigation";
 import React, { FC, useTransition } from "react";
 import {
   AlertDialog,
@@ -11,17 +10,15 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+} from "../ui/alert-dialog";
+import { Button } from "../ui/Button";
 import { Trash2Icon } from "lucide-react";
-import { usePathname } from "next/navigation";
-import { Button } from "./ui/Button";
-import deleteEventById from "@/app/actions/deleteEventById";
 
-type DeleteConfirmationProps = {
+type EditPromotionType = {
   eventId: number;
 };
 
-const DeleteConfirmation: FC<DeleteConfirmationProps> = ({ eventId }) => {
+const EditPromotion: FC<EditPromotionType> = ({ eventid }) => {
   const pathname = usePathname();
   let [isPending, startTransition] = useTransition();
 
@@ -62,4 +59,4 @@ const DeleteConfirmation: FC<DeleteConfirmationProps> = ({ eventId }) => {
   );
 };
 
-export default DeleteConfirmation;
+export default EditPromotion;

@@ -1,6 +1,5 @@
 import Container from "@/components/Container";
 import EmptyState from "@/components/EmptyState";
-import { Button } from "@/components/ui/Button";
 import { FC } from "react";
 
 const MyEventsPage: FC = () => {

@@ -8,7 +8,7 @@ import Filter from "./Filter";
 
 const Categories: FC = () => {
   const params = useSearchParams();
-  const category = params?.get("category");
+  const category = params?.get("categoryId");
   const pathname = usePathname();
 
   const isMainPage = pathname === "/";
@@ -18,19 +18,20 @@ const Categories: FC = () => {
   }
 
   return (
-    <nav className="overflow-x-auto max-w-[2020px] h-[96px] xl:px-20 md:px-10 sm:px-6 px-6 flex items-center">
+    <nav className="max-w-[2020px] h-[96px] xl:px-20 md:px-10 sm:px-6 px-6 flex items-center">
       <div className="flex items-center justify-between w-full gap-6">
-        <div className="flex items-center justify-between w-full">
+        <div className="overflow-x-auto flex items-center justify-between w-full">
           {categories.map((item) => (
             <CategoryBox
               key={item.label}
               label={item.label}
-              selected={category === item.label}
+              id={String(item.id)}
+              selected={category === String(item.id)}
               icon={item.icon}
             />
           ))}
         </div>
-        <div className="flex items-center">
+        <div className="flex items-center w-auto">
           <Filter />
         </div>
       </div>
