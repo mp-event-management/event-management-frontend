@@ -24,7 +24,6 @@ type DeleteConfirmationProps = {
 const DeleteConfirmation: FC<DeleteConfirmationProps> = ({ eventId }) => {
   const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
-  const [deleteResult, setDeleteResult] = useState<string | null>(null);
 
   const handleDelete = async () => {
     try {
@@ -64,13 +63,6 @@ const DeleteConfirmation: FC<DeleteConfirmationProps> = ({ eventId }) => {
             {isPending ? "Deleting..." : "Delete"}
           </AlertDialogAction>
         </AlertDialogFooter>
-
-        {/* Display Result */}
-        {deleteResult && (
-          <p className="mt-4 text-center text-sm font-medium text-gray-700">
-            {deleteResult}
-          </p>
-        )}
       </AlertDialogContent>
     </AlertDialog>
   );

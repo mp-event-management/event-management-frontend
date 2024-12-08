@@ -18,7 +18,7 @@ const Navbar: FC = () => {
 
   useEffect(() => {
     let newUrl = "";
-    const delayDeboundeFunction = setTimeout(() => {
+    const delayDebounceFn = setTimeout(() => {
       if (onSearch) {
         newUrl = formUrlQuery({
           params: searchParams.toString(),
@@ -34,7 +34,7 @@ const Navbar: FC = () => {
       router.push(newUrl, { scroll: false });
     }, 500);
 
-    return () => clearTimeout(delayDeboundeFunction);
+    return () => clearTimeout(delayDebounceFn);
   }, [searchParams, onSearch, router]);
 
   return (
