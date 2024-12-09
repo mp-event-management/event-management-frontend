@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "./auth";
 
-const PUBLIC_PATHS = ["/login", "/register", "/transactiondetail"];
-const PROTECTED_PATHS = ["/dashboard", "/trx/reports"];
+// TODO : need to define later, the right paths
+const PUBLIC_PATHS = ["/", "*"];
+const PROTECTED_PATHS = [""];
 const ROLE_PATHS = {
   ORGANIZER: ["/", "/events/manage", "/events/create"],
 

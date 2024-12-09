@@ -64,7 +64,7 @@ const ManageEvents: FC = () => {
     };
 
     fetchEvents();
-  }, [currentPage, searchParams]);
+  }, [currentPage, searchParams, organizer.userId]);
 
   const handlePrevPage = () => {
     setCurrentpage((prevPage) => prevPage - 1);
