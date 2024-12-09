@@ -2,7 +2,6 @@
 
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -22,7 +21,7 @@ import { Separator } from "@/components/ui/separator";
 import { cities } from "@/constant/cities";
 import { formUrlQuery, removeKeysFromQuery } from "@/lib/utils";
 import { useRouter, useSearchParams } from "next/navigation";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { LuSettings2 } from "react-icons/lu";
 
 const Filter: FC = () => {
@@ -69,7 +68,7 @@ const Filter: FC = () => {
               }}
             >
               <SelectTrigger className="mt-8 w-full h-[52px] overflow-hidden focus:ring-0">
-                <SelectValue placeholder="City" />
+                <SelectValue placeholder="Select city" />
               </SelectTrigger>
               <SelectContent className="placeholder:text-[16px] placeholder:font-bold">
                 <SelectItem

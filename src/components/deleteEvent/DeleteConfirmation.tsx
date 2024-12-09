@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useState, useTransition } from "react";
+import React, { FC, useTransition } from "react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -28,10 +28,9 @@ const DeleteConfirmation: FC<DeleteConfirmationProps> = ({ eventId }) => {
   const handleDelete = async () => {
     try {
       const result = await deleteEventById(eventId);
-      setDeleteResult(`${result.message}`);
     } catch (error) {
-      if (error instanceof Error) setDeleteResult(`${error.message}`);
-      else setDeleteResult("An unknown error occurred");
+      if (error instanceof Error) throw new Error(`${error.message}`);
+      else throw new Error("An unknown error occurred");
     }
   };
 

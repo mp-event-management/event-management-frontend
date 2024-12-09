@@ -47,7 +47,7 @@ const CategoryBox: FC<CategoryBoxProps> = ({
       );
       router.push(url);
     }
-  }, [label, params, router]);
+  }, [params, router, id]);
 
   return (
     <div

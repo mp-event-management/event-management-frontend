@@ -44,11 +44,11 @@ const EditPromotion: FC<EditPromotionType> = ({ eventid }) => {
           <AlertDialogCancel>Cancel</AlertDialogCancel>
 
           <AlertDialogAction
-            onClick={() =>
-              startTransition(async () => {
-                await deleteEventById(eventId);
-              })
-            }
+            // onClick={() =>
+            //   startTransition(async () => {
+            //     await deleteEventById(eventId);
+            //   })
+            // }
             className="w-auto"
           >
             {isPending ? "Deleting..." : "Delete"}

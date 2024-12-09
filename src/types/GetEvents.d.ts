@@ -28,7 +28,7 @@ export type Promotions = {
   promotionType: string;
   promotionCode: string;
   discountPercentage: number;
-  availableUses: number | null;
+  availableUses: number;
   startDate: Date;
   endDate: Date;
 };

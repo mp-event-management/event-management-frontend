@@ -24,8 +24,15 @@ const PromotionsLists: FC<PromotionsProps> = ({ promotions }) => {
           key={promo.promotionId}
           className="flex flex-col items-start gap-1 bg-white py-6 px-8 rounded-lg w-full"
         >
-          <div className="flex flex-col items-start gap-1 mb-2 font-bold">
-            <p>Get {promo.discountPercentage * 100}% off &#128293;</p>
+          <div className="flex flex-col items-start w-full gap-1 mb-2 font-bold">
+            <div className="flex justify-between items-center w-full">
+              <p>Get {promo.discountPercentage * 100}% off &#128293;</p>
+              <p className="text-green-700 text-[15px]">
+                {promo.availableUses > 0
+                  ? `${promo.availableUses} times left`
+                  : ""}
+              </p>
+            </div>
             <span className="flex items-center gap-2">
               <p>Use before</p>
               {formatDateTime(promo.endDate).formattedDateTime}

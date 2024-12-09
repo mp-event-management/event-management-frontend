@@ -1,14 +1,20 @@
-import { TbMusic, TbSocial } from "react-icons/tb";
-import { FaArtstation } from "react-icons/fa";
+import { TbArtboard, TbMusic, TbSocial } from "react-icons/tb";
+import { FaArtstation, FaPeopleCarry } from "react-icons/fa";
 import {
   GiConsoleController,
   GiLifeSupport,
   GiSportMedal,
 } from "react-icons/gi";
 import { GrBusinessService, GrTechnology } from "react-icons/gr";
-import { BiFoodMenu } from "react-icons/bi";
-import { SiEventstore, SiStudyverse } from "react-icons/si";
+import { BiDrink, BiFoodMenu } from "react-icons/bi";
+import { SiStudyverse } from "react-icons/si";
 import { MdTravelExplore } from "react-icons/md";
+import {
+  BookOpen,
+  ComputerIcon,
+  MapPinPlusIcon,
+  MedalIcon,
+} from "lucide-react";
 
 export const categories = [
   // {
@@ -25,31 +31,31 @@ export const categories = [
   {
     id: 2,
     label: "Sports",
-    icon: GiSportMedal,
+    icon: MedalIcon,
     description: "This is sports events",
   },
   {
     id: 3,
     label: "Social Activities",
-    icon: TbSocial,
+    icon: FaPeopleCarry,
     description: "This is social activites events",
   },
   {
     id: 4,
     label: "Technologies",
-    icon: GrTechnology,
+    icon: ComputerIcon,
     description: "This is technologies events",
   },
   {
     id: 5,
     label: "Food & Drinks",
-    icon: BiFoodMenu,
+    icon: BiDrink,
     description: "This is food & drinks events",
   },
   {
     id: 6,
     label: "Art",
-    icon: FaArtstation,
+    icon: TbArtboard,
     description: "This is art events",
   },
   {
@@ -61,13 +67,13 @@ export const categories = [
   {
     id: 8,
     label: "Education",
-    icon: SiStudyverse,
+    icon: BookOpen,
     description: "This is education events",
   },
   {
     id: 9,
     label: "Travel",
-    icon: MdTravelExplore,
+    icon: MapPinPlusIcon,
     description: "This is travel events",
   },
   {
