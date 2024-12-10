@@ -41,6 +41,16 @@ export type UserOrganizer = {
   profilepictureUrl: string;
 };
 
+export type UserCustomer = {
+  id: number;
+  role: number;
+  name: string;
+  email: string;
+  password: string;
+  referralCode: string;
+  isFirstTimeDiscount: boolean;
+};
+
 export type Role = {
   roleId: number;
   name: string;

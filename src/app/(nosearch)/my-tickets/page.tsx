@@ -1,10 +1,60 @@
+"use client";
+
+import { getAllTicketsByCustomer } from "@/app/api/api";
 import Container from "@/components/Container";
 import EmptyState from "@/components/EmptyState";
+import TicketListCard from "@/components/lists/TicketListCard";
 import { Button } from "@/components/ui/Button";
-import { FC } from "react";
+import { customerData } from "@/constant/usersData";
+import { Ticket } from "@/types/tickets";
+import { useQuery } from "@tanstack/react-query";
+import { useSearchParams } from "next/navigation";
+import { FC, useEffect, useState } from "react";
 
-const MyEventsPage: FC = () => {
+const MyTicketsPage: FC = () => {
   const length = 1;
+  const customer = customerData;
+
+  const [tickets, setTickets] = useState<Ticket[]>([]);
+  const [currentPage, setCurrentpage] = useState(0);
+  const [totalPage, setTotalPages] = useState(0);
+  const searchParams = useSearchParams();
+
+  // Default data per page
+  const dataPerPage = 5;
+  const query = searchParams.get("search")?.toString();
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["tickets", currentPage, dataPerPage, query],
+    queryFn: async () =>
+      await getAllTicketsByCustomer(customer.id, currentPage, dataPerPage),
+  });
+
+  console.log(data);
+
+  useEffect(() => {
+    setTickets(data?.data.tickets);
+    setTotalPages(data?.data.totalPages);
+    console.log(data);
+  }, [data, tickets]);
+
+  const handlePrevPage = () => {
+    setCurrentpage((prevPage) => prevPage - 1);
+  };
+
+  const handleNextPage = () => {
+    setCurrentpage((prevPage) => prevPage + 1);
+  };
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center text-lg font-bold text-rose-500 h-[calc(100vh-170px)] pt-14">
+        Loading...
+      </div>
+    );
+  }
+
+  console.log(tickets);
 
   return (
     <section className="min-h-[calc(100vh-200px)]">
@@ -24,14 +74,14 @@ const MyEventsPage: FC = () => {
           />
         ) : (
           <>
-            {/* <div className="pt-12 lg:pt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8">
-              {events.data.events?.map((event: Event) => {
+            <p>{data[0]}</p>
+            <div className="pt-12 lg:pt-16 grid grid-rows-1 sm:grid-rows-2 md:grid-rows-2 lg:grid-rows-3 xl:grid-rows-4 2xl:grid-rows-5 gap-8">
+              {tickets?.map((ticket: Ticket) => {
                 return (
-                  <EventListCard
-                    isShown={true}
-                    organizer={organizer}
-                    key={event.eventId}
-                    data={event}
+                  <TicketListCard
+                    customer={customer}
+                    key={ticket.id}
+                    data={ticket}
                   />
                 );
               })}
@@ -49,7 +99,7 @@ const MyEventsPage: FC = () => {
               >
                 Next
               </Button>
-            </div> */}
+            </div>
           </>
         )}
       </Container>
@@ -57,4 +107,4 @@ const MyEventsPage: FC = () => {
   );
 };
 
-export default MyEventsPage;
+export default MyTicketsPage;
