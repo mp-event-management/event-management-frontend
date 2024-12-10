@@ -8,13 +8,13 @@ export const eventFormSchema = z.object({
   description: z
     .string()
     .min(10, "Description must be at least 10 characters")
-    .max(1000, "Description must be less than 600 characters"),
+    .max(2000, "Description must be less than 2000 characters"),
   categoryId: z.string().min(1, "Select category for your event"),
   eventImagesUrl: z
     .string()
     .url()
     .min(10, "Event image url must be at least 10 characters")
-    .max(600, "Event image url must be less than 255 characters"),
+    .max(600, "Event image url must be less than 600 characters"),
   startDate: z.date(),
   endDate: z.date(),
   ticketPrice: z

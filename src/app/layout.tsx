@@ -5,6 +5,7 @@ import "./globals.css";
 import { Nunito } from "next/font/google";
 import { SessionProvider } from "next-auth/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Toaster } from "@/components/ui/toaster";
 
 // export const metadata: Metadata = {
 //   title: "Eventbro",
@@ -39,6 +40,7 @@ export default function RootLayout({
         <html lang="en">
           <body className={`${nunito.className}`}>
             <main>{children}</main>
+            <Toaster />
           </body>
         </html>
       </QueryClientProvider>

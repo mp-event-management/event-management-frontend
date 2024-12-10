@@ -9,6 +9,7 @@ import Image from "next/image";
 import { Separator } from "../ui/separator";
 import { customerData } from "@/constant/usersData";
 import { createTransaction } from "@/app/api/api";
+import { useToast } from "@/hooks/use-toast";
 
 type TransactionModalProps = {
   isOpen: boolean;
@@ -28,6 +29,7 @@ const TransactionModal: FC<TransactionModalProps> = ({
   const [useTransfer, setUseTransfer] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const { toast } = useToast();
 
   const resetSelections = () => {
     setSelectedPromo(null);
@@ -55,14 +57,14 @@ const TransactionModal: FC<TransactionModalProps> = ({
   };
 
   const togglePaymentMethod = (method: "referralPoints" | "transfer") => {
-    if (method === "referralPoints") setUseReferralPoints(!useReferralPoints);
-    if (method === "transfer") setUseTransfer(!useTransfer);
+    if (method === "referralPoints") setUseReferralPoints((prev) => !prev);
+    if (method === "transfer") setUseTransfer((prev) => !prev);
   };
 
   const requestData = {
     customerId: Number(customerUser.id),
     eventId: event.eventId,
-    ticketQuantity: event.availableTicket >= 1 ? 1 : 0,
+    ticketQuantity: event.availableTicket <= 1 ? 1 : 0,
     promoCode:
       selectedPromo !== null
         ? event.promotions.find((p) => p.promotionId === selectedPromo)
@@ -82,6 +84,7 @@ const TransactionModal: FC<TransactionModalProps> = ({
     } finally {
       setLoading(false);
     }
+    toast({ title: message });
   };
 
   return (
@@ -237,7 +240,7 @@ const TransactionModal: FC<TransactionModalProps> = ({
 
                   <Separator className="my-2" />
 
-                  <div className="flex justify-between font-bold">
+                  <div className="flex justify-between font-bold mt-4">
                     <p>Total</p>
                     <p>{formatPrice(String(calculateTotalPrice()))}</p>
                   </div>
@@ -248,32 +251,13 @@ const TransactionModal: FC<TransactionModalProps> = ({
         </Modal.Body>
 
         <Modal.Footer>
-          <div className="w-full flex items-center justify-end gap-4">
-            <div>
-              {message && (
-                <p
-                  className={`text-center mt-4 ${
-                    message.includes("Error")
-                      ? "text-red-500"
-                      : "text-green-500"
-                  }`}
-                >
-                  {message}
-                </p>
-              )}
-            </div>
-            <div className="flex gap-4">
-              <Button variant="outline" onClick={onClose}>
-                Cancel
-              </Button>
-              <Button
-                variant="notFull"
-                onClick={handleSubmit}
-                disabled={loading}
-              >
-                {loading ? "Purchasing..." : "Purchase"}
-              </Button>
-            </div>
+          <div className="flex items-center justify-end w-full gap-6">
+            <Button variant="outline" onClick={onClose}>
+              Cancel
+            </Button>
+            <Button variant="notFull" onClick={handleSubmit} disabled={loading}>
+              {loading ? "Purchasing..." : "Purchase ticket"}
+            </Button>
           </div>
         </Modal.Footer>
       </Modal>

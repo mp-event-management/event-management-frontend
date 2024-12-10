@@ -31,6 +31,7 @@ import { createNewEvent } from "@/app/actions/createNewEvent.actions";
 import { IoPricetagOutline } from "react-icons/io5";
 import { Event } from "@/types/getEvents";
 import { updateEvent } from "@/app/actions/updateEvent";
+import { useToast } from "@/hooks/use-toast";
 
 type EventFormProps = {
   type: "Create" | "Update";
@@ -46,6 +47,7 @@ const EventForm: FC<EventFormProps> = ({
   eventId,
 }) => {
   const router = useRouter();
+  const { toast } = useToast();
 
   const initialValues =
     event && type === "Update"
@@ -94,6 +96,8 @@ const EventForm: FC<EventFormProps> = ({
           },
         });
 
+        toast({ title: newEvent.message });
+
         if (newEvent) {
           form.reset();
           router.push(`/events/manage`);
@@ -125,6 +129,8 @@ const EventForm: FC<EventFormProps> = ({
             totalTicket,
           },
         });
+
+        toast({ title: updatedEvent.message });
 
         if (updatedEvent) {
           form.reset();

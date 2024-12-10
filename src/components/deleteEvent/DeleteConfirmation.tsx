@@ -16,6 +16,7 @@ import { Trash2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Button } from "../ui/Button";
 import { deleteEventById } from "@/app/api/api";
+import { useToast } from "@/hooks/use-toast";
 
 type DeleteConfirmationProps = {
   eventId: number;
@@ -25,12 +26,17 @@ const DeleteConfirmation: FC<DeleteConfirmationProps> = ({ eventId }) => {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [isDeleting, setIsDeleting] = useState(false);
+  const { toast } = useToast();
 
   const handleDelete = async () => {
     setIsDeleting(true);
 
     try {
-      await deleteEventById(eventId);
+      const response = await deleteEventById(eventId);
+      toast({
+        title: response.message,
+        description: `Successful delete event with id ${eventId}`,
+      });
       startTransition(() => {
         router.push("/events/manage");
       });
@@ -39,6 +45,7 @@ const DeleteConfirmation: FC<DeleteConfirmationProps> = ({ eventId }) => {
       else throw new Error("An unknown error occurred");
     } finally {
       setIsDeleting(false);
+      router.refresh();
     }
   };
 
