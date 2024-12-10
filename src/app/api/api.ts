@@ -1,3 +1,6 @@
+import { CreateReview } from "@/types/createReview";
+import { Event } from "@/types/getEvents";
+
 export const getEventsByOrganizeraId = async (
   organizerId: number,
   page: number = 0,
@@ -107,9 +110,7 @@ export const getAllEvents = async (
   return data;
 };
 
-export const getEventDetail = async (
-  id: string | string[] | undefined
-)  => {
+export const getEventDetail = async (id: string | string[] | undefined) => {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_DEVELEOPMENT_URL}/api/v1/events/${id}`,
@@ -158,5 +159,79 @@ export const deleteEventById = async (eventId: number) => {
     return data;
   } catch (error) {
     throw new Error(`Failed to delete the event. ${error}`);
+  }
+};
+
+export const getTransactionDetail = async (
+  id: string | string[] | undefined
+) => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_DEVELEOPMENT_URL}/api/v1/transactions/${id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        cache: "no-store",
+      }
+    );
+
+    // Handle HTTP errors
+    if (!response.ok) {
+      const errorMessage = `Failed to transaction details. HTTP ${response.status}: ${response.statusText}`;
+      throw new Error(errorMessage);
+    }
+
+    const data = await response.json();
+    return data.data;
+  } catch (error) {
+    throw new Error(`Failed to fetch transaction details. ${error}`);
+  }
+};
+
+export const createNewEvent = async (event: Event) => {
+  const apiUrl = `${process.env.NEXT_PUBLIC_DEVELEOPMENT_URL}/api/v1/events`;
+
+  try {
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(event),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || "Failed to create new event");
+    }
+
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const createReview = async (request: CreateReview) => {
+  const apiUrl = `${process.env.NEXT_PUBLIC_DEVELEOPMENT_URL}/api/v1/reviews`;
+
+  try {
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(request),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || "Failed to sent the review");
+    }
+
+    return await response.json();
+  } catch (error) {
+    throw error;
   }
 };

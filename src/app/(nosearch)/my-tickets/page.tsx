@@ -5,7 +5,6 @@ import Container from "@/components/Container";
 import EmptyState from "@/components/EmptyState";
 import TicketListCard from "@/components/lists/TicketListCard";
 import { Button } from "@/components/ui/Button";
-import { Separator } from "@/components/ui/separator";
 import { customerData } from "@/constant/usersData";
 import { Ticket } from "@/types/tickets";
 import { useQuery } from "@tanstack/react-query";
@@ -13,7 +12,6 @@ import { useSearchParams } from "next/navigation";
 import { FC, useEffect, useState } from "react";
 
 const MyTicketsPage: FC = () => {
-  const length = 1;
   const customer = customerData;
 
   const [tickets, setTickets] = useState<Ticket[]>([]);
@@ -46,27 +44,22 @@ const MyTicketsPage: FC = () => {
   const handleNextPage = () => {
     setCurrentpage((prevPage) => prevPage + 1);
   };
-
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center text-lg font-bold text-rose-500 h-[calc(100vh-170px)] pt-14">
-        Loading...
-      </div>
-    );
-  }
-
   console.log(tickets);
 
   return (
     <section className="min-h-[calc(100vh-200px)]">
       <Container>
-        <div className="flex items-center justify-between mt-8">
+        <div className="flex lg:w-[80%] lg:mx-auto items-center justify-between lg:mt-8 mt-4">
           <h1 className="text-3xl lg:text-4xl font-extrabold">
             My ticket lists
           </h1>
         </div>
 
-        {length <= 0 ? (
+        {isLoading ? (
+          <div className="flex items-center justify-center text-lg font-bold text-rose-500 h-[calc(100vh-250px)]">
+            Loading...
+          </div>
+        ) : tickets?.length <= 0 ? (
           <EmptyState
             title="You dont have any tickets"
             subtitle="Please get a ticket first"
@@ -76,7 +69,7 @@ const MyTicketsPage: FC = () => {
         ) : (
           <>
             <p>{data[0]}</p>
-            <div className="pt-12 flex flex-col gap-12">
+            <div className="lg:pt-20 pt-8 lg:w-[80%] lg:mx-auto flex flex-col gap-12">
               {tickets?.map((ticket: Ticket) => {
                 return (
                   <TicketListCard

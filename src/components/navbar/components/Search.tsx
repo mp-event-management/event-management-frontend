@@ -27,7 +27,7 @@ const Search: FC<SearchBoxProps> = ({ onSearch }) => {
       )}
     >
       <div className="flex flex-row items-center justify-between">
-        <div className="text-lg pl-4 pr-6 w-full">
+        <div className="text-lg pl-4 pr-6 w-full outline-none">
           <input
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
@@ -36,7 +36,7 @@ const Search: FC<SearchBoxProps> = ({ onSearch }) => {
             value={searchText}
             onChange={handleInputChange}
             placeholder="Search events..."
-            className="w-full outline-none text-gray-700 text-lg font-bold"
+            className="w-full outline-none text-gray-700 text-lg font-bold focus-visible:ring-offset-0 placeholder:text-grey-500 placeholder:text-[16px] !text-[16px] border-none focus-visible:ring-transparent"
           />
         </div>
         <div

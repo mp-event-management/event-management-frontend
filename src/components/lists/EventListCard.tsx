@@ -76,9 +76,9 @@ const EventListCard: FC<EventListCardProps> = ({
             <p className="font-normal text-gray-500 text-[16px]">
               {formatDateTime(data.startDate).formattedDateTime}
             </p>
-            <div className="flex flex-row items-center gap-2 font-bold text-[16px] mt-2">
+            <div className="flex flex-row items-center gap-2 font-bold text-[14px] lg:text-[16px] mt-2">
               <TicketIcon size={18} />
-              <p>{data.availableTicket} ticket left</p>
+              <p>{data.availableTicket} tickets left</p>
             </div>
             <span className="flex flex-row items-center gap-2 font-bold mt-4 text-rose-500">
               By {data.userOrganizer.name}

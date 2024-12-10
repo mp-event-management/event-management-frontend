@@ -245,7 +245,7 @@ const EventForm: FC<EventFormProps> = ({
                       timeInputLabel="Time :"
                       dateFormat="MM/dd/yyyy h:mm aa"
                       wrapperClassName="datePicker"
-                      className="bg-neutral-100"
+                      className="bg-neutral-100  placeholder:text-grey-500 placeholder:text-[16px] !text-[16px] border-none"
                     />
                   </div>
                 </FormControl>
@@ -274,7 +274,7 @@ const EventForm: FC<EventFormProps> = ({
                       timeInputLabel="Time :"
                       dateFormat="MM/dd/yyyy h:mm aa"
                       wrapperClassName="datePicker"
-                      className="bg-neutral-100"
+                      className="bg-neutral-100  placeholder:text-grey-500 placeholder:text-[16px] !text-[16px] border-none"
                     />
                   </div>
                 </FormControl>
