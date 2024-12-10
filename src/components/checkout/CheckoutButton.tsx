@@ -13,7 +13,6 @@ const CheckoutButton: FC<CheckoutButtonProps> = ({ event }) => {
   const userCustomer = customerData;
 
   const hasEventFinished = new Date(event.endDate) < new Date();
-
   if (hasEventFinished) {
     return (
       <p className="px-4 text-center text-rose-500 w-full font-bold text-[16px]">

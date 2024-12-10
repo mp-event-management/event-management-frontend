@@ -1,6 +1,11 @@
-// import getEventDetail from "@/app/actions/getEventDetails.actions";
+"use client";
+
 import { getEventDetail } from "@/app/api/api";
+import EmptyState from "@/components/EmptyState";
 import EventForm from "@/components/form/EventForm";
+import { Event } from "@/types/getEvents";
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "next/navigation";
 
 // TODO : this data still hardcoded, need to get from session
 const organizer = {
@@ -14,17 +19,38 @@ const organizer = {
   profilePictureUrl: "",
 };
 
-type UpdateEventPageProps = {
-  params: { id: string };
-};
-
-const UpdateEventPage = async ({ params }: UpdateEventPageProps) => {
-  const { id } = await params;
-
+const UpdateEventPage = () => {
+  const { id } = useParams();
   const organizerId = organizer.userId;
 
-  const event = await getEventDetail(id);
+  const { data: event, isLoading } = useQuery({
+    queryKey: ["event", id],
+    queryFn: async () => await getEventDetail(id),
+    enabled: !!id,
+  });
+
+  console.log("Param", id);
   console.log(event);
+  console.log(event?.eventId);
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center text-lg font-bold text-rose-500 h-[calc(100vh-170px)] pt-14">
+        Loading...
+      </div>
+    );
+  }
+
+  if (!event) {
+    return (
+      <EmptyState
+        title="There is no event details"
+        subtitle="Please try again later"
+        showReset={false}
+        height="h-[calc(100vh-280px)]"
+      />
+    );
+  }
 
   return (
     <>
@@ -39,8 +65,8 @@ const UpdateEventPage = async ({ params }: UpdateEventPageProps) => {
         >
           <EventForm
             type="Update"
-            event={event.data}
-            eventId={event.data.eventId}
+            event={event as Event}
+            eventId={event?.eventId}
             organizerId={organizerId}
           />
         </div>
