@@ -29,8 +29,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createNewEvent } from "@/app/actions/createNewEvent.actions";
 import { IoPricetagOutline } from "react-icons/io5";
-import { Category, City, Event, UserOrganizer } from "@/types/getEvents";
-import { UpdateEvent } from "@/types/updateEvent";
+import { Event } from "@/types/getEvents";
 import { updateEvent } from "@/app/actions/updateEvent";
 
 type EventFormProps = {

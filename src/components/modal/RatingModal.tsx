@@ -4,6 +4,7 @@ import React, { FC, useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { Button } from "../ui/Button";
 import { createReview } from "@/app/api/api";
+import { Separator } from "../ui/separator";
 
 type RatingModalProps = {
   isOpen: boolean;
@@ -33,11 +34,8 @@ const RatingModal: FC<RatingModalProps> = ({
 
   const handleSubmit = async () => {
     setLoading(true);
-    setMessage("");
     try {
-      console.log(requestData);
       const response = await createReview(requestData);
-      console.log(response);
 
       setMessage(response.message);
       setRating(0);
@@ -49,21 +47,29 @@ const RatingModal: FC<RatingModalProps> = ({
     }
   };
 
+  const handleClose = () => {
+    setRating(0);
+    setHoverRating(0);
+    setReview("");
+    setMessage("");
+    onClose();
+  };
+
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 transition-all">
-      <div className="bg-white rounded-lg p-6 w-full max-w-md">
+      <div className="bg-white rounded-lg p-6 w-full max-w-lg">
         <h2 className="text-xl font-bold mb-4">Gives your rate and review</h2>
-
-        <div className="flex justify-center mb-4 mt-8">
+        <Separator />
+        <div className="flex justify-center mb-8 mt-8">
           {[1, 2, 3, 4, 5].map((value) => (
             <FaStar
               key={value}
               size={28}
               className={`cursor-pointer ${
                 (hoverRating || rating) >= value
-                  ? "text-yellow-500"
+                  ? "text-yellow-400"
                   : "text-gray-300"
               }`}
               onClick={() => setRating(value)}
@@ -74,7 +80,7 @@ const RatingModal: FC<RatingModalProps> = ({
         </div>
 
         <textarea
-          className="w-full border rounded-lg p-2 mb-4 focus-visible:ring-0"
+          className="w-full border rounded-lg p-2 mb-4 focus-visible:ring-0 placeholder:text-grey-500 placeholder:text-[16px] !text-[16px]"
           rows={4}
           placeholder="Write your review..."
           value={review}
@@ -82,7 +88,7 @@ const RatingModal: FC<RatingModalProps> = ({
         />
 
         <div className="flex justify-end gap-4">
-          <Button variant="outline" onClick={onClose}>
+          <Button variant="outline" onClick={handleClose}>
             Cancel
           </Button>
           <Button
@@ -97,7 +103,7 @@ const RatingModal: FC<RatingModalProps> = ({
         {message && (
           <p
             className={`text-center mt-4 ${
-              message.includes("Failed") ? "text-red-500" : "text-green-500"
+              message.includes("Error") ? "text-red-500" : "text-green-500"
             }`}
           >
             {message}

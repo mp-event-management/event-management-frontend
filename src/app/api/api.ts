@@ -1,4 +1,5 @@
 import { CreateReview } from "@/types/createReview";
+import { Transaction } from "@/types/createTransaction";
 import { Event } from "@/types/getEvents";
 
 export const getEventsByOrganizeraId = async (
@@ -228,6 +229,29 @@ export const createReview = async (request: CreateReview) => {
     if (!response.ok) {
       const error = await response.json();
       throw new Error(error.message || "Failed to sent the review");
+    }
+
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const createTransaction = async (request: Transaction) => {
+  const apiUrl = `${process.env.NEXT_PUBLIC_DEVELEOPMENT_URL}/api/v1/transactions`;
+
+  try {
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(request),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || "Failed proccess the payment");
     }
 
     return await response.json();

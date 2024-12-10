@@ -1,6 +1,6 @@
 "use client";
 
-import type { Metadata } from "next";
+// import type { Metadata } from "next";
 import "./globals.css";
 import { Nunito } from "next/font/google";
 import { SessionProvider } from "next-auth/react";

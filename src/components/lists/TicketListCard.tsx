@@ -7,11 +7,10 @@ import { Button } from "../ui/Button";
 import Image from "next/image";
 import { Ticket } from "@/types/tickets";
 import { formatDateTime, formatPrice } from "@/lib/utils";
-import { Move, Navigation, Navigation2Icon, Pen } from "lucide-react";
+import { Pen } from "lucide-react";
 import { LuNavigation } from "react-icons/lu";
 import { Separator } from "../ui/separator";
-import { TbInvoice, TbRating12Plus } from "react-icons/tb";
-import StarRating from "../StarRating";
+import { TbInvoice } from "react-icons/tb";
 import RatingModal from "../modal/RatingModal";
 
 interface TicketListCardProps {
@@ -58,17 +57,23 @@ const TicketListCard: FC<TicketListCardProps> = ({ data, customer }) => {
                 Status : {data.status}
               </p>
             </div>
-            <p className="font-bold text-[16px] text-rose-500 line-clamp-1 mt-2 mb-8">
-              {formatPrice(String(data.price))}
-            </p>
+            <div className="flex items-center justify-between lg:justify-normal gap-10 mt-2 mb-8 lg:mb-0">
+              <p className="font-bold text-[16px] text-rose-500">
+                {formatPrice(String(data.price))}
+              </p>
+              <p className="font-normal text-gray-500 text-[16px]">
+               Issue at : {formatDateTime(data.issuedate).formattedDateTime}
+              </p>
+            </div>
           </div>
 
           <RatingModal
             isOpen={isModalOpen}
             onClose={handleCloseModal}
             eventId={data.eventId}
-            customerId={data.customerId}
+            customerId={customer.id}
           />
+
           <div className="flex gap-4 w-full justify-between lg:justify-start overflow-auto">
             <Button variant="link" asChild>
               <Link href={`/events/${data.eventId}`}>
