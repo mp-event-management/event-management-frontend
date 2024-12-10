@@ -1,3 +1,4 @@
+"use server"
 import { ApiResponse, Event } from "@/types/getEvents";
 
 const getEventDetail = async (id: string): Promise<ApiResponse<Event>> => {

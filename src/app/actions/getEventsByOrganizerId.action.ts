@@ -1,3 +1,5 @@
+"use server";
+
 const getEventsByOrganizeraId = async (
   organizerId: number,
   page: number = 0,

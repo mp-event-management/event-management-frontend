@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useTransition } from "react";
+import React, { FC, useState, useTransition } from "react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -13,24 +13,32 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Trash2Icon } from "lucide-react";
-import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Button } from "../ui/Button";
-import deleteEventById from "@/app/actions/deleteEventById";
+import { deleteEventById } from "@/app/api/api";
 
 type DeleteConfirmationProps = {
   eventId: number;
 };
 
 const DeleteConfirmation: FC<DeleteConfirmationProps> = ({ eventId }) => {
-  const pathname = usePathname();
+  const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const handleDelete = async () => {
+    setIsDeleting(true);
+
     try {
-      const result = await deleteEventById(eventId);
+      await deleteEventById(eventId);
+      startTransition(() => {
+        router.push("/events/manage");
+      });
     } catch (error) {
       if (error instanceof Error) throw new Error(`${error.message}`);
       else throw new Error("An unknown error occurred");
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -56,10 +64,11 @@ const DeleteConfirmation: FC<DeleteConfirmationProps> = ({ eventId }) => {
           <AlertDialogCancel>Cancel</AlertDialogCancel>
 
           <AlertDialogAction
-            onClick={() => startTransition(handleDelete)}
+            onClick={handleDelete}
+            disabled={isPending || isDeleting}
             className="w-auto"
           >
-            {isPending ? "Deleting..." : "Delete"}
+            {isPending || isDeleting ? "Deleting..." : "Delete"}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

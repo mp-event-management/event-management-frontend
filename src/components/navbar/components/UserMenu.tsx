@@ -36,7 +36,7 @@ const UserMenu: FC = () => {
   const userOrganizer = organizerData;
   const userCustomer = customerData;
 
-  const currentUser = userCustomer;
+  const currentUser = userOrganizer;
   const isOrganizer = currentUser.role === 2;
 
   const renderMenuItems = () => {
@@ -78,6 +78,10 @@ const UserMenu: FC = () => {
               onClick={() => redirect("/dashboard")}
               label="Dashboard"
             />
+            <MenuItem
+              onClick={() => redirect("/my-tickets")}
+              label="My Tickets"
+            />
             <Separator />
             <MenuItem onClick={() => signOut()} label="Logout" />
           </>
@@ -88,6 +92,14 @@ const UserMenu: FC = () => {
                 redirect("/profile");
               }}
               label="Profile"
+            />
+            <MenuItem
+              onClick={() => redirect("/events/manage")}
+              label="Manage My Events"
+            />
+            <MenuItem
+              onClick={() => redirect("/dashboard")}
+              label="Dashboard"
             />
             <MenuItem
               onClick={() => redirect("/my-tickets")}

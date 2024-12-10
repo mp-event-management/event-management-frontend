@@ -1,3 +1,5 @@
+"use server";
+
 const deleteEventById = async (eventId: number) => {
   try {
     const response = await fetch(

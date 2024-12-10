@@ -6,14 +6,12 @@ import Logo from "./components/Logo";
 import Search from "./components/Search";
 import UserMenu from "./components/UserMenu";
 import Categories from "./components/Categories";
-import useDebounce from "@/hooks/useDebounce";
 import { useRouter, useSearchParams } from "next/navigation";
 import { formUrlQuery, removeKeysFromQuery } from "@/lib/utils";
 
 const Navbar: FC = () => {
   const router = useRouter();
   const [onSearch, setOnSearch] = useState("");
-  // const debouncedSearch = useDebounce(onSearch);
   const searchParams = useSearchParams();
 
   useEffect(() => {

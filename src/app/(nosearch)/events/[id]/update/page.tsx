@@ -1,25 +1,25 @@
-import getEventDetail from "@/app/actions/getEventDetails.actions";
+// import getEventDetail from "@/app/actions/getEventDetails.actions";
+import { getEventDetail } from "@/app/api/api";
 import EventForm from "@/components/form/EventForm";
-import { FC } from "react";
+
+// TODO : this data still hardcoded, need to get from session
+const organizer = {
+  userId: 1,
+  role: {
+    roleId: 2,
+    name: "ORGANIZER",
+  },
+  name: "John Doe",
+  email: "johndoe@example.com",
+  profilePictureUrl: "",
+};
 
 type UpdateEventPageProps = {
   params: { id: string };
 };
 
-const UpdateEventPage: FC<UpdateEventPageProps> = async ({ params }) => {
+const UpdateEventPage = async ({ params }: UpdateEventPageProps) => {
   const { id } = await params;
-
-  // TODO : this data still hardcoded, need to get from session
-  const organizer = {
-    userId: 1,
-    role: {
-      roleId: 2,
-      name: "ORGANIZER",
-    },
-    name: "John Doe",
-    email: "johndoe@example.com",
-    profilePictureUrl: "",
-  };
 
   const organizerId = organizer.userId;
 
