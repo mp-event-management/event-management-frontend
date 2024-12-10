@@ -35,7 +35,7 @@ export default function Home() {
   const dataPerPage = 10;
   const query = searchParams.get("search")?.toString();
 
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["events", currentPage, dataPerPage, query, category, city],
     queryFn: async () =>
       await getAllEvents(currentPage, dataPerPage, query, category, city),
@@ -59,14 +59,6 @@ export default function Home() {
     return (
       <div className="flex items-center justify-center text-lg font-bold text-rose-500 h-[calc(100vh-170px)] pt-14">
         Loading...
-      </div>
-    );
-  }
-
-  if (isError) {
-    return (
-      <div className="flex items-center justify-center text-lg font-bold text-rose-500 h-[calc(100vh-170px)] pt-14">
-        Opps, something went wrong!
       </div>
     );
   }

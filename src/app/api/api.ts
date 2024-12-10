@@ -1,5 +1,3 @@
-import { ApiResponse, Event } from "@/types/getEvents";
-
 export const getEventsByOrganizeraId = async (
   organizerId: number,
   page: number = 0,
@@ -15,8 +13,7 @@ export const getEventsByOrganizeraId = async (
   url.searchParams.append("size", size.toString());
 
   // Append search params only if it exists
-  if (searchQuerry)
-    url.searchParams.append("search", searchQuerry.toString());
+  if (searchQuerry) url.searchParams.append("search", searchQuerry.toString());
 
   console.log(url.toString());
 
@@ -75,7 +72,9 @@ export const getAllEvents = async (
   return data;
 };
 
-export const getEventDetail = async (id: string): Promise<ApiResponse<Event>> => {
+export const getEventDetail = async (
+  id: string | string[] | undefined
+)  => {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_DEVELEOPMENT_URL}/api/v1/events/${id}`,
@@ -95,7 +94,7 @@ export const getEventDetail = async (id: string): Promise<ApiResponse<Event>> =>
     }
 
     const data = await response.json();
-    return data;
+    return data.data;
   } catch (error) {
     throw new Error(`Failed to fetch event details. ${error}`);
   }

@@ -1,25 +1,46 @@
-import React, { FC } from "react";
-import getEventDetail from "@/app/actions/getEventDetails.actions";
+"use client";
+
+import React from "react";
 import BackButton from "@/components/BackButton";
 import CheckoutButton from "@/components/checkout/CheckoutButton";
 import PromotionsLists from "@/components/promotions/PromotionsLists";
 import { Button } from "@/components/ui/Button";
 import { formatDateTime, formatPrice } from "@/lib/utils";
-import { ApiResponse, Event } from "@/types/getEvents";
 import { CalendarCheck2, MapPinned, Ticket } from "lucide-react";
 import Image from "next/image";
+import { getEventDetail } from "@/app/api/api";
+import { useQuery } from "@tanstack/react-query";
+import EmptyState from "@/components/EmptyState";
+import { useParams } from "next/navigation";
 
-type EventDetailProps = {
-  params: {
-    id: string;
-  };
-};
+const EventDetailPage = () => {
+  const { id } = useParams();
 
-const EventDetailPage: FC<EventDetailProps> = async ({ params }) => {
-  const { id } = await params;
+  const { data, isLoading } = useQuery({
+    queryKey: ["event", id],
+    queryFn: async () => await getEventDetail(id),
+  });
 
-  const { data }: ApiResponse<Event> = await getEventDetail(id);
   console.log(data);
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center text-lg font-bold text-rose-500 h-[calc(100vh-170px)] pt-14">
+        Loading...
+      </div>
+    );
+  }
+
+  if (!data) {
+    return (
+      <EmptyState
+        title="There is no event details"
+        subtitle="Please try again later"
+        showReset={false}
+        height="h-[calc(100vh-280px)]"
+      />
+    );
+  }
 
   return (
     <section className="w-full sm:w-[90%] md:w-[80%] lg:w-[70%] 2xl:w-[60%] mx-auto lg:mt-4 md:mt-4 sm:mt-2 px-[24px] transition">
