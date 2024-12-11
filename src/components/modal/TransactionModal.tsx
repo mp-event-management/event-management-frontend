@@ -28,7 +28,6 @@ const TransactionModal: FC<TransactionModalProps> = ({
   const [useReferralPoints, setUseReferralPoints] = useState(false);
   const [useTransfer, setUseTransfer] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
   const { toast } = useToast();
 
   const resetSelections = () => {
@@ -73,25 +72,32 @@ const TransactionModal: FC<TransactionModalProps> = ({
     isUsePoints: useReferralPoints,
   };
 
+  console.log("update request data : ", requestData);
   const handleSubmit = async () => {
     setLoading(true);
+    let toastMessage = "";
+
     try {
+      console.log("sent request data : ", requestData);
       const response = await createTransaction(requestData);
 
-      setMessage(response.message);
+      toastMessage = response.message;
     } catch (error) {
-      setMessage(`${error}`);
+      toastMessage = `${error}`;
     } finally {
       setLoading(false);
     }
-    toast({ title: message });
+
+    toast({ title: toastMessage });
   };
 
   return (
     <>
       <Modal show={isOpen} onClose={onClose} size="6xl">
-        <Modal.Header className="w-full">
-          <p className="text-xl font-extrabold w-full text-center">Checkout</p>
+        <Modal.Header className="w-full flex items-center justify-center">
+          <p className="text-2xl font-extrabold line-clamp-1">
+            Checkout - {event.title}
+          </p>
         </Modal.Header>
 
         <Modal.Body className="p-0 lg:min-h-[500px]">
@@ -199,6 +205,20 @@ const TransactionModal: FC<TransactionModalProps> = ({
 
                 <Separator className="my-4" />
 
+                {/* Show selected promo */}
+                <div className="flex flex-col text-sm text-green-600 mb-4">
+                  <p className="font-bold">Used Promo:</p>
+                  {selectedPromo !== null ? (
+                    <p>
+                      {event.promotions.find(
+                        (promo) => promo.promotionId === selectedPromo
+                      )?.promotionCode || "Invalid Promo"}
+                    </p>
+                  ) : (
+                    <p>-</p>
+                  )}
+                </div>
+
                 {/* Show discount calculation */}
                 <div className="flex flex-col justify-between">
                   <div className="flex justify-between font-normal">
@@ -240,7 +260,7 @@ const TransactionModal: FC<TransactionModalProps> = ({
 
                   <Separator className="my-2" />
 
-                  <div className="flex justify-between font-bold mt-4">
+                  <div className="flex justify-between font-bold mt-4 transition-all duration-200">
                     <p>Total</p>
                     <p>{formatPrice(String(calculateTotalPrice()))}</p>
                   </div>
