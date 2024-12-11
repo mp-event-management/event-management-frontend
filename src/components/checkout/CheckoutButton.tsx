@@ -2,7 +2,7 @@ import { Event } from "@/types/getEvents";
 import React, { FC, useState } from "react";
 import { Button } from "../ui/Button";
 import Link from "next/link";
-import { customerData, organizerData } from "@/constant/usersData";
+import { customerData } from "@/constant/usersData";
 import TransactionModal from "../modal/TransactionModal";
 
 type CheckoutButtonProps = {

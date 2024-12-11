@@ -4,7 +4,6 @@ import React from "react";
 import BackButton from "@/components/BackButton";
 import CheckoutButton from "@/components/checkout/CheckoutButton";
 import PromotionsLists from "@/components/promotions/PromotionsLists";
-import { Button } from "@/components/ui/Button";
 import { formatDateTime, formatPrice } from "@/lib/utils";
 import { CalendarCheck2, MapPinned, Ticket } from "lucide-react";
 import Image from "next/image";
@@ -48,7 +47,7 @@ const EventDetailPage = () => {
       <BackButton />
 
       {/* Event hero image */}
-      <div className="aspect-square w-full mb-10 h-[300px] md:h-[540px] relative overflow-hidden rounded-xl transition">
+      <div className="aspect-square w-full mb-8 h-[280px] md:h-[540px] relative overflow-hidden rounded-xl transition">
         <Image
           height={600}
           width={600}
@@ -136,7 +135,7 @@ const EventDetailPage = () => {
 
         {/* Purchase and payment side */}
         {/* Small screen */}
-        <div className="lg:hidden fixed bottom-0 left-0 right-0 z-10 bg-white border-t-[1px] w-full flex flex-col items-center gap-4 border-[1px] p-8 h-[160px] shadow">
+        <div className="lg:hidden fixed bottom-0 left-0 right-0 z-10 bg-white border-t-[1px] w-full flex flex-col items-center gap-4 border-[1px] py-8 px-6 h-[180px] shadow">
           <div className="flex justify-between items-center w-full text-[18px] font-extrabold">
             {data.ticketPrice === 0 ? (
               <p>FREE</p>
@@ -145,23 +144,29 @@ const EventDetailPage = () => {
             )}
             <p className="flex items-center gap-2 text-[16px] font-bold  bg-blue-50 px-6 py-2 rounded-lg text-slate-700">
               <Ticket />
-              {data.availableTicket} left
+              {data.availableTicket === 0
+                ? "Sold out"
+                : `${data.availableTicket} left`}
             </p>
           </div>
-          <Button color="primary">Get tickets</Button>
+
+          {/* Checkout button */}
+          <CheckoutButton event={data} />
         </div>
 
         {/* Large screen */}
-        <div className="hidden lg:flex flex-col items-center justify-between border-[1px] rounded-xl p-6 lg:min-w-[320px] min-h-[160px] max-h-[210px]">
+        <div className="hidden lg:flex flex-col items-center justify-between border-[1px] rounded-xl p-6 lg:min-w-[320px] min-h-[160px] max-h-[210px] sticky top-[110px] z-10">
           <div className="flex flex-col items-center gap-2 justify-between text-[24px] font-extrabold w-full">
             {data.ticketPrice === 0 ? (
               <p>FREE</p>
             ) : (
               <p>{formatPrice(String(data.ticketPrice))}</p>
             )}
-            <p className="flex items-center gap-2 text-[16px] font-bold  bg-blue-50 px-6 py-2 rounded-lg text-slate-700">
+            <p className="flex items-center gap-2 text-[16px] font-bold bg-blue-50 px-6 py-2 rounded-lg text-slate-700">
               <Ticket />
-              {data.availableTicket} Tickets left
+              {data.availableTicket === 0
+                ? "Sold out"
+                : `${data.availableTicket} left`}
             </p>
           </div>
 

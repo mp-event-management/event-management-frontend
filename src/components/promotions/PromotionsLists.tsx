@@ -16,7 +16,7 @@ const PromotionsLists: FC<PromotionsProps> = ({ promotions }) => {
   };
 
   return (
-    <div className="flex flex-col items-start gap-4 w-full bg-[#F8F7FA] px-10 py-8 rounded-2xl mb-8">
+    <div className="flex flex-col items-start gap-4 w-full bg-[#F8F7FA] px-6 lg:px-10 py-8 rounded-2xl mb-8">
       <h3 className="text-[24px] font-extrabold">Promo code</h3>
       {promotions.length <= 0 && <p>No promo code available.</p>}
       {promotions.map((promo) => (

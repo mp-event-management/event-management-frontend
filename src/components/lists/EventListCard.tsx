@@ -60,13 +60,13 @@ const EventListCard: FC<EventListCardProps> = ({
           <div className="flex flex-row items-center gap-3 font-semibol">
             <span className="flex items-center gap-2 bg-green-100 text-[14px] px-4 py-2 rounded-full font-extrabold text-green-700">
               {data.ticketPrice === 0 ? (
-                <p>FREE</p>
+                <p className="line-clamp-1">FREE</p>
               ) : (
-                <p>IDR {data.ticketPrice}</p>
+                <p className="line-clamp-1">IDR {data.ticketPrice}</p>
               )}
             </span>
             <span className="flex items-center gap-2 bg-slate-100 text-[14px] px-4 py-2 rounded-full font-extrabold text-neutral-500">
-              {data.category.name}
+              <p className="line-clamp-1">{data.category.name}</p>
             </span>
           </div>
           <div className="flex flex-col gap-1 mt-2">
@@ -78,7 +78,13 @@ const EventListCard: FC<EventListCardProps> = ({
             </p>
             <div className="flex flex-row items-center gap-2 font-bold text-[14px] lg:text-[16px] mt-2">
               <TicketIcon size={18} />
-              <p>{data.availableTicket} tickets left</p>
+              <span>
+                {data.availableTicket <= 0 ? (
+                  <p className="text-rose-600">Sold out</p>
+                ) : (
+                  `${data.availableTicket} tickets left`
+                )}
+              </span>
             </div>
             <span className="flex flex-row items-center gap-2 font-bold mt-4 text-rose-500">
               By {data.userOrganizer.name}

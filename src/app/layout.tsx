@@ -40,7 +40,7 @@ export default function RootLayout({
         <html lang="en">
           <body className={`${nunito.className}`}>
             <main>{children}</main>
-            <Toaster />
+            <Toaster/>
           </body>
         </html>
       </QueryClientProvider>

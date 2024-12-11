@@ -100,9 +100,9 @@ const TransactionModal: FC<TransactionModalProps> = ({
           </p>
         </Modal.Header>
 
-        <Modal.Body className="p-0 lg:min-h-[500px]">
-          <div className="flex w-full min-h-[500px] justify-between gap-4">
-            <div className="p-8 grid grid-cols-2 gap-8 w-full">
+        <Modal.Body className="">
+          <div className="flex w-full min-h-[530px] justify-between gap-4">
+            <div className="px-8 py-2 grid grid-cols-2 gap-8 w-full">
               <div>
                 <p className="text-xl font-bold mb-6">Available Event promo</p>
                 {event.promotions && event.promotions.length > 0 ? (
@@ -113,7 +113,7 @@ const TransactionModal: FC<TransactionModalProps> = ({
                       className={cn(
                         "mb-6 border-[1px] p-4 rounded-lg border-neutral-300 cursor-pointer transition-all",
                         selectedPromo === promo.promotionId
-                          ? "border-neutral-800 bg-gray-50"
+                          ? "border-green-700 bg-green-50"
                           : "border-neutral-300 hover:border-neutral-800"
                       )}
                     >
@@ -145,19 +145,22 @@ const TransactionModal: FC<TransactionModalProps> = ({
 
               {/* Select payment method section */}
               <div className="">
-                <p className="text-xl font-bold mb-6">Choose Payment Method</p>
+                <p className="text-xl font-bold mb-6">Payment Method</p>
                 <div
                   onClick={() => togglePaymentMethod("referralPoints")}
                   className={cn(
                     "mb-6 border-[1px] p-4 rounded-lg border-neutral-300 cursor-pointer transition-all",
                     useReferralPoints
-                      ? "border-neutral-800 bg-gray-50"
+                      ? "border-green-700 bg-green-50"
                       : "border-neutral-300 hover:border-neutral-800"
                   )}
                 >
-                  <p className="text-[16px] font-bold">Referral Points</p>
+                  <p className="text-[16px] font-extrabold text-gray-700 mb-1">
+                    Referral Points
+                  </p>
                   <p className="text-sm text-gray-500">
-                    Use your referral points .
+                    Use your available points from registered using your
+                    referral code.
                   </p>
                 </div>
                 <div
@@ -165,13 +168,15 @@ const TransactionModal: FC<TransactionModalProps> = ({
                   className={cn(
                     "mb-6 border-[1px] p-4 rounded-lg border-neutral-300 cursor-pointer transition-all",
                     useTransfer
-                      ? "border-neutral-800 bg-gray-50"
+                      ? "border-green-700 bg-green-50"
                       : "border-neutral-300 hover:border-neutral-800"
                   )}
                 >
-                  <p className="text-[16px] font-bold">Transfer</p>
+                  <p className="text-[16px] font-extrabold text-gray-700 mb-1">
+                    Transfer
+                  </p>
                   <p className="text-sm text-gray-500">
-                    Pay directly via transfer.
+                    Pay directly via you desired bank transfer.
                   </p>
                 </div>
               </div>
@@ -228,7 +233,7 @@ const TransactionModal: FC<TransactionModalProps> = ({
 
                   <div className="flex flex-col mt-4 text-green-600">
                     <div className="flex justify-between">
-                      <p>Discount Percentage</p>
+                      <p>Discount %</p>
                       <p>
                         {selectedPromo !== null
                           ? `${
@@ -260,7 +265,7 @@ const TransactionModal: FC<TransactionModalProps> = ({
 
                   <Separator className="my-2" />
 
-                  <div className="flex justify-between font-bold mt-4 transition-all duration-200">
+                  <div className="flex justify-between font-bold mt-4 transition-all duration-200 pb-4">
                     <p>Total</p>
                     <p>{formatPrice(String(calculateTotalPrice()))}</p>
                   </div>
