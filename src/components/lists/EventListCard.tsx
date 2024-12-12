@@ -12,14 +12,14 @@ import DeleteConfirmation from "../deleteEvent/DeleteConfirmation";
 
 interface EventListCardProps {
   data: Event;
-  organizerId: string | undefined;
+  organizerId?: string | undefined;
   role: string | undefined;
   isShown: boolean;
 }
 
 const EventListCard: FC<EventListCardProps> = ({
   data,
-  organizerId,
+  // organizerId,
   role,
   isShown,
 }) => {
@@ -46,9 +46,11 @@ const EventListCard: FC<EventListCardProps> = ({
           </div>
 
           <div>
-            <Button variant="green" size="sm">
-              <Star />
-              See Reviews
+            <Button variant="green" size="sm" asChild>
+              <Link href={`/events/${data.eventId}/reviews`}>
+                <Star />
+                See Reviews
+              </Link>
             </Button>
           </div>
         </div>

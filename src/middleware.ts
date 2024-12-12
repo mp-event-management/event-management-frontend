@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "./auth";
 
-// TODO : need to define later, the right paths
 const PUBLIC_PATHS = ["/login", "/register"];
 const PROTECTED_PATHS = [
   "/dashboard",
@@ -10,6 +9,7 @@ const PROTECTED_PATHS = [
   "/my-tickets",
   "/my-tickets/*",
   "/events/*/update",
+  "/events/*/reviews",
   "/profile",
 ];
 const ROLE_PATHS = {
@@ -19,6 +19,7 @@ const ROLE_PATHS = {
     "/events/manage",
     "/events/create",
     "/events/*/update",
+    "/events/*/reviews",
     "/profile",
   ],
 

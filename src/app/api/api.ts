@@ -72,6 +72,36 @@ export const getAllTicketsByCustomer = async (
   return data;
 };
 
+export const getAllEventReviews = async (
+  eventId: number | string,
+  accessToken: string | undefined
+) => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_DEVELEOPMENT_URL}/api/v1/reviews/event/${eventId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        cache: "no-store",
+      }
+    );
+
+    // Handle HTTP errors
+    if (!response.ok) {
+      const errorMessage = `Failed to fetch event reviews. HTTP ${response.status}: ${response.statusText}`;
+      throw new Error(errorMessage);
+    }
+
+    const data = await response.json();
+    return data.data;
+  } catch (error) {
+    throw new Error(`Failed to fetch event reviews. ${error}`);
+  }
+};
+
 export const getAllEvents = async (
   page: number = 0,
   size: number = 10,

@@ -66,10 +66,10 @@ const LoginPage: FC = () => {
 
   return (
     <div className="h-screen flex flex-col justify-center mx-auto">
-      <div className="w-auto h-[40px] mb-4">
-        <Logo />
-      </div>
-      <div className="w-[300px] h-fit flex flex-col gap-4 mx-auto">
+      <div className="lg:min-w-[300px] max-w-auto h-fit flex flex-col gap-4 mx-auto">
+        <div className="w-auto h-[40px] mb-4">
+          <Logo />
+        </div>
         <h1 className="text-2xl font-bold mt-6 mb-4">Login account</h1>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">

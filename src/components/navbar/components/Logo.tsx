@@ -6,12 +6,11 @@ import { FC } from "react";
 
 const Logo: FC = () => {
   return (
-    <Link href="/">
+    <Link href="/" rel="preload">
       <Image
         alt="logo"
         height="50"
         width="200"
-        priority
         src="/images/eventbro-logo.svg"
         className="hidden md:block cursor-pointer w-full h-full"
       />
