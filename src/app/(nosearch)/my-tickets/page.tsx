@@ -47,7 +47,7 @@ const MyTicketsPage: FC = () => {
   return (
     <section className="min-h-[calc(100vh-200px)]">
       <Container>
-        <div className="flex lg:w-[80%] lg:mx-auto items-center justify-between lg:mt-8 mt-4">
+        <div className="flex lg:w-[70%] lg:mx-auto items-center justify-between lg:mt-8 mt-4">
           <h1 className="text-3xl lg:text-4xl font-extrabold">
             My ticket lists
           </h1>
@@ -66,8 +66,7 @@ const MyTicketsPage: FC = () => {
           />
         ) : (
           <>
-            <p>{data[0]}</p>
-            <div className="lg:pt-20 pt-8 lg:w-[80%] lg:mx-auto flex flex-col gap-12">
+            <div className="lg:pt-20 pt-8 lg:w-[70%] lg:mx-auto flex flex-col gap-12">
               {tickets?.map((ticket: Ticket) => {
                 return (
                   <TicketListCard

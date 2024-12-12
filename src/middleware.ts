@@ -11,6 +11,7 @@ const PROTECTED_PATHS = [
   "/events/*/update",
   "/events/*/reviews",
   "/profile",
+  "/ticket/invoice/*",
 ];
 const ROLE_PATHS = {
   // Organizer access
@@ -24,7 +25,12 @@ const ROLE_PATHS = {
   ],
 
   // Customer access
-  ROLE_CUSTOMER: ["/my-tickets", "/my-tickets/*", "/profile"],
+  ROLE_CUSTOMER: [
+    "/my-tickets",
+    "/my-tickets/*",
+    "/profile",
+    "/ticket/invoice/*",
+  ],
 };
 
 async function getSession() {
