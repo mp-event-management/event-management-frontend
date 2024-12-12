@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 
 const schema = z.object({
   email: z.string().email("Invalid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
+  password: z.string().min(4, "Password must be at least 4 characters"),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -63,52 +63,47 @@ const LoginPage: FC = () => {
   };
 
   return (
-    <div className="h-[calc(100vh-180px)] flex flex-col items-center justify-center mx-auto w-7xl">
-      <div className="h-screen flex items-center justify-center">
-        <div className="w-fit h-fit flex flex-col gap-4">
-          <h1 className="text-2xl font-bold">Login</h1>
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col gap-4"
+    <div className="h-screen flex items-center justify-center">
+      <div className="w-fit h-fit flex flex-col gap-4">
+        <h1 className="text-2xl font-bold">Login</h1>
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
+            <label htmlFor="email" className="font-medium">
+              Email
+            </label>
+            <input
+              id="email"
+              type="email"
+              {...register("email")}
+              className="border border-gray-300 p-2 rounded text-black"
+            />
+            {errors.email && (
+              <span className="text-red-500">{errors.email.message}</span>
+            )}
+          </div>
+          <div className="flex flex-col gap-2">
+            <label htmlFor="password" className="font-medium">
+              Password
+            </label>
+            <input
+              id="password"
+              type="password"
+              {...register("password")}
+              className="border border-gray-300 p-2 rounded text-black"
+            />
+            {errors.password && (
+              <span className="text-red-500">{errors.password.message}</span>
+            )}
+          </div>
+          <button
+            disabled={isLoading}
+            type="submit"
+            className="bg-blue-500 text-white p-2 rounded"
           >
-            <div className="flex flex-col gap-2">
-              <label htmlFor="email" className="font-medium">
-                Email
-              </label>
-              <input
-                id="email"
-                type="email"
-                {...register("email")}
-                className="border border-gray-300 p-2 rounded text-black"
-              />
-              {errors.email && (
-                <span className="text-red-500">{errors.email.message}</span>
-              )}
-            </div>
-            <div className="flex flex-col gap-2">
-              <label htmlFor="password" className="font-medium">
-                Password
-              </label>
-              <input
-                id="password"
-                type="password"
-                {...register("password")}
-                className="border border-gray-300 p-2 rounded text-black"
-              />
-              {errors.password && (
-                <span className="text-red-500">{errors.password.message}</span>
-              )}
-            </div>
-            <button
-              disabled={isLoading}
-              type="submit"
-              className="bg-blue-500 text-white p-2 rounded"
-            >
-              {isLoading ? "Loading..." : "Login"}
-            </button>
-            {error && <span className="text-red-500">{error}</span>}
-          </form>
-        </div>
+            {isLoading ? "Loading..." : "Login"}
+          </button>
+          {error && <span className="text-red-500">{error}</span>}
+        </form>
       </div>
     </div>
   );

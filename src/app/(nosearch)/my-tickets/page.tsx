@@ -5,14 +5,15 @@ import Container from "@/components/Container";
 import EmptyState from "@/components/EmptyState";
 import TicketListCard from "@/components/lists/TicketListCard";
 import { Button } from "@/components/ui/Button";
-import { customerData } from "@/constant/usersData";
 import { Ticket } from "@/types/tickets";
 import { useQuery } from "@tanstack/react-query";
+import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import { FC, useEffect, useState } from "react";
 
 const MyTicketsPage: FC = () => {
-  const customer = customerData;
+  const { data: session } = useSession();
+  const customerId = session?.user.id;
 
   const [tickets, setTickets] = useState<Ticket[]>([]);
   const [currentPage, setCurrentpage] = useState(0);
@@ -26,7 +27,11 @@ const MyTicketsPage: FC = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["tickets", currentPage, dataPerPage, query],
     queryFn: async () =>
-      await getAllTicketsByCustomer(customer.id, currentPage, dataPerPage),
+      await getAllTicketsByCustomer(
+        Number(customerId),
+        currentPage,
+        dataPerPage
+      ),
   });
 
   console.log(data);
@@ -73,7 +78,7 @@ const MyTicketsPage: FC = () => {
               {tickets?.map((ticket: Ticket) => {
                 return (
                   <TicketListCard
-                    customer={customer}
+                    customer={Number(customerId)}
                     key={ticket.id}
                     data={ticket}
                   />

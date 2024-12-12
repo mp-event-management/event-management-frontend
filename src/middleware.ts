@@ -2,13 +2,28 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "./auth";
 
 // TODO : need to define later, the right paths
-const PUBLIC_PATHS = ["/", "*"];
-const PROTECTED_PATHS = [""];
+const PUBLIC_PATHS = ["/login", "/register"];
+const PROTECTED_PATHS = [
+  "/dashboard",
+  "/events/manage",
+  "/events/create",
+  "/my-tickets",
+  "/my-tickets/*",
+  "/events/*/update",
+  "/profile",
+];
 const ROLE_PATHS = {
-  ORGANIZER: ["/", "/events/manage", "/events/create"],
+  // Organizer access
+  ROLE_ORGANIZER: [
+    "/dashboard",
+    "/events/manage",
+    "/events/create",
+    "/events/*/update",
+    "/profile",
+  ],
 
-  // Customer can access all excepts organizer menu
-  CUSTOMER: ["/", "*"],
+  // Customer access
+  ROLE_CUSTOMER: ["/my-tickets", "/my-tickets/*", "/profile"],
 };
 
 async function getSession() {

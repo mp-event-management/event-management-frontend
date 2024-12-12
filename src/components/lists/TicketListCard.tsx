@@ -1,6 +1,5 @@
 "use client";
 
-import { UserCustomer } from "@/types/getEvents";
 import Link from "next/link";
 import React, { FC, useState } from "react";
 import { Button } from "../ui/Button";
@@ -15,7 +14,7 @@ import RatingModal from "../modal/RatingModal";
 
 interface TicketListCardProps {
   data: Ticket;
-  customer: UserCustomer;
+  customer: number | undefined;
 }
 
 const TicketListCard: FC<TicketListCardProps> = ({ data, customer }) => {
@@ -62,7 +61,7 @@ const TicketListCard: FC<TicketListCardProps> = ({ data, customer }) => {
                 {formatPrice(String(data.price))}
               </p>
               <p className="font-normal text-gray-500 text-[16px]">
-               Issue at : {formatDateTime(data.issuedate).formattedDateTime}
+                Issue at : {formatDateTime(data.issuedate).formattedDateTime}
               </p>
             </div>
           </div>
@@ -71,7 +70,7 @@ const TicketListCard: FC<TicketListCardProps> = ({ data, customer }) => {
             isOpen={isModalOpen}
             onClose={handleCloseModal}
             eventId={data.eventId}
-            customerId={customer.id}
+            customerId={customer}
           />
 
           <div className="flex gap-4 w-full justify-between lg:justify-start overflow-auto">

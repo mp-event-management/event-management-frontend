@@ -1,9 +1,10 @@
+import Container from "@/components/Container";
 import { FC } from "react";
 
 const RegisterPage: FC = () => {
   return (
-    <div className="h-[calc(100vh-180px)] flex flex-col items-center justify-center mx-auto w-7xl">
-      <h1>sign up</h1>
+    <div className="h-[calc(100vh-180px)]">
+      <Container>This is register page</Container>
     </div>
   );
 };

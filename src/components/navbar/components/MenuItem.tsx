@@ -10,7 +10,7 @@ const MenuItem: FC<MenuItemProps> = ({ onClick, label }) => {
   return (
     <div
       onClick={onClick}
-      className="px-6 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer"
+      className="px-8 py-4 hover:bg-neutral-100 transition font-semibold cursor-pointer"
     >
       {label}
     </div>

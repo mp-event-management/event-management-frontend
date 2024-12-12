@@ -1,9 +1,9 @@
 import { CreateReview } from "@/types/createReview";
 import { Transaction } from "@/types/createTransaction";
-import { Event } from "@/types/getEvents";
+import { Event } from "@/types/createEvent";
 
 export const getEventsByOrganizeraId = async (
-  organizerId: number,
+  organizerId: string | undefined,
   page: number = 0,
   size: number = 5,
   searchQuerry?: string
@@ -38,7 +38,7 @@ export const getEventsByOrganizeraId = async (
 };
 
 export const getAllTicketsByCustomer = async (
-  customerId: number,
+  customerId: number | undefined,
   page: number = 0,
   size: number = 5,
   searchQuerry?: string
@@ -191,7 +191,10 @@ export const getTransactionDetail = async (
   }
 };
 
-export const createNewEvent = async (event: Event) => {
+export const createNewEvent = async (
+  event: Event,
+  accessToken: string | undefined
+) => {
   const apiUrl = `${process.env.NEXT_PUBLIC_DEVELEOPMENT_URL}/api/v1/events`;
 
   try {
@@ -199,6 +202,7 @@ export const createNewEvent = async (event: Event) => {
       method: "POST",
       headers: {
         "Content-type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify(event),
     });
@@ -214,7 +218,10 @@ export const createNewEvent = async (event: Event) => {
   }
 };
 
-export const createReview = async (request: CreateReview) => {
+export const createReview = async (
+  request: CreateReview,
+  accessToken: string | undefined
+) => {
   const apiUrl = `${process.env.NEXT_PUBLIC_DEVELEOPMENT_URL}/api/v1/reviews`;
 
   try {
@@ -222,6 +229,7 @@ export const createReview = async (request: CreateReview) => {
       method: "POST",
       headers: {
         "Content-type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify(request),
     });
@@ -237,7 +245,10 @@ export const createReview = async (request: CreateReview) => {
   }
 };
 
-export const createTransaction = async (request: Transaction) => {
+export const createTransaction = async (
+  request: Transaction,
+  accessToken: string | undefined
+) => {
   const apiUrl = `${process.env.NEXT_PUBLIC_DEVELEOPMENT_URL}/api/v1/transactions`;
 
   try {
@@ -245,6 +256,7 @@ export const createTransaction = async (request: Transaction) => {
       method: "POST",
       headers: {
         "Content-type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify(request),
     });

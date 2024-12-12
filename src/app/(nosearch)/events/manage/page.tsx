@@ -8,46 +8,33 @@ import { Button } from "@/components/ui/Button";
 import { Event } from "@/types/getEvents";
 import { useQuery } from "@tanstack/react-query";
 import { PlusIcon } from "lucide-react";
-// import { useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import React, { FC, useEffect, useState } from "react";
-
-// TODO : this data still hardcoded, need to get from session
-const organizer = {
-  userId: 1,
-  role: {
-    roleId: 2,
-    name: "ORGANIZER",
-  },
-  name: "John Doe",
-  email: "johndoe@example.com",
-  profilepictureUrl: "",
-};
 
 const ManageEvents: FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [currentPage, setCurrentpage] = useState(0);
   const [totalPage, setTotalPages] = useState(0);
   const searchParams = useSearchParams();
-  // const { data } = useSession();
+  const { data: session } = useSession();
 
   // Set default data per page
   const dataPerPage = 5;
   const params = searchParams.get("search")?.toString();
+  const organizerId = session?.user.id;
 
   const { data, isLoading } = useQuery({
     queryFn: async () =>
       await getEventsByOrganizeraId(
-        organizer.userId,
+        organizerId,
         currentPage,
         dataPerPage,
         params
       ),
-    queryKey: ["events", organizer.userId, currentPage, dataPerPage, params],
+    queryKey: ["events", organizerId, currentPage, dataPerPage, params],
   });
-
-  // const {mutateAsync: }
 
   useEffect(() => {
     setEvents(data?.data.events);
@@ -96,7 +83,8 @@ const ManageEvents: FC = () => {
                 return (
                   <EventListCard
                     isShown={true}
-                    organizer={organizer}
+                    organizerId={session?.user.id}
+                    role={session?.user.roles[0]}
                     key={event.eventId}
                     data={event}
                   />

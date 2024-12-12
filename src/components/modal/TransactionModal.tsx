@@ -7,9 +7,9 @@ import { Event } from "@/types/getEvents";
 import { cn, formatDateTime, formatPrice } from "@/lib/utils";
 import Image from "next/image";
 import { Separator } from "../ui/separator";
-import { customerData } from "@/constant/usersData";
 import { createTransaction } from "@/app/api/api";
 import { useToast } from "@/hooks/use-toast";
+import { useSession } from "next-auth/react";
 
 type TransactionModalProps = {
   isOpen: boolean;
@@ -17,7 +17,7 @@ type TransactionModalProps = {
   event: Event;
 };
 
-const customerUser = customerData;
+// const customerUser = customerData;
 
 const TransactionModal: FC<TransactionModalProps> = ({
   isOpen,
@@ -29,6 +29,7 @@ const TransactionModal: FC<TransactionModalProps> = ({
   const [useTransfer, setUseTransfer] = useState(false);
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
+  const { data: session } = useSession();
 
   const resetSelections = () => {
     setSelectedPromo(null);
@@ -61,9 +62,9 @@ const TransactionModal: FC<TransactionModalProps> = ({
   };
 
   const requestData = {
-    customerId: Number(customerUser.id),
+    // customerId: Number(customerUser.id),
     eventId: event.eventId,
-    ticketQuantity: event.availableTicket <= 1 ? 1 : 0,
+    ticketQuantity: 1,
     promoCode:
       selectedPromo !== null
         ? event.promotions.find((p) => p.promotionId === selectedPromo)
@@ -72,14 +73,19 @@ const TransactionModal: FC<TransactionModalProps> = ({
     isUsePoints: useReferralPoints,
   };
 
-  console.log("update request data : ", requestData);
+  console.log(session?.accessToken);
+
+  // console.log("update request data : ", requestData);
   const handleSubmit = async () => {
     setLoading(true);
     let toastMessage = "";
 
     try {
-      console.log("sent request data : ", requestData);
-      const response = await createTransaction(requestData);
+      // console.log("sent request data : ", requestData);
+      const response = await createTransaction(
+        requestData,
+        session?.accessToken
+      );
 
       toastMessage = response.message;
     } catch (error) {

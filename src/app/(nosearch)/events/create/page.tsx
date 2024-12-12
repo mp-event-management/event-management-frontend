@@ -1,16 +1,14 @@
+"use client";
+
 import EventForm from "@/components/form/EventForm";
+import { useSession } from "next-auth/react";
 import { FC } from "react";
 
 const CreateEventPage: FC = () => {
-  // TODO: this still harcoded, need to get from session login
-  const userOrganizer = {
-    id: 1,
-    role: 2,
-    name: "John Doe",
-    email: "johndoe@example.com",
-    password: "johndoehash",
-  };
+  const { data: session } = useSession();
+  const organizerId = session?.user.id;
 
+  console.log(session?.accessToken);
   return (
     <>
       <section className="w-full min-h-[calc(100vh-95px)] lg:max-w-xl lg:mx-auto lg:my-16 mt-6">
@@ -22,7 +20,11 @@ const CreateEventPage: FC = () => {
           className="flex flex-col my-12 px-6
         "
         >
-          <EventForm type="Create" organizerId={userOrganizer.id} />
+          <EventForm
+            type="Create"
+            organizerId={Number(organizerId)}
+            accessToken={session?.accessToken}
+          />
         </div>
       </section>
     </>

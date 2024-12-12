@@ -5,11 +5,12 @@ import { FaStar } from "react-icons/fa";
 import { Button } from "../ui/Button";
 import { createReview } from "@/app/api/api";
 import { Separator } from "../ui/separator";
+import { useSession } from "next-auth/react";
 
 type RatingModalProps = {
   isOpen: boolean;
   eventId: number;
-  customerId: number;
+  // customerId: number | undefined;
   onClose: () => void;
 };
 
@@ -17,17 +18,18 @@ const RatingModal: FC<RatingModalProps> = ({
   isOpen,
   onClose,
   eventId,
-  customerId,
+  // customerId,
 }) => {
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
   const [review, setReview] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const { data: session } = useSession();
 
   const requestData = {
     eventId: eventId,
-    customerId: customerId,
+    // customerId: customerId,
     rating: Number(rating),
     reviewText: review,
   };
@@ -35,7 +37,7 @@ const RatingModal: FC<RatingModalProps> = ({
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      const response = await createReview(requestData);
+      const response = await createReview(requestData, session?.accessToken);
 
       setMessage(response.message);
       setRating(0);

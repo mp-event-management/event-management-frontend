@@ -3,17 +3,18 @@
 import { FC, useCallback, useEffect, useRef, useState } from "react";
 import Avatar from "../../Avatar";
 import MenuItem from "./MenuItem";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { MenuIcon } from "lucide-react";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { Separator } from "../../ui/separator";
-import { customerData, organizerData } from "@/constant/usersData";
 import Image from "next/image";
 
 const UserMenu: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+
+  const { data: session } = useSession();
 
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
@@ -32,19 +33,12 @@ const UserMenu: FC = () => {
     };
   }, [handleClose]);
 
-  // TODO : these are all still harcoded, need to get from session login
-  const userOrganizer = organizerData;
-  const userCustomer = customerData;
-
-  const currentUser = userOrganizer;
-  const isOrganizer = currentUser.role === 2;
-
   const renderMenuItems = () => {
-    if (!currentUser) {
+    if (!session) {
       return (
         <>
-          <MenuItem onClick={() => {}} label="Login" />
-          <MenuItem onClick={() => {}} label="Register" />
+          <MenuItem onClick={() => redirect("/login")} label="Login" />
+          <MenuItem onClick={() => redirect("/register")} label="Register" />
         </>
       );
     }
@@ -60,14 +54,18 @@ const UserMenu: FC = () => {
             className="rounded-full"
           />
           <div className="flex flex-col gap-2 items-start">
-            <p className="text-lg font-bold">{currentUser.name}</p>
-            <p className="text-sm">{isOrganizer ? "ORGANIZER" : "CUSTOMER"}</p>
+            <p className="text-lg font-bold">{session?.user.name}</p>
+            <p className="text-sm">
+              {session?.user.roles.includes("ROLE_ORGANIZER")
+                ? "ORGANIZER"
+                : "CUSTOMER"}
+            </p>
           </div>
         </div>
 
         <Separator />
 
-        {isOrganizer ? (
+        {session && session?.user.roles.includes("ROLE_ORGANIZER") ? (
           <>
             <MenuItem onClick={() => redirect("/profile")} label="Profile" />
             <MenuItem
@@ -78,10 +76,7 @@ const UserMenu: FC = () => {
               onClick={() => redirect("/dashboard")}
               label="Dashboard"
             />
-            <MenuItem
-              onClick={() => redirect("/my-tickets")}
-              label="My Tickets"
-            />
+
             <Separator />
             <MenuItem onClick={() => signOut()} label="Logout" />
           </>
@@ -92,14 +87,6 @@ const UserMenu: FC = () => {
                 redirect("/profile");
               }}
               label="Profile"
-            />
-            <MenuItem
-              onClick={() => redirect("/events/manage")}
-              label="Manage My Events"
-            />
-            <MenuItem
-              onClick={() => redirect("/dashboard")}
-              label="Dashboard"
             />
             <MenuItem
               onClick={() => redirect("/my-tickets")}
@@ -116,7 +103,7 @@ const UserMenu: FC = () => {
   return (
     <div className="relative" ref={menuRef}>
       <div className="flex flex-row items-center gap-3">
-        {isOrganizer && (
+        {session?.user.roles.includes("ROLE_ORGANIZER") && (
           <Link
             href="/events/create"
             className="hidden md:block text-md font-bold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"

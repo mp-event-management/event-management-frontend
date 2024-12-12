@@ -27,23 +27,25 @@ import { cities } from "@/constant/cities";
 import { availableCategories } from "@/constant/categories";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { createNewEvent } from "@/app/actions/createNewEvent.actions";
 import { IoPricetagOutline } from "react-icons/io5";
 import { Event } from "@/types/getEvents";
 import { updateEvent } from "@/app/actions/updateEvent";
 import { useToast } from "@/hooks/use-toast";
+import { createNewEvent } from "@/app/api/api";
 
 type EventFormProps = {
   type: "Create" | "Update";
-  organizerId?: number;
   event?: Event;
+  organizerId: number | undefined;
+  accessToken?: string | undefined;
   eventId?: number;
 };
 
 const EventForm: FC<EventFormProps> = ({
   type,
-  organizerId,
   event,
+  organizerId,
+  accessToken,
   eventId,
 }) => {
   const router = useRouter();
@@ -84,17 +86,18 @@ const EventForm: FC<EventFormProps> = ({
 
     if (type === "Create") {
       try {
-        const newEvent = await createNewEvent({
-          event: {
-            userOrganizerId,
+        const newEvent = await createNewEvent(
+          {
             ...values,
-            availableTicket,
+            userOrganizerId,
             categoryId,
-            cityId,
             ticketPrice,
             totalTicket,
+            availableTicket,
+            cityId,
           },
-        });
+          accessToken
+        );
 
         toast({ title: newEvent.message });
 

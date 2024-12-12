@@ -9,8 +9,9 @@ const Logo: FC = () => {
     <Link href="/">
       <Image
         alt="logo"
-        height="36"
-        width="36"
+        height="50"
+        width="200"
+        priority
         src="/images/eventbro-logo.svg"
         className="hidden md:block cursor-pointer w-full h-full"
       />

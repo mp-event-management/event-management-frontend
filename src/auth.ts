@@ -17,7 +17,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     strategy: "jwt",
     maxAge: 60 * 60 * 1,
   },
-
+  
   secret: process.env.AUTH_SECRET,
   debug: process.env.NODE_ENV === "development",
   providers: [
@@ -60,7 +60,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const decodedToken = jwtDecode<TokenClaims>(data.accessToken);
 
         // Extract claims from the decoded token
-        const { sub, scope, userId } = decodedToken;
+        const { sub, scope, userId, name, profilePictureUrl } = decodedToken;
 
         const parsedResponse: User = {
           email: sub,
@@ -76,6 +76,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           },
           roles: scope.split(" "),
           userId: parseInt(userId),
+          name: name,
+          profilePictureUrl: profilePictureUrl,
         };
         return parsedResponse ?? null;
       },
@@ -89,6 +91,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         ...session.user,
         roles: token.roles,
         id: token.accessToken.claims.userId,
+        email: token.accessToken.claims.sub ?? "",
+        name: token.accessToken.claims.name,
+        profilePictureUrl: token.accessToken.claims.profilePictureUrl,
       };
       return session;
     },

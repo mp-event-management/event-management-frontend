@@ -3,8 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { formatDateTime } from "@/lib/utils";
-import { Event, UserOrganizer } from "@/types/getEvents";
-import { Edit, TicketIcon } from "lucide-react";
+import { Event } from "@/types/getEvents";
+import { Edit, Star, TicketIcon } from "lucide-react";
 import { FC } from "react";
 import { Button } from "../ui/Button";
 import { MdDiscount } from "react-icons/md";
@@ -12,22 +12,23 @@ import DeleteConfirmation from "../deleteEvent/DeleteConfirmation";
 
 interface EventListCardProps {
   data: Event;
-  organizer: UserOrganizer;
+  organizerId: string | undefined;
+  role: string | undefined;
   isShown: boolean;
 }
 
 const EventListCard: FC<EventListCardProps> = ({
-  organizer,
   data,
+  organizerId,
+  role,
   isShown,
 }) => {
   return (
     <div className="col-span-1">
       {/* SHOW if only logged in as an ORGANIZER and the event is created by the exact organizer */}
-      {isShown &&
-        organizer.role.name === "ORGANIZER" &&
-        organizer.userId === data.userOrganizer.userId && (
-          <div className="flex items-center justify-end gap-2 pb-4 w-full">
+      {isShown && role?.includes("ROLE_ORGANIZER") && (
+        <div className="flex flex-col items-end gap-2 pb-4 w-full">
+          <div className="flex gap-2">
             <DeleteConfirmation eventId={data.eventId} />
 
             <div>
@@ -43,7 +44,15 @@ const EventListCard: FC<EventListCardProps> = ({
               </Link>
             </Button>
           </div>
-        )}
+
+          <div>
+            <Button variant="green" size="sm">
+              <Star />
+              See Reviews
+            </Button>
+          </div>
+        </div>
+      )}
 
       <Link href={`/events/${data.eventId}`}>
         <div className="flex flex-col gap-2 w-full cursor-pointer group">
