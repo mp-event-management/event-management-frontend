@@ -47,7 +47,7 @@ const TicketDetailsPage = () => {
 
   return (
     <Container>
-      <section className="h-[calc(100vh-180px)] flex flex-col md:w-[40%] lg:w-[30%] mx-auto items-center justify-center p-6 lg:p-12 bg-slate-50 rounded-xl">
+      <section className="h-screen flex flex-col md:w-[40%] lg:w-[30%] mx-auto items-center justify-center p-6 lg:p-12 bg-slate-50 rounded-xl">
         <div className="mb-10">
           <Logo />
         </div>

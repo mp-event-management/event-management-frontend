@@ -31,12 +31,12 @@ const ProfilePage: FC = () => {
               src={
                 profileImageUrl
                   ? profileImageUrl
-                  : "https://placehold.co/260x260"
+                  : "https://placehold.co/200x200"
               }
               alt="Profile Image"
-              height={230}
-              width={230}
-              className="object-cover h-full w-full rounded-full"
+              height={200}
+              width={200}
+              className="object-cover h-full w-full rounded-full border-[10px] border-green-200"
             />
           </div>
           <div className="flex flex-col gap-3 items-center">

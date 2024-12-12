@@ -65,7 +65,7 @@ const LoginPage: FC = () => {
   };
 
   return (
-    <div className="h-screen flex flex-col justify-center mx-auto">
+    <div className="h-screen flex flex-col justify-center mx-auto w-full">
       <div className="lg:min-w-[300px] max-w-auto h-fit flex flex-col gap-4 mx-auto">
         <div className="w-auto h-[40px] mb-4">
           <Logo />

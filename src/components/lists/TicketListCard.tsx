@@ -82,7 +82,7 @@ const TicketListCard: FC<TicketListCardProps> = ({ data, customer }) => {
             </Button>
 
             <Button variant="outline" asChild>
-              <Link href={`/my-tickets/${data.transactionId}`} target="_blank">
+              <Link href={`/ticket/invoice/${data.transactionId}`} target="_blank">
                 See invoice
                 <TbInvoice />
               </Link>
