@@ -4,6 +4,6 @@ export type PromoData = {
   promotionCode: string;
   discountPercentage: number;
   availableUses?: number;
-  startDate: Date;
-  endDate: Date;
+  startDate: string | Date;
+  endDate: string | Date;
 }

@@ -32,19 +32,29 @@ export const eventFormSchema = z.object({
     .max(800, "Address must be less than 255 characters"),
 });
 
-export const promoFormSchema = z.object({
-  promotionType: z.string().min(1, "Select promotion type"),
-  promotionCode: z
-    .string()
-    .min(6, "Promotion code must be at least 6 characters")
-    .max(20, "Promotion code must be less than 20 characters"),
-  discountPercentage: z
-    .number()
-    .min(1, { message: "Discount percentage must be at least 1" })
-    .max(100, { message: "Discount percentage must not exceed 100" }),
-  availableUses: z
-    .number()
-    .optional(),
-  startDate: z.date(),
-  endDate: z.date(),
-});
+export const promoFormSchema = z
+  .object({
+    promotionType: z.string().min(1, "Select promotion type"),
+    promotionCode: z
+      .string()
+      .min(6, "Promotion code must be at least 6 characters")
+      .max(20, "Promotion code must be less than 20 characters"),
+    discountPercentage: z
+      .number()
+      .min(1, { message: "Discount percentage must be at least 1" })
+      .max(100, { message: "Discount percentage must not exceed 100" }),
+    availableUses: z.number().optional(),
+    startDate: z.date(),
+    endDate: z.date(),
+  })
+  .refine(
+    (data) =>
+      data.promotionType !== "VOUCHER" ||
+      data.availableUses === undefined ||
+      data.availableUses > 0,
+    {
+      path: ["availableUses"],
+      message:
+        "Available uses must be at least 1",
+    }
+  );

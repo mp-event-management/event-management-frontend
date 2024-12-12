@@ -52,9 +52,6 @@ const LoginPage: FC = () => {
           result?.error || "An unexpected error occurred. Please try again."
         );
       } else if (result?.ok) {
-        toast({
-          title: "Login to your account successful",
-        });
         if (
           session?.user.roles.includes("ADMIN") ||
           session?.user.roles.includes("ORGANIZER")
@@ -66,6 +63,10 @@ const LoginPage: FC = () => {
     } catch (error) {
       console.error("An unexpected error occurred:", error);
       setError("An unexpected error occurred. Please try again.");
+      toast({
+        title: "Login failed",
+        description: "Wrong credentials. Please try again.",
+      });
     } finally {
       setIsLoading(false);
     }

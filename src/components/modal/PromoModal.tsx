@@ -25,7 +25,6 @@ import { createNewPromotion, updatePromotion } from "@/app/api/api";
 import { Input } from "../ui/input";
 import { CalendarClockIcon, TicketIcon } from "lucide-react";
 import DatePicker from "react-datepicker";
-import { IoPricetagOutline } from "react-icons/io5";
 import Link from "next/link";
 import { promotionsTypes } from "@/constant/promotionType";
 import Dropdown from "./components/Dropdown";
@@ -164,7 +163,9 @@ const PromoModal: FC<PromoModalProps> = ({ eventId }) => {
                             type="number"
                             placeholder="Discount percentage"
                             {...field}
-                            onChange={(e) => field.onChange(Number(e.target.value))}
+                            onChange={(e) =>
+                              field.onChange(Number(e.target.value))
+                            }
                             className="bg-neutral-100 h-[54px] focus-visible:ring-offset-0 placeholder:text-grey-500 placeholder:text-[16px] rounded-full !text-[16px] px-4 py-3 border-none focus-visible:ring-transparent"
                           />
                           <p className="rl-3 whitespace-nowrap text-gray-500">
@@ -189,7 +190,9 @@ const PromoModal: FC<PromoModalProps> = ({ eventId }) => {
                             type="number"
                             placeholder="Available uses"
                             {...field}
-                            onChange={(e) => field.onChange(Number(e.target.value))}
+                            onChange={(e) =>
+                              field.onChange(Number(e.target.value))
+                            }
                             disabled={promotionType !== "VOUCHER"}
                             className={cn(
                               "bg-neutral-100 h-[54px] focus-visible:ring-offset-0 placeholder:text-grey-500 placeholder:text-[16px] rounded-full !text-[16px] px-4 py-3 border-none focus-visible:ring-transparent",
@@ -240,7 +243,7 @@ const PromoModal: FC<PromoModalProps> = ({ eventId }) => {
                             timeInputLabel="Time :"
                             dateFormat="MM/dd/yyyy h:mm aa"
                             wrapperClassName="datePicker"
-                            className="bg-neutral-100  placeholder:text-grey-500 placeholder:text-[16px] !text-[16px] border-none"
+                            className="bg-neutral-100  placeholder:text-grey-500 placeholder:text-[16px] !text-[16px] border-none z-20"
                           />
                         </div>
                       </FormControl>
@@ -273,7 +276,7 @@ const PromoModal: FC<PromoModalProps> = ({ eventId }) => {
                             timeInputLabel="Time :"
                             dateFormat="MM/dd/yyyy h:mm aa"
                             wrapperClassName="datePicker"
-                            className="bg-neutral-100  placeholder:text-grey-500 placeholder:text-[16px] !text-[16px] border-none"
+                            className="bg-neutral-100  placeholder:text-grey-500 placeholder:text-[16px] !text-[16px] border-none z-20"
                           />
                         </div>
                       </FormControl>
@@ -284,14 +287,20 @@ const PromoModal: FC<PromoModalProps> = ({ eventId }) => {
               </div>
 
               {/* Submit button */}
-              <div className="flex flex-col w-full mt-4 gap-2">
+              <div className="flex flex-col w-full mt-4 gap-4">
                 <Button type="submit" disabled={form.formState.isSubmitting}>
                   {form.formState.isSubmitting
                     ? "Submitting..."
                     : `Create Promo`}
                 </Button>
-                <Button asChild variant={"ghost"}>
-                  <Link href="/events/manage">Cancel</Link>
+                <Button
+                  onClick={() => {
+                    setOpenModal(false);
+                    form.reset();
+                  }}
+                  variant={"ghost"}
+                >
+                  Cancel
                 </Button>
               </div>
             </form>
