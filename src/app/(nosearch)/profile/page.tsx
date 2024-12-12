@@ -2,6 +2,7 @@
 
 import Container from "@/components/Container";
 import { Button } from "@/components/ui/Button";
+import { useToast } from "@/hooks/use-toast";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { FC } from "react";
@@ -9,7 +10,14 @@ import { FC } from "react";
 const ProfilePage: FC = () => {
   const { data: session } = useSession();
   const profileImageUrl = session?.user.profilePictureUrl;
+  const referralCode = "REFERRAL";
+  const { toast } = useToast();
   console.log(session);
+
+  const handleCopyCode = (code: string) => {
+    navigator.clipboard.writeText(code);
+    toast({ title: "You referral code copied" });
+  };
 
   return (
     <section className="min-h-[calc(100vh-200px)]">
@@ -45,9 +53,14 @@ const ProfilePage: FC = () => {
               <p className="text-xl">Your referral code</p>
               <div className="flex gap-2 items-center">
                 <p className="bg-green-100 px-6 py-2 text-lg font-bold">
-                  REFERRALCODE
+                  {referralCode}
                 </p>
-                <Button variant="notFull">Copy</Button>
+                <Button
+                  onClick={() => handleCopyCode(referralCode)}
+                  variant="notFull"
+                >
+                  Copy
+                </Button>
               </div>
             </div>
           )}
