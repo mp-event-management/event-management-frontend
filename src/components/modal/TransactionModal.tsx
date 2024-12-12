@@ -73,8 +73,6 @@ const TransactionModal: FC<TransactionModalProps> = ({
     isUsePoints: useReferralPoints,
   };
 
-  console.log(session?.accessToken);
-
   // console.log("update request data : ", requestData);
   const handleSubmit = async () => {
     setLoading(true);
@@ -99,7 +97,7 @@ const TransactionModal: FC<TransactionModalProps> = ({
 
   return (
     <>
-      <Modal show={isOpen} onClose={onClose} size="6xl">
+      <Modal show={isOpen} onClose={onClose} size="7xl">
         <Modal.Header className="w-full flex items-center justify-center">
           <p className="text-2xl font-extrabold line-clamp-1">
             Checkout - {event.title}
@@ -107,46 +105,48 @@ const TransactionModal: FC<TransactionModalProps> = ({
         </Modal.Header>
 
         <Modal.Body className="">
-          <div className="flex w-full min-h-[530px] justify-between gap-4">
-            <div className="px-8 py-2 grid grid-cols-2 gap-8 w-full">
+          <div className="flex w-full min-h-[530px] justify-between gap-4 flex-col lg:flex-row">
+            <div className="lg:px-8 py-2 grid grid-cols-1 lg:grid-cols-2 gap-8 w-full">
               <div>
                 <p className="text-xl font-bold mb-6">Available Event promo</p>
-                {event.promotions && event.promotions.length > 0 ? (
-                  event.promotions.map((promo) => (
-                    <div
-                      key={promo.promotionId}
-                      onClick={() => handlePromoSelect(promo.promotionId)}
-                      className={cn(
-                        "mb-6 border-[1px] p-4 rounded-lg border-neutral-300 cursor-pointer transition-all",
-                        selectedPromo === promo.promotionId
-                          ? "border-green-700 bg-green-50"
-                          : "border-neutral-300 hover:border-neutral-800"
-                      )}
-                    >
-                      <p className="text-[16px] font-extrabold text-gray-700">
-                        {promo.promotionCode}
-                      </p>
-                      <p className="text-[16px] text-green-500">
-                        Get {promo.discountPercentage * 100}% off
-                      </p>
-                      {promo.availableUses && (
-                        <div>
-                          <p className="text-[16px]">
-                            {promo.availableUses} uses left
-                          </p>
-                          <p className="text-[14px] text-neutral-400">
-                            Ends in{" "}
-                            {formatDateTime(promo.endDate).formattedDateTime}
-                          </p>
-                        </div>
-                      )}
-                    </div>
-                  ))
-                ) : (
-                  <p className="text-gray-500 w-full h-full flex">
-                    No promotions available.
-                  </p>
-                )}
+                <div className="flex lg:flex-col lg:gap-0 gap-4 lg:overflow-x-hidden overflow-x-auto">
+                  {event.promotions && event.promotions.length > 0 ? (
+                    event.promotions.map((promo) => (
+                      <div
+                        key={promo.promotionId}
+                        onClick={() => handlePromoSelect(promo.promotionId)}
+                        className={cn(
+                          "mb-6 border-[1px] p-4 rounded-lg border-neutral-300 cursor-pointer transition-all w-full min-w-[250px] lg:min-w-[300px] max-w-full",
+                          selectedPromo === promo.promotionId
+                            ? "border-green-700 bg-green-50"
+                            : "border-neutral-300 hover:border-neutral-800"
+                        )}
+                      >
+                        <p className="text-[14px] lg:text-[16px] font-extrabold text-gray-700">
+                          {promo.promotionCode}
+                        </p>
+                        <p className="text-[13px] lg:text-[16px] text-green-500">
+                          Get {promo.discountPercentage * 100}% off
+                        </p>
+                        {promo.availableUses && (
+                          <div className="flex flex-col mt-2">
+                            <p className="text-[14px] lg:text-[15px]">
+                              {promo.availableUses} uses left
+                            </p>
+                            <p className="text-[13px] text-neutral-400">
+                              Ends in{" "}
+                              {formatDateTime(promo.endDate).formattedDateTime}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    ))
+                  ) : (
+                    <p className="text-gray-500 w-full h-full flex">
+                      No promotions available.
+                    </p>
+                  )}
+                </div>
               </div>
 
               {/* Select payment method section */}
@@ -189,8 +189,9 @@ const TransactionModal: FC<TransactionModalProps> = ({
             </div>
 
             {/* Order detail section */}
-            <div className="flex flex-col bg-slate-50">
-              <div className="h-[150px] w-[430px] aspect-square overflow-hidden mb-2 relative">
+            {/* <div className="flex flex-col bg-slate-50"> */}
+            <div className="flex flex-col bg-slate-50 w-full lg:w-[430px]">
+              <div className="lg:h-[150px] lg:w-[430px] h-[100px] aspect-square overflow-hidden mb-2 relative">
                 <Image
                   src={event.eventImagesUrl}
                   height={400}

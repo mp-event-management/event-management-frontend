@@ -1,6 +1,7 @@
 import { CreateReview } from "@/types/createReview";
 import { Transaction } from "@/types/createTransaction";
 import { Event } from "@/types/createEvent";
+import { PromoData } from "@/types/promoData";
 
 export const getEventsByOrganizeraId = async (
   organizerId: string | undefined,
@@ -51,8 +52,6 @@ export const getAllTicketsByCustomer = async (
 
   // Append search params only if it exists
   if (searchQuerry) url.searchParams.append("search", searchQuerry.toString());
-
-  console.log(url.toString());
 
   const response = await fetch(url.toString(), {
     method: "GET",
@@ -290,6 +289,52 @@ export const createTransaction = async (
     if (!response.ok) {
       const error = await response.json();
       throw new Error(error.message || "Failed proccess the payment");
+    }
+
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const createNewPromotion = async (promo: PromoData) => {
+  const apiUrl = `${process.env.NEXT_PUBLIC_DEVELEOPMENT_URL}/api/v1/promotions`;
+
+  try {
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(promo),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || "Failed to create new promotion");
+    }
+
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updatePromotion = async (promo: PromoData, promoId: string) => {
+  const apiUrl = `${process.env.NEXT_PUBLIC_DEVELEOPMENT_URL}/api/v1/promotions/${promoId}`;
+
+  try {
+    const response = await fetch(apiUrl, {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(promo),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || "Failed to update the promotion");
     }
 
     return await response.json();

@@ -9,6 +9,7 @@ import { FC } from "react";
 import { Button } from "../ui/Button";
 import { MdDiscount } from "react-icons/md";
 import DeleteConfirmation from "../deleteEvent/DeleteConfirmation";
+import PromoModal from "../modal/PromoModal";
 
 interface EventListCardProps {
   data: Event;
@@ -32,10 +33,11 @@ const EventListCard: FC<EventListCardProps> = ({
             <DeleteConfirmation eventId={data.eventId} />
 
             <div>
-              <Button variant="notFull" size="sm">
+              <PromoModal eventId={data.eventId}/>
+              {/* <Button variant="notFull" size="sm">
                 <MdDiscount />
-                Add Promo
-              </Button>
+                Manage Promo
+              </Button> */}
             </div>
 
             <Button variant="secondary" size="sm" asChild>

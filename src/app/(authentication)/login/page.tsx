@@ -33,13 +33,12 @@ const LoginPage: FC = () => {
     setError(null);
     setIsLoading(true);
     try {
-      console.log(data);
       const result = await signIn("credentials", {
         redirect: false,
         email: data.email,
         password: data.password,
       });
-      console.log(result);
+      
       if (!result?.ok) {
         router.push(
           `/login?error=${encodeURIComponent(result?.error || "unknown")}`

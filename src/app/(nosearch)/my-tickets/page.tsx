@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/Button";
 import { Ticket } from "@/types/tickets";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
 import { FC, useEffect, useState } from "react";
 
 const MyTicketsPage: FC = () => {
@@ -18,14 +17,12 @@ const MyTicketsPage: FC = () => {
   const [tickets, setTickets] = useState<Ticket[]>([]);
   const [currentPage, setCurrentpage] = useState(0);
   const [totalPage, setTotalPages] = useState(0);
-  const searchParams = useSearchParams();
 
   // Default data per page
   const dataPerPage = 5;
-  const query = searchParams.get("search")?.toString();
 
   const { data, isLoading } = useQuery({
-    queryKey: ["tickets", currentPage, dataPerPage, query],
+    queryKey: ["tickets", currentPage, dataPerPage],
     queryFn: async () =>
       await getAllTicketsByCustomer(
         Number(customerId),
@@ -34,12 +31,9 @@ const MyTicketsPage: FC = () => {
       ),
   });
 
-  console.log(data);
-
   useEffect(() => {
     setTickets(data?.data.tickets);
     setTotalPages(data?.data.totalPages);
-    console.log(data);
   }, [data, tickets]);
 
   const handlePrevPage = () => {
@@ -49,7 +43,6 @@ const MyTicketsPage: FC = () => {
   const handleNextPage = () => {
     setCurrentpage((prevPage) => prevPage + 1);
   };
-  console.log(tickets);
 
   return (
     <section className="min-h-[calc(100vh-200px)]">
