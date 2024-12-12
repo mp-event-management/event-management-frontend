@@ -6,7 +6,7 @@ import Image from "next/image";
 import { FC } from "react";
 
 const ProfilePage: FC = () => {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const profileImageUrl = session?.user.profilePictureUrl;
   console.log(session);
 
