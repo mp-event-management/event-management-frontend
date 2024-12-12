@@ -7,26 +7,18 @@ import { Event } from "@/types/getEvents";
 import { Button } from "@/components/ui/Button";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-// import { useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useQuery } from "@tanstack/react-query";
 import { getAllEvents } from "../api/api";
-
-// TODO : this data still hardcoded, need to get from session
-const organizer = {
-  userId: 1,
-  role: {
-    roleId: 2,
-    name: "ORGANIZER",
-  },
-  name: "John Doe",
-  email: "johndoe@example.com",
-  profilepictureUrl: "",
-};
 
 export default function Home() {
   const [events, setEvents] = useState<Event[]>([]);
   const [currentPage, setCurrentpage] = useState(0);
   const [totalPage, setTotalPages] = useState(0);
+  const { data: session } = useSession();
+  const organizerId = session?.user.id;
+  const role = session?.user.roles[0];
+
   const searchParams = useSearchParams();
   const category = searchParams.get("categoryId") || "";
   const city = searchParams.get("cityId") || "";
@@ -44,7 +36,6 @@ export default function Home() {
   useEffect(() => {
     setEvents(data?.data.events);
     setTotalPages(data?.data.totalPages);
-    console.log(data);
   }, [data, events]);
 
   const handlePrevPage = () => {
@@ -74,8 +65,9 @@ export default function Home() {
           {events?.map((event: Event) => {
             return (
               <EventListCard
+                organizerId={organizerId}
+                role={role}
                 isShown={false}
-                organizer={organizer}
                 key={event.eventId}
                 data={event}
               />

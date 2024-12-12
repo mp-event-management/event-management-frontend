@@ -19,8 +19,6 @@ export const getEventsByOrganizeraId = async (
   // Append search params only if it exists
   if (searchQuerry) url.searchParams.append("search", searchQuerry.toString());
 
-  console.log(url.toString());
-
   const response = await fetch(url.toString(), {
     method: "GET",
     headers: { "Content-Type": "application/json" },
@@ -122,8 +120,6 @@ export const getAllEvents = async (
   // Append pagination parameters
   url.searchParams.append("page", page.toString());
   url.searchParams.append("size", size.toString());
-
-  console.log(url.toString());
 
   const response = await fetch(url.toString(), {
     method: "GET",

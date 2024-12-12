@@ -3,19 +3,27 @@
 import { getTransactionDetail } from "@/app/api/api";
 import Container from "@/components/Container";
 import EmptyState from "@/components/EmptyState";
+import Logo from "@/components/navbar/components/Logo";
+import { Separator } from "@/components/ui/separator";
+import { formatPrice } from "@/lib/utils";
+import { TransactionDetail } from "@/types/transaction";
 import { useQuery } from "@tanstack/react-query";
+import { Check, Verified } from "lucide-react";
 import { useParams } from "next/navigation";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const TicketDetailsPage = () => {
   const { id } = useParams();
-  console.log("Ticket id: ", id);
+  const [trxDetails, setTrxDetails] = useState<TransactionDetail>();
 
   const { data, isLoading } = useQuery({
     queryKey: ["event", id],
     queryFn: async () => await getTransactionDetail(id),
   });
 
+  useEffect(() => {
+    setTrxDetails(data);
+  }, [data]);
   console.log(data);
 
   if (isLoading) {
@@ -39,89 +47,57 @@ const TicketDetailsPage = () => {
 
   return (
     <Container>
-      <section className="h-[calc(100vh-180px)] flex w-[60%] mx-auto items-center justify-center">
-        Transaction {id}
-        {/* <div className="w-full max-w-3xl mx-auto my-8 p-6 bg-white shadow-lg rounded-lg">
-          <h1 className="text-3xl font-extrabold text-center mb-6">Invoice</h1>
-          <div className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">
-              {transaction.eventName}
-            </h2>
-            <p className="text-lg text-gray-700 mb-2">
-              {transaction.eventCityLocation}
-            </p>
-            <p className="text-lg text-gray-700">{transaction.eventAddress}</p>
+      <section className="h-[calc(100vh-180px)] flex flex-col md:w-[40%] lg:w-[30%] mx-auto items-center justify-center p-6 lg:p-12 bg-slate-50 rounded-xl">
+        <div className="mb-10">
+          <Logo />
+        </div>
+        <div className="bg-green-100 p-4 rounded-full mb-2">
+          <p className="bg-green-500 p-2 rounded-full text-white">
+            <Check />
+          </p>
+        </div>
+        <div className="flex flex-col items-center gap-3 pt-3 w-full">
+          <p>Payment success!</p>
+          <p className="text-lg font-bold">
+            {formatPrice(String(trxDetails?.finalPrice))}
+          </p>
+          <Separator className="my-4" />
+          <div className="flex justify-between items-center w-full">
+            <p>Buyer</p>
+            <p className="font-bold">{trxDetails?.customerName}</p>
           </div>
-
-          <div className="border-t border-b py-6 mb-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div>
-                <h3 className="text-xl font-semibold">Customer Information</h3>
-                <p className="text-lg text-gray-700">
-                  Name: {transaction.customerName}
-                </p>
-                <p className="text-lg text-gray-700">
-                  Customer ID: {transaction.customerId}
-                </p>
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold">Event Information</h3>
-                <p className="text-lg text-gray-700">
-                  Event Start:{" "}
-                  {formatDateTime(eventStartDate).formattedDateTime}
-                </p>
-                <p className="text-lg text-gray-700">
-                  Event End: {formatDateTime(eventEndDate).formattedDateTime}
-                </p>
-                <p className="text-lg text-gray-700">
-                  Invoice Code: {transaction.invoiceCode}
-                </p>
-              </div>
-            </div>
+          <div className="flex justify-between items-center w-full">
+            <p className="w-full">Event</p>
+            <p className="line-clamp-1 font-bold w-full">{trxDetails?.eventName}</p>
           </div>
-
-          <div className="grid grid-cols-1 gap-6 mb-8">
-            <h3 className="text-xl font-semibold">Ticket Details</h3>
-            <p className="text-lg text-gray-700">
-              Ticket Quantity: {transaction.ticketQuantity}
-            </p>
-            <p className="text-lg text-gray-700">
-              Ticket Price: IDR {transaction.ticketPrice.toLocaleString()}
-            </p>
-            <p className="text-lg text-gray-700">
-              Discount: IDR {transaction.totalDiscount.toLocaleString()}
-            </p>
-            <p className="text-lg text-gray-700">
-              Referral Points Used: IDR{" "}
-              {transaction.referralPointsUsed.toLocaleString()}
+          <div className="flex justify-between items-center w-full">
+            <p>Ticket price</p>
+            <p className="font-bold">
+              {formatPrice(String(trxDetails?.ticketPrice))}
             </p>
           </div>
-
-          <div className="border-t pt-6">
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-xl font-semibold">Payment Summary</h3>
-              <p className="text-lg font-bold">
-                Final Price: IDR {transaction.finalPrice.toLocaleString()}
-              </p>
-            </div>
-            <p className="text-lg text-gray-700">
-              Payment Status: {transaction.paymentStatus}
+          <div className="flex justify-between items-center w-full">
+            <p>Points used </p>
+            <p className="font-bold">
+              {formatPrice(String(trxDetails?.referralPointsUsed))}
             </p>
           </div>
-
-          <div className="flex justify-center mt-8">
-            <Button variant="outline" asChild>
-              <a
-                href={`/my-tickets/${transaction.transactionId}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                See More Details
-                <TbInvoice className="ml-2" />
-              </a>
-            </Button>
+          <div className="flex justify-between items-center w-full">
+            <p>Amount discount </p>
+            <p className="font-bold">
+              {formatPrice(String(trxDetails?.totalDiscount))}
+            </p>
           </div>
-        </div> */}
+          <Separator className="my-4" />
+          <div className="flex justify-between items-center w-full">
+            <p>Total</p>
+            <p className="font-bold">
+              {formatPrice(String(trxDetails?.finalPrice))}
+            </p>
+          </div>
+          <Separator className="my-4" />
+          <p className="text-xl font-bold">{trxDetails?.invoiceCode}</p>
+        </div>
       </section>
     </Container>
   );

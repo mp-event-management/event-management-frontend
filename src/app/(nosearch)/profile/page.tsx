@@ -12,7 +12,6 @@ const ProfilePage: FC = () => {
   const profileImageUrl = session?.user.profilePictureUrl;
   const referralCode = "REFERRAL";
   const { toast } = useToast();
-  console.log(session);
 
   const handleCopyCode = (code: string) => {
     navigator.clipboard.writeText(code);

@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/Button";
 import { EventReviews } from "@/types/eventReviews";
 import { Event } from "@/types/getEvents";
 import { useQuery } from "@tanstack/react-query";
-import { Star } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -24,14 +23,14 @@ const EventReviewsPage = () => {
   const accessToken = session?.accessToken;
 
   // Set default data per page
-  const dataPerPage = 5;
+  const dataPerPage = 10;
 
   const { data, isLoading } = useQuery({
     queryFn: async () => await getAllEventReviews(String(id), accessToken),
     queryKey: ["reviews", id, currentPage, dataPerPage],
   });
 
-  const { data: eventDetails, isLoading: loading } = useQuery({
+  const { data: eventDetails } = useQuery({
     queryFn: async () => await getEventDetail(String(id)),
     queryKey: ["eventDetails", id],
   });
@@ -62,7 +61,7 @@ const EventReviewsPage = () => {
           {event?.title}
           <p>-</p>
           {reviews?.length <= 0 ? (
-            "No reviews"
+            <p className="text-lg font-normal">No reviews</p>
           ) : (
             <p className="text-lg font-normal">{reviews?.length} reviews</p>
           )}
@@ -85,12 +84,13 @@ const EventReviewsPage = () => {
             {reviews?.map((review) => (
               <div
                 key={review.eventReviewId}
-                className="bg-slate-100 flex flex-col gap-4 px-6 py-4 rounded-xl"
+                className="bg-slate-100 flex flex-col gap-3 px-6 py-4 rounded-xl"
               >
                 <span className="flex items-center gap-2">
                   <FaStar size={24} className="text-yellow-400" />
                   <p className="text-xl font-bold">{review.rating}</p>
                 </span>
+                <p className="text-xl font-bold">{review.customerName}</p>
                 <p className="text-lg text-green-700">{review.reviewText}</p>
               </div>
             ))}

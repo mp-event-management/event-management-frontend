@@ -30,7 +30,7 @@ const Navbar: FC = () => {
         });
       }
       router.push(newUrl, { scroll: false });
-    }, 500);
+    }, 1000);
 
     return () => clearTimeout(delayDebounceFn);
   }, [searchParams, onSearch, router]);

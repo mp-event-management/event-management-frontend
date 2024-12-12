@@ -2,7 +2,6 @@ import { Event } from "@/types/getEvents";
 import React, { FC, useState } from "react";
 import { Button } from "../ui/Button";
 import Link from "next/link";
-import { customerData } from "@/constant/usersData";
 import TransactionModal from "../modal/TransactionModal";
 import { useSession } from "next-auth/react";
 
@@ -11,8 +10,6 @@ type CheckoutButtonProps = {
 };
 
 const CheckoutButton: FC<CheckoutButtonProps> = ({ event }) => {
-  // TODO: this still harcoded, need to get from session login
-  const userCustomer = customerData;
   const { data: session } = useSession();
 
   const hasEventFinished = new Date(event.endDate) < new Date();
@@ -29,7 +26,7 @@ const CheckoutButton: FC<CheckoutButtonProps> = ({ event }) => {
   if (session?.user.roles.includes("ROLE_ORGANIZER")) {
     return (
       <p className="px-4 text-center text-rose-500 w-full font-bold text-[16px]">
-        Organizers cannot buy tickets
+        Organizers cannot buy the ticket
       </p>
     );
   }

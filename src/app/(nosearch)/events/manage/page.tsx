@@ -39,7 +39,6 @@ const ManageEvents: FC = () => {
   useEffect(() => {
     setEvents(data?.data.events);
     setTotalPages(data?.data.totalPages);
-    console.log(data);
   }, [data, events]);
 
   const handlePrevPage = () => {

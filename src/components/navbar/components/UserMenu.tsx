@@ -38,6 +38,7 @@ const UserMenu: FC = () => {
       return (
         <>
           <MenuItem onClick={() => redirect("/login")} label="Login" />
+          <Separator/>
           <MenuItem onClick={() => redirect("/register")} label="Register" />
         </>
       );
