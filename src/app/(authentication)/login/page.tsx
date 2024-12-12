@@ -6,6 +6,8 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Logo from "@/components/navbar/components/Logo";
+import { Button } from "@/components/ui/Button";
 
 const schema = z.object({
   email: z.string().email("Invalid email address"),
@@ -63,9 +65,12 @@ const LoginPage: FC = () => {
   };
 
   return (
-    <div className="h-screen flex items-center justify-center">
-      <div className="w-fit h-fit flex flex-col gap-4">
-        <h1 className="text-2xl font-bold">Login</h1>
+    <div className="h-screen flex flex-col justify-center mx-auto">
+      <div className="w-auto h-[40px] mb-4">
+        <Logo />
+      </div>
+      <div className="w-[300px] h-fit flex flex-col gap-4 mx-auto">
+        <h1 className="text-2xl font-bold mt-6 mb-4">Login account</h1>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <label htmlFor="email" className="font-medium">
@@ -95,14 +100,12 @@ const LoginPage: FC = () => {
               <span className="text-red-500">{errors.password.message}</span>
             )}
           </div>
-          <button
-            disabled={isLoading}
-            type="submit"
-            className="bg-blue-500 text-white p-2 rounded"
-          >
-            {isLoading ? "Loading..." : "Login"}
-          </button>
-          {error && <span className="text-red-500">{error}</span>}
+          <div className="mt-2">
+            <Button type="submit" disabled={isLoading}>
+              {isLoading ? "Loading..." : "Login"}
+            </Button>
+            {error && <span className="text-red-500">{error}</span>}
+          </div>
         </form>
       </div>
     </div>

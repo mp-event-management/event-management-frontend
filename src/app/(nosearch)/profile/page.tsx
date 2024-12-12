@@ -50,7 +50,7 @@ const ProfilePage: FC = () => {
           </div>
           {session?.user.roles[0].includes("ROLE_CUSTOMER") && (
             <div className="flex flex-col gap-4 items-center">
-              <p className="text-xl">Your referral code</p>
+              <p className="text-lg">Your referral code</p>
               <div className="flex gap-2 items-center">
                 <p className="bg-green-100 px-6 py-2 text-lg font-bold">
                   {referralCode}

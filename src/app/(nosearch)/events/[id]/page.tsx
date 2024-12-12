@@ -11,11 +11,9 @@ import { getEventDetail } from "@/app/api/api";
 import { useQuery } from "@tanstack/react-query";
 import EmptyState from "@/components/EmptyState";
 import { useParams } from "next/navigation";
-import { useSession } from "next-auth/react";
 
 const EventDetailPage = () => {
   const { id } = useParams();
-  const { data: session } = useSession();
 
   const { data, isLoading } = useQuery({
     queryKey: ["event", id],
