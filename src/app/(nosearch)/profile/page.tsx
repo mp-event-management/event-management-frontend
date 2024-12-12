@@ -1,6 +1,7 @@
 "use client";
 
 import Container from "@/components/Container";
+import { Button } from "@/components/ui/Button";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { FC } from "react";
@@ -32,13 +33,24 @@ const ProfilePage: FC = () => {
             />
           </div>
           <div className="flex flex-col gap-3 items-center">
-            <h3 className="text-2xl font-extrabold">{session?.user.name}</h3>
+            <h3 className="text-[22px] font-extrabold">{session?.user.name}</h3>
             <p className="text-[16px]">
               {session?.user.roles[0].includes("ROLE_ORGANIZER")
                 ? "ORGANIZER"
                 : "CUSTOMER"}
             </p>
           </div>
+          {session?.user.roles[0].includes("ROLE_CUSTOMER") && (
+            <div className="flex flex-col gap-4 items-center">
+              <p className="text-xl">Your referral code</p>
+              <div className="flex gap-2 items-center">
+                <p className="bg-green-100 px-6 py-2 text-lg font-bold">
+                  REFERRALCODE
+                </p>
+                <Button variant="notFull">Copy</Button>
+              </div>
+            </div>
+          )}
         </div>
       </Container>
     </section>
