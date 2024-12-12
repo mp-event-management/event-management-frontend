@@ -6,8 +6,11 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import Logo from "@/components/navbar/components/Logo";
 import { Button } from "@/components/ui/Button";
+import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
+import SmallScreenLogo from "@/components/navbar/components/SmallScreenLogo";
+import { useToast } from "@/hooks/use-toast";
 
 const schema = z.object({
   email: z.string().email("Invalid email address"),
@@ -21,6 +24,8 @@ const LoginPage: FC = () => {
   const { data: session } = useSession();
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
+
   const {
     register,
     handleSubmit,
@@ -38,7 +43,7 @@ const LoginPage: FC = () => {
         email: data.email,
         password: data.password,
       });
-      
+
       if (!result?.ok) {
         router.push(
           `/login?error=${encodeURIComponent(result?.error || "unknown")}`
@@ -47,6 +52,9 @@ const LoginPage: FC = () => {
           result?.error || "An unexpected error occurred. Please try again."
         );
       } else if (result?.ok) {
+        toast({
+          title: "Login to your account successful",
+        });
         if (
           session?.user.roles.includes("ADMIN") ||
           session?.user.roles.includes("ORGANIZER")
@@ -65,9 +73,9 @@ const LoginPage: FC = () => {
 
   return (
     <div className="h-screen flex flex-col justify-center mx-auto w-full">
-      <div className="lg:min-w-[300px] max-w-auto h-fit flex flex-col gap-4 mx-auto">
+      <div className="lg:w-[330px] w-full px-8 max-w-auto h-fit flex flex-col gap-4 mx-auto">
         <div className="w-auto h-[40px] mb-4">
-          <Logo />
+          <SmallScreenLogo />
         </div>
         <h1 className="text-2xl font-bold mt-6 mb-4">Login account</h1>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
@@ -105,6 +113,12 @@ const LoginPage: FC = () => {
             </Button>
             {error && <span className="text-red-500">{error}</span>}
           </div>
+
+          <Separator className="my-2" />
+          <p className="text-[14px]">Don't have an account?</p>
+          <Button variant="outline" asChild>
+            <Link href="/register">Register</Link>
+          </Button>
         </form>
       </div>
     </div>

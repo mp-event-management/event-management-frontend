@@ -2,6 +2,7 @@ import { CreateReview } from "@/types/createReview";
 import { Transaction } from "@/types/createTransaction";
 import { Event } from "@/types/createEvent";
 import { PromoData } from "@/types/promoData";
+import { RegisterData, RegisterResponse } from "@/types/registerData";
 
 export const getEventsByOrganizeraId = async (
   organizerId: string | undefined,
@@ -338,6 +339,31 @@ export const updatePromotion = async (promo: PromoData, promoId: string) => {
     }
 
     return await response.json();
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const registerUser = async (registerData: RegisterData) => {
+  const apiUrl = `${process.env.NEXT_PUBLIC_DEVELEOPMENT_URL}/api/v1/users/register`;
+
+  try {
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(registerData),
+    });
+
+    const responseData: RegisterResponse = await response.json();
+    if (response.ok && responseData.success) {
+      return responseData;
+    } else {
+      throw new Error(
+        responseData.message || "Failed to register a new account"
+      );
+    }
   } catch (error) {
     throw error;
   }
