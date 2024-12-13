@@ -4,7 +4,7 @@ import { getAllEventReviews, getEventDetail } from "@/app/api/api";
 import Container from "@/components/Container";
 import EmptyState from "@/components/EmptyState";
 import { Button } from "@/components/ui/Button";
-import { Event } from "@/types/eventDetail";
+import { Event } from "@/types/eventDetails";
 import { EventReviews } from "@/types/eventReviews";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
