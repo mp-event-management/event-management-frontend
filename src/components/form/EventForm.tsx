@@ -9,7 +9,6 @@ import {
   FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -34,11 +33,8 @@ import { updateEvent } from "@/app/actions/updateEvent";
 import { useToast } from "@/hooks/use-toast";
 import { createNewEvent } from "@/app/api/api";
 import {
-  // UploadButton,
-  // UploadDropzone,
   useUploadThing,
 } from "@/utils/uploadthing";
-// import { Uploader } from "@uploadthing/react";
 import { FileUploader } from "../fileUploader/FileUploader";
 
 type EventFormProps = {
@@ -89,11 +85,13 @@ const EventForm: FC<EventFormProps> = ({
     let uploadedEventImagesUrl = values.eventImagesUrl;
 
     if (files.length > 0) {
+      console.log("Files : ",files)
       const uploadedImage = await startUpload(files);
 
       if (!uploadedImage) return;
 
       uploadedEventImagesUrl = uploadedImage[0].url;
+      console.log("Uploaded event image : ",uploadedEventImagesUrl)
     }
 
     const ORGANIZER_ID = Number(organizerId);
@@ -149,6 +147,7 @@ const EventForm: FC<EventFormProps> = ({
             ...values,
             availableTicket,
             categoryId,
+            eventImagesUrl,
             cityId,
             ticketPrice,
             totalTicket,

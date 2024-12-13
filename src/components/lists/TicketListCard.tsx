@@ -21,6 +21,7 @@ const TicketListCard: FC<TicketListCardProps> = ({ data, customer }) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const handleOpenModal = () => setModalOpen(true);
   const handleCloseModal = () => setModalOpen(false);
+  const customerData = customer;
 
   return (
     <div className="col-span-1">
@@ -31,7 +32,7 @@ const TicketListCard: FC<TicketListCardProps> = ({ data, customer }) => {
             width={400}
             alt={data.eventName}
             priority
-            src="https://placehold.co/400x400"
+            src={data.eventImagesUrl}
             className="object-cover h-full w-full hover:scale-110 hover:cursor-pointer transition"
           />
         </div>
@@ -70,7 +71,7 @@ const TicketListCard: FC<TicketListCardProps> = ({ data, customer }) => {
             isOpen={isModalOpen}
             onClose={handleCloseModal}
             eventId={data.eventId}
-            customerId={customer}
+            // customerId={customer}
           />
 
           <div className="flex gap-4 w-full justify-between lg:justify-start overflow-auto">
