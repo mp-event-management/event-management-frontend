@@ -14,7 +14,7 @@ import { FaStar } from "react-icons/fa";
 
 const EventReviewsPage = () => {
   const [reviews, setReviews] = useState<EventReviews[]>([]);
-  const [event, setEvent] = useState<Event>();
+  const [eventDetail, setEventDetail] = useState<Event>();
   const [currentPage, setCurrentpage] = useState(0);
   const [totalPage, setTotalPages] = useState(0);
 
@@ -37,7 +37,7 @@ const EventReviewsPage = () => {
 
   useEffect(() => {
     setReviews(data?.eventReviews);
-    setEvent(eventDetails);
+    setEventDetail(eventDetails);
     setTotalPages(data?.totalPages);
   }, [data, reviews, eventDetails]);
 
@@ -56,7 +56,7 @@ const EventReviewsPage = () => {
           Rating and Reviews
         </h1>
         <h3 className="text-xl flex gap-4 items-center lg:text-2xl font-bold text-start">
-          {event?.title}
+          {eventDetail?.title}
           <p>-</p>
           {reviews?.length <= 0 ? (
             <p className="text-lg font-normal">No reviews</p>
