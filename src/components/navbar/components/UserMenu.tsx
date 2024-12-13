@@ -68,7 +68,7 @@ const UserMenu: FC = () => {
               width={50}
               className="rounded-full"
             />
-            <p className="text-xl font-extrabold capitalize pt-2">
+            <p className="text-xl text-center w-full font-extrabold capitalize pt-2">
               Hi, {session?.user.name}
             </p>
             <p className="text-sm">

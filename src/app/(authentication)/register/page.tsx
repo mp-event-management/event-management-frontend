@@ -53,8 +53,16 @@ const RegisterPage: FC = () => {
         description: "You have successfully registered! Please login.",
       });
       router.push("/login");
-    } catch (error) {
-      setError("An unexpected error occurred. Please try again.");
+    } catch (error: unknown) {
+      if (error instanceof Error) setError(error.message);
+      else setError("An unexpected error occurred. Please try again.");
+
+      // Optionally show the error in a toast
+      toast({
+        title: "Error",
+        description: "Failed to register. Email already exists.",
+        variant: "destructive",
+      });
     } finally {
       setIsLoading(false);
     }
@@ -138,11 +146,6 @@ const RegisterPage: FC = () => {
             <Button type="submit" disabled={isLoading}>
               {isLoading ? "Loading..." : "Register"}
             </Button>
-            {error && (
-              <span className="w-full text-center text-red-500 text-[14px] mx-auto items-center justify-center pt-2">
-                {error}
-              </span>
-            )}
           </div>
           <Separator className="my-2" />
           <p className="text-[14px]">Already have an account?</p>
