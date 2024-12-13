@@ -71,11 +71,11 @@ const PromoModal: FC<PromoModalProps> = ({ eventId }) => {
     console.log("Values", payload);
 
     try {
-      const newEvent = await createNewPromotion(payload);
+      const newPromo = await createNewPromotion(payload);
 
-      toast({ title: newEvent.message });
+      toast({ title: newPromo.message });
 
-      if (newEvent) {
+      if (newPromo) {
         form.reset();
         router.push(`/events/manage`);
       }
@@ -93,9 +93,9 @@ const PromoModal: FC<PromoModalProps> = ({ eventId }) => {
       </Button>
       <Modal show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Header>
-          <p className="text-xl font-bold w-full text-center">Add promo</p>
+          <p className="text-xl font-bold text-center">Add promo</p>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="overflow-visible">
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
@@ -236,7 +236,7 @@ const PromoModal: FC<PromoModalProps> = ({ eventId }) => {
                             timeInputLabel="Time :"
                             dateFormat="MM/dd/yyyy h:mm aa"
                             wrapperClassName="datePicker"
-                            className="bg-neutral-100  placeholder:text-grey-500 placeholder:text-[16px] !text-[16px] border-none"
+                            className="bg-neutral-100  placeholder:text-grey-500 placeholder:text-[16px] !text-[16px] border-none !z-[100]"
                           />
                         </div>
                       </FormControl>
@@ -246,7 +246,7 @@ const PromoModal: FC<PromoModalProps> = ({ eventId }) => {
                 />
               </div>
 
-              <div className="flex flex-col gap-5 md:flex-row">
+              <div className="flex flex-col gap-5 md:flex-row relative">
                 <FormField
                   control={form.control}
                   name="endDate"
@@ -269,7 +269,7 @@ const PromoModal: FC<PromoModalProps> = ({ eventId }) => {
                             timeInputLabel="Time :"
                             dateFormat="MM/dd/yyyy h:mm aa"
                             wrapperClassName="datePicker"
-                            className="bg-neutral-100  placeholder:text-grey-500 placeholder:text-[16px] !text-[16px] border-none"
+                            className="bg-neutral-100  placeholder:text-grey-500 placeholder:text-[16px] !text-[16px] border-none !z-[100]"
                           />
                         </div>
                       </FormControl>

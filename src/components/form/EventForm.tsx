@@ -201,11 +201,7 @@ const EventForm: FC<EventFormProps> = ({
                   <Textarea
                     placeholder="Description"
                     {...field}
-                    style={{
-                      fontFamily: "monospace", // Optional, for tab-like spacing
-                      whiteSpace: "pre-wrap", // Preserve newlines and spaces
-                    }}
-                    className="bg-neutral-100 flex flex-1 placeholder:text-grey-500 placeholder:text-[16px] !text-[16px] px-5 py-3 border-none rounded-2xl focus-visible:ring-transparent"
+                    className="bg-neutral-100 flex flex-1 placeholder:text-grey-500 placeholder:text-[16px] !text-[16px] px-5 py-3 border-none rounded-2xl focus-visible:ring-transparent whitespace-pre-wrap"
                   />
                 </FormControl>
                 <FormMessage />

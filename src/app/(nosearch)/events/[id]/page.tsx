@@ -11,6 +11,7 @@ import { getEventDetail } from "@/app/api/api";
 import { useQuery } from "@tanstack/react-query";
 import EmptyState from "@/components/EmptyState";
 import { useParams } from "next/navigation";
+import SkeletonEventDetails from "@/components/loading/SkeletonEventDetails";
 
 const EventDetailPage = () => {
   const { id } = useParams();
@@ -22,9 +23,7 @@ const EventDetailPage = () => {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center text-lg font-bold text-rose-500 h-[calc(100vh-170px)] pt-14">
-        Loading...
-      </div>
+      <SkeletonEventDetails />
     );
   }
 
