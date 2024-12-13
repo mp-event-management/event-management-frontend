@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { FC, useState } from "react";
@@ -56,6 +55,10 @@ const RegisterPage: FC = () => {
       router.push("/login");
     } catch (error) {
       setError("An unexpected error occurred. Please try again.");
+      toast({
+        title: "Error",
+        description: `${error} || Failed to register. Email already exists.`,
+      });
     } finally {
       setIsLoading(false);
     }
