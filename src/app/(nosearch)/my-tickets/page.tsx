@@ -73,7 +73,6 @@ const MyTicketsPage: FC = () => {
               {tickets?.map((ticket: Ticket) => {
                 return (
                   <TicketListCard
-                    customer={Number(customerId)}
                     key={ticket.id}
                     data={ticket}
                   />
