@@ -5,16 +5,34 @@ import Container from "@/components/Container";
 import EmptyState from "@/components/EmptyState";
 import { Button } from "@/components/ui/Button";
 import { EventReviews } from "@/types/eventReviews";
-import { Event } from "@/types/getEvents";
+import { Category, City, Promotions, UserOrganizer } from "@/types/getEvents";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
 
+type Event = {
+  eventId: number;
+  userOrganizer: UserOrganizer;
+  title: string;
+  description: string;
+  category: Category;
+  eventImagesUrl: string;
+  startDate: Date; // ISO 8601 date string
+  endDate: Date; // ISO 8601 date string
+  ticketPrice: number;
+  totalTicket: number;
+  availableTicket: number;
+  eventStatus: string;
+  city: City;
+  address: string;
+  promotions: Promotions[];
+};
+
 const EventReviewsPage = () => {
   const [reviews, setReviews] = useState<EventReviews[]>([]);
-  const [event, setEvent] = useState<Event>();
+  const [eventDetail, setEventDetail] = useState<Event>();
   const [currentPage, setCurrentpage] = useState(0);
   const [totalPage, setTotalPages] = useState(0);
 
@@ -37,7 +55,7 @@ const EventReviewsPage = () => {
 
   useEffect(() => {
     setReviews(data?.eventReviews);
-    setEvent(eventDetails);
+    setEventDetail(eventDetails);
     setTotalPages(data?.totalPages);
   }, [data, reviews, eventDetails]);
 
@@ -56,7 +74,7 @@ const EventReviewsPage = () => {
           Rating and Reviews
         </h1>
         <h3 className="text-xl flex gap-4 items-center lg:text-2xl font-bold text-start">
-          {event?.title}
+          {eventDetail?.title}
           <p>-</p>
           {reviews?.length <= 0 ? (
             <p className="text-lg font-normal">No reviews</p>
