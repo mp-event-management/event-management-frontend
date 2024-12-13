@@ -26,7 +26,7 @@ const TicketListCard: FC<TicketListCardProps> = ({ data, customer }) => {
   return (
     <div className="col-span-1">
       <div className="flex flex-col justify-start gap-2 lg:flex-row lg:gap-8 w-full">
-        <div className="aspect-square w-full lg:max-w-[460px] h-[200px] overflow-hidden rounded-xl mb-2 relative">
+        <div className="aspect-square w-full lg:max-w-[480px] h-[200px] overflow-hidden rounded-xl mb-2 relative">
           <Image
             height={400}
             width={400}

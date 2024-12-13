@@ -4,6 +4,7 @@ import { getAllTicketsByCustomer } from "@/app/api/api";
 import Container from "@/components/Container";
 import EmptyState from "@/components/EmptyState";
 import TicketListCard from "@/components/lists/TicketListCard";
+import SkeletonMyTicketLists from "@/components/loading/SkeletonMyTicketLists";
 import { Button } from "@/components/ui/Button";
 import { Ticket } from "@/types/tickets";
 import { useQuery } from "@tanstack/react-query";
@@ -54,8 +55,10 @@ const MyTicketsPage: FC = () => {
         </div>
 
         {isLoading ? (
-          <div className="flex items-center justify-center text-lg font-bold text-rose-500 h-[calc(100vh-250px)]">
-            Loading...
+          <div className="mt-20">
+            {"abcde.".split("").map((i) => {
+              return <SkeletonMyTicketLists key={i} />;
+            })}
           </div>
         ) : tickets?.length <= 0 ? (
           <EmptyState
@@ -66,7 +69,7 @@ const MyTicketsPage: FC = () => {
           />
         ) : (
           <>
-            <div className="lg:pt-20 pt-8 lg:w-[70%] lg:mx-auto flex flex-col gap-12">
+            <div className="lg:pt-20 pt-8 lg:w-[100%] lg:mx-auto flex flex-col gap-12 min-h-[calc(100vh-320px)]">
               {tickets?.map((ticket: Ticket) => {
                 return (
                   <TicketListCard
