@@ -28,6 +28,7 @@ type FormData = z.infer<typeof schema>;
 
 const RegisterPage: FC = () => {
   const router = useRouter();
+  // @typescript-eslint/no-unused-vars
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
