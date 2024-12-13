@@ -53,14 +53,14 @@ const RegisterPage: FC = () => {
         description: "You have successfully registered! Please login.",
       });
       router.push("/login");
-    } catch (error: unknown) {
-      if (error instanceof Error) setError(error.message);
-      else setError("An unexpected error occurred. Please try again.");
+    } catch (err: unknown) {
+      if (err instanceof Error) setError(err.message);
+      else setError("Failed to register. Email already exists.");
 
       // Optionally show the error in a toast
       toast({
         title: "Error",
-        description: "Failed to register. Email already exists.",
+        description: error,
         variant: "destructive",
       });
     } finally {
