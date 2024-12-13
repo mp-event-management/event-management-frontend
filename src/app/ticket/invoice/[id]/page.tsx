@@ -8,7 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import { formatPrice } from "@/lib/utils";
 import { TransactionDetail } from "@/types/transaction";
 import { useQuery } from "@tanstack/react-query";
-import { Check, Download, Verified } from "lucide-react";
+import { Check, Download } from "lucide-react";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import html2canvas from "html2canvas";

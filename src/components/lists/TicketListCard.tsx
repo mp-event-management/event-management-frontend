@@ -14,14 +14,13 @@ import RatingModal from "../modal/RatingModal";
 
 interface TicketListCardProps {
   data: Ticket;
-  customer: number | undefined;
+  customer?: number | undefined;
 }
 
-const TicketListCard: FC<TicketListCardProps> = ({ data, customer }) => {
+const TicketListCard: FC<TicketListCardProps> = ({ data }) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const handleOpenModal = () => setModalOpen(true);
   const handleCloseModal = () => setModalOpen(false);
-  // const customerData = customer;
 
   return (
     <div className="col-span-1">
@@ -83,7 +82,10 @@ const TicketListCard: FC<TicketListCardProps> = ({ data, customer }) => {
             </Button>
 
             <Button variant="outline" asChild>
-              <Link href={`/ticket/invoice/${data.transactionId}`} target="_blank">
+              <Link
+                href={`/ticket/invoice/${data.transactionId}`}
+                target="_blank"
+              >
                 See invoice
                 <TbInvoice />
               </Link>

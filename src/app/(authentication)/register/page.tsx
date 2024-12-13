@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { FC, useState } from "react";
@@ -28,6 +29,7 @@ type FormData = z.infer<typeof schema>;
 
 const RegisterPage: FC = () => {
   const router = useRouter();
+  // @typescript-eslint/no-unused-vars
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
@@ -53,11 +55,15 @@ const RegisterPage: FC = () => {
         description: "You have successfully registered! Please login.",
       });
       router.push("/login");
-    } catch (error) {
-      setError("An unexpected error occurred. Please try again.");
+    } catch (err: unknown) {
+      if (err instanceof Error) setError(err.message);
+      else setError("Failed to register. Email already exists.");
+
+      // Optionally show the error in a toast
       toast({
         title: "Error",
-        description: `${error} || Failed to register. Email already exists.`,
+        description: error,
+        variant: "destructive",
       });
     } finally {
       setIsLoading(false);
@@ -142,11 +148,6 @@ const RegisterPage: FC = () => {
             <Button type="submit" disabled={isLoading}>
               {isLoading ? "Loading..." : "Register"}
             </Button>
-            {error && (
-              <span className="w-full text-center text-red-500 text-[14px] mx-auto items-center justify-center pt-2">
-                {error}
-              </span>
-            )}
           </div>
           <Separator className="my-2" />
           <p className="text-[14px]">Already have an account?</p>
