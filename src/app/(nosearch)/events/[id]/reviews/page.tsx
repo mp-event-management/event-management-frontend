@@ -4,31 +4,13 @@ import { getAllEventReviews, getEventDetail } from "@/app/api/api";
 import Container from "@/components/Container";
 import EmptyState from "@/components/EmptyState";
 import { Button } from "@/components/ui/Button";
+import { Event } from "@/types/eventDetail";
 import { EventReviews } from "@/types/eventReviews";
-import { Category, City, Promotions, UserOrganizer } from "@/types/getEvents";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
-
-type Event = {
-  eventId: number;
-  userOrganizer: UserOrganizer;
-  title: string;
-  description: string;
-  category: Category;
-  eventImagesUrl: string;
-  startDate: Date; // ISO 8601 date string
-  endDate: Date; // ISO 8601 date string
-  ticketPrice: number;
-  totalTicket: number;
-  availableTicket: number;
-  eventStatus: string;
-  city: City;
-  address: string;
-  promotions: Promotions[];
-};
 
 const EventReviewsPage = () => {
   const [reviews, setReviews] = useState<EventReviews[]>([]);
