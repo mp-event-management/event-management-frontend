@@ -84,9 +84,11 @@ const EventDetailPage = () => {
                 className="object-cover h-full w-full rounded-full"
               />
             </div>
-            <div className="flex flex-row items-center gap-2 text-lg font-normal">
+            <div className="flex flex-col lg:flex-row  items-start lg:items-center gap-2 text-lg font-normal">
               <p className="text-[16px]">Organized by</p>
-              <span className="font-bold text-xl capitalize">{data.userOrganizer.name}</span>
+              <span className="font-bold text-xl capitalize">
+                {data.userOrganizer.name}
+              </span>
             </div>
           </div>
 
@@ -96,7 +98,9 @@ const EventDetailPage = () => {
             <div className="flex flex-row gap-4 items-center text-[16px] font-semibold">
               <CalendarCheck2 size={18} />
               <div className="flex items-center gap-2">
-                <p>Start date : {formatDateTime(data.startDate).formattedDate}</p>
+                <p>
+                  Start date : {formatDateTime(data.startDate).formattedDate}
+                </p>
                 <p>{formatDateTime(data.startDate).formattedTime}</p>
               </div>
             </div>

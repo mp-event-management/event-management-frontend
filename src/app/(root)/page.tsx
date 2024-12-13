@@ -64,9 +64,9 @@ export default function Home() {
   }
 
   return (
-    <main>
+    <main className="min-h-screen">
       <Container>
-        <div className="pt-[122px] lg:pt-[128px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8">
+        <div className="pt-[122px] lg:pt-[128px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8 min-h-[calc(100vh-280px)]">
           {events?.map((event: Event) => {
             return (
               <EventListCard

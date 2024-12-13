@@ -40,7 +40,8 @@ const ProfilePage: FC = () => {
             />
           </div>
           <div className="flex flex-col gap-3 items-center">
-            <h3 className="text-[22px] font-extrabold">{session?.user.name}</h3>
+            <h3 className="text-[22px] font-extrabold capitalize">{session?.user.name}</h3>
+            <h4 className="text-[18px] font-bold mb-4">{session?.user.email}</h4>
             <p className="text-[16px]">
               {session?.user.roles[0].includes("ROLE_ORGANIZER")
                 ? "ORGANIZER"
