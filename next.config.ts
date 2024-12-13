@@ -15,6 +15,11 @@ const nextConfig: NextConfig = {
         hostname: "example.com",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "utfs.io",
+        pathname: "/**",
+      },
     ],
     dangerouslyAllowSVG: true, // Enable SVG images
     contentDispositionType: "inline", // Optional: Set how the SVGs are served

@@ -39,8 +39,6 @@ const EventReviewsPage = () => {
     setReviews(data?.eventReviews);
     setEvent(eventDetails);
     setTotalPages(data?.totalPages);
-    console.log(data);
-    console.log("Event", eventDetails);
   }, [data, reviews, eventDetails]);
 
   const handlePrevPage = () => {

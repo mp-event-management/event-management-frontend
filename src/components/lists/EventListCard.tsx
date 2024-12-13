@@ -7,7 +7,6 @@ import { Event } from "@/types/getEvents";
 import { Edit, Star, TicketIcon } from "lucide-react";
 import { FC } from "react";
 import { Button } from "../ui/Button";
-import { MdDiscount } from "react-icons/md";
 import DeleteConfirmation from "../deleteEvent/DeleteConfirmation";
 import PromoModal from "../modal/PromoModal";
 
@@ -66,7 +65,7 @@ const EventListCard: FC<EventListCardProps> = ({
               width={400}
               alt={data.title}
               priority
-              src="https://placehold.co/400x400"
+              src={data.eventImagesUrl}
               className="object-cover h-full w-full group-hover:scale-110 transition"
             />
           </div>

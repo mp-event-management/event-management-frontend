@@ -50,8 +50,8 @@ const EventDetailPage = () => {
           height={600}
           width={600}
           priority
-          alt="Event"
-          src="https://placehold.co/600x600"
+          alt={data.title}
+          src={data.eventImagesUrl}
           className="object-cover h-full w-full"
         />
       </div>

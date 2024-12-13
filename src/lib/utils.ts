@@ -94,3 +94,5 @@ export function removeKeysFromQuery({
     { skipNull: true }
   );
 }
+
+export const convertFileToUrl = (file: File) => URL.createObjectURL(file)

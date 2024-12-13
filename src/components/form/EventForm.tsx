@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import {
@@ -9,6 +9,7 @@ import {
   FormDescription,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -32,6 +33,13 @@ import { Event } from "@/types/getEvents";
 import { updateEvent } from "@/app/actions/updateEvent";
 import { useToast } from "@/hooks/use-toast";
 import { createNewEvent } from "@/app/api/api";
+import {
+  // UploadButton,
+  // UploadDropzone,
+  useUploadThing,
+} from "@/utils/uploadthing";
+// import { Uploader } from "@uploadthing/react";
+import { FileUploader } from "../fileUploader/FileUploader";
 
 type EventFormProps = {
   type: "Create" | "Update";
@@ -48,6 +56,7 @@ const EventForm: FC<EventFormProps> = ({
   accessToken,
   eventId,
 }) => {
+  const [files, setFiles] = useState<File[]>([]);
   const router = useRouter();
   const { toast } = useToast();
 
@@ -67,6 +76,8 @@ const EventForm: FC<EventFormProps> = ({
         }
       : eventDefaultValues;
 
+  const { startUpload } = useUploadThing("imageUploader");
+
   // Define form.
   const form = useForm<z.infer<typeof eventFormSchema>>({
     resolver: zodResolver(eventFormSchema),
@@ -75,8 +86,18 @@ const EventForm: FC<EventFormProps> = ({
 
   // Define submit handler.
   async function onSubmit(values: z.infer<typeof eventFormSchema>) {
-    const ORGANIZER_ID = Number(organizerId);
+    let uploadedEventImagesUrl = values.eventImagesUrl;
 
+    if (files.length > 0) {
+      const uploadedImage = await startUpload(files);
+
+      if (!uploadedImage) return;
+
+      uploadedEventImagesUrl = uploadedImage[0].url;
+    }
+
+    const ORGANIZER_ID = Number(organizerId);
+    const eventImagesUrl = uploadedEventImagesUrl;
     const userOrganizerId = ORGANIZER_ID;
     const totalTicket = Number(values.totalTicket);
     const availableTicket = Number(values.totalTicket);
@@ -91,6 +112,7 @@ const EventForm: FC<EventFormProps> = ({
             ...values,
             userOrganizerId,
             categoryId,
+            eventImagesUrl,
             ticketPrice,
             totalTicket,
             availableTicket,
@@ -220,14 +242,16 @@ const EventForm: FC<EventFormProps> = ({
             name="eventImagesUrl"
             render={({ field }) => (
               <FormItem className="w-full">
-                <FormControl>
-                  <Input
-                    placeholder="Event Image url"
-                    {...field}
-                    className="bg-neutral-100 h-[54px] focus-visible:ring-offset-0 placeholder:text-grey-500 placeholder:text-[16px] rounded-full !text-[16px] px-4 py-3 border-none focus-visible:ring-transparent"
+                <FormControl className="h-72">
+                  <FileUploader
+                    onFieldChange={field.onChange}
+                    imageUrl={field.value}
+                    setFiles={setFiles}
                   />
                 </FormControl>
-                <FormDescription>Paste your event image link</FormDescription>
+                <FormDescription>
+                  Make sure the image size not larger than 8MB
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}

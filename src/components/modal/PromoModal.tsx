@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useState } from "react";
 import { Button } from "../ui/Button";
 import { Modal } from "flowbite-react";
 import {
@@ -20,16 +20,15 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { promoFormSchema } from "@/lib/validator";
 import { z } from "zod";
-import { useSession } from "next-auth/react";
-import { createNewPromotion, updatePromotion } from "@/app/api/api";
+// import { useSession } from "next-auth/react";
+import { createNewPromotion } from "@/app/api/api";
 import { Input } from "../ui/input";
-import { CalendarClockIcon, TicketIcon } from "lucide-react";
-import DatePicker from "react-datepicker";
-import Link from "next/link";
+import { CalendarClockIcon } from "lucide-react";
 import { promotionsTypes } from "@/constant/promotionType";
 import Dropdown from "./components/Dropdown";
 import { cn } from "@/lib/utils";
 import { MdDiscount } from "react-icons/md";
+import DatePicker from "react-datepicker";
 
 type PromoModalProps = {
   eventId?: number;
@@ -37,13 +36,8 @@ type PromoModalProps = {
 
 const PromoModal: FC<PromoModalProps> = ({ eventId }) => {
   const [openModal, setOpenModal] = useState(false);
-  const { data: session } = useSession();
-  const accessToken = session?.accessToken;
-
-  // Open modal and fetch data
-  const handleOpenModal = () => {
-    setOpenModal(true);
-  };
+  // const { data: session } = useSession();
+  // const accessToken = session?.accessToken;
 
   const router = useRouter();
   const { toast } = useToast();
@@ -56,7 +50,7 @@ const PromoModal: FC<PromoModalProps> = ({ eventId }) => {
     defaultValues: initialValues,
   });
 
-  // Watch promotionType to conditionally enable/disable fields
+  // Watch promotionType to conditionally enable / disable fields
   const promotionType = form.watch("promotionType");
 
   // Define submit handler.
@@ -92,14 +86,16 @@ const PromoModal: FC<PromoModalProps> = ({ eventId }) => {
   }
 
   return (
-    <div>
+    <>
       <Button onClick={() => setOpenModal(true)} variant="notFull" size="sm">
         <MdDiscount />
         Add Promo
       </Button>
       <Modal show={openModal} onClose={() => setOpenModal(false)}>
-        <Modal.Header>Add promo</Modal.Header>
-        <Modal.Body className="px-8">
+        <Modal.Header>
+          <p className="text-xl font-bold w-full text-center">Add promo</p>
+        </Modal.Header>
+        <Modal.Body>
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
@@ -217,9 +213,6 @@ const PromoModal: FC<PromoModalProps> = ({ eventId }) => {
                 />
               </div>
 
-              {/* Input for Available Uses (Conditional) */}
-              <div className="flex flex-col gap-5 md:flex-row"></div>
-
               <div className="flex flex-col gap-5 md:flex-row">
                 <FormField
                   control={form.control}
@@ -243,7 +236,7 @@ const PromoModal: FC<PromoModalProps> = ({ eventId }) => {
                             timeInputLabel="Time :"
                             dateFormat="MM/dd/yyyy h:mm aa"
                             wrapperClassName="datePicker"
-                            className="bg-neutral-100  placeholder:text-grey-500 placeholder:text-[16px] !text-[16px] border-none z-20"
+                            className="bg-neutral-100  placeholder:text-grey-500 placeholder:text-[16px] !text-[16px] border-none"
                           />
                         </div>
                       </FormControl>
@@ -276,7 +269,7 @@ const PromoModal: FC<PromoModalProps> = ({ eventId }) => {
                             timeInputLabel="Time :"
                             dateFormat="MM/dd/yyyy h:mm aa"
                             wrapperClassName="datePicker"
-                            className="bg-neutral-100  placeholder:text-grey-500 placeholder:text-[16px] !text-[16px] border-none z-20"
+                            className="bg-neutral-100  placeholder:text-grey-500 placeholder:text-[16px] !text-[16px] border-none"
                           />
                         </div>
                       </FormControl>
@@ -307,7 +300,7 @@ const PromoModal: FC<PromoModalProps> = ({ eventId }) => {
           </Form>
         </Modal.Body>
       </Modal>
-    </div>
+    </>
   );
 };
 
