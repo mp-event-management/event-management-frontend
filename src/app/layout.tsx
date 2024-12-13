@@ -1,15 +1,28 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
 import "./globals.css";
+import { Nunito } from "next/font/google";
+import { SessionProvider } from "next-auth/react";
+import { Toaster } from "@/components/ui/toaster";
+import QueryClientProviderWrapper from "@/provider/QueryClientProviderWrapper";
 
 export const metadata: Metadata = {
-  title: "Eventsbro",
+  title: "Eventbro",
   description: "Choose your desired event to join",
+  icons: {
+    icon: [
+      {
+        rel: "icon",
+        type: "image/svg",
+        sizes: "42x42",
+        url: "/favicon.svg",
+      },
+    ],
+  },
 };
 
-const poppins = Poppins({
+const nunito = Nunito({
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-nunito",
 });
 
 export default function RootLayout({
@@ -18,12 +31,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${poppins}`}
-      >
-        {children}
-      </body>
-    </html>
+    <SessionProvider>
+        <html lang="en">
+          <body className={`${nunito.className}`}>
+            <QueryClientProviderWrapper>
+              <main>{children}</main>
+            <Toaster />
+            </QueryClientProviderWrapper>
+          </body>
+        </html>
+    </SessionProvider>
   );
 }
