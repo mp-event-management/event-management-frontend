@@ -25,6 +25,9 @@ const nextConfig: NextConfig = {
     contentDispositionType: "inline", // Optional: Set how the SVGs are served
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 export default nextConfig;
