@@ -10,6 +10,7 @@ import { useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useQuery } from "@tanstack/react-query";
 import { getAllEvents } from "../api/api";
+import SkeletonEventCard from "@/components/loading/SkeletonEventCard";
 
 export default function Home() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -48,9 +49,13 @@ export default function Home() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center text-lg font-bold text-rose-500 h-[calc(100vh-170px)] pt-14">
-        Loading...
-      </div>
+      <Container>
+        <div className="max-w-[2020px] mx-auto pt-[122px] lg:pt-[128px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8">
+          {"abcdefghij".split("").map((i) => (
+            <SkeletonEventCard key={i} />
+          ))}
+        </div>
+      </Container>
     );
   }
 

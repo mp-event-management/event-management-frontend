@@ -33,10 +33,6 @@ const EventListCard: FC<EventListCardProps> = ({
 
             <div>
               <PromoModal eventId={data.eventId}/>
-              {/* <Button variant="notFull" size="sm">
-                <MdDiscount />
-                Manage Promo
-              </Button> */}
             </div>
 
             <Button variant="secondary" size="sm" asChild>
@@ -82,7 +78,7 @@ const EventListCard: FC<EventListCardProps> = ({
             </span>
           </div>
           <div className="flex flex-col gap-1 mt-2">
-            <p className="font-bold text-lg lg:text-xl line-clamp-1">
+            <p className="font-bold text-lg lg:text-xl line-clamp-1 capitalize">
               {data.title}, {data.city.cityName}
             </p>
             <p className="font-normal text-gray-500 text-[16px]">
@@ -98,7 +94,7 @@ const EventListCard: FC<EventListCardProps> = ({
                 )}
               </span>
             </div>
-            <span className="flex flex-row items-center gap-2 font-bold mt-4 text-rose-500">
+            <span className="flex flex-row items-center gap-2 font-bold mt-4 text-rose-500 capitalize">
               By {data.userOrganizer.name}
             </span>
           </div>

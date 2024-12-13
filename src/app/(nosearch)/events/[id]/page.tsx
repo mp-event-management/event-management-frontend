@@ -63,7 +63,7 @@ const EventDetailPage = () => {
           <div className="text-[18px] font-bold mb-2 flex flex-row gap-2 items-center">
             <p>{formatDateTime(data.startDate).formattedDate}</p>
           </div>
-          <h1 className="font-extrabold lg:text-[52px] lg:leading-[62px] md:text-4xl md:leading-[52px] text-3xl">
+          <h1 className="font-extrabold lg:text-[52px] lg:leading-[62px] md:text-4xl md:leading-[52px] text-3xl whitespace-pre-wrap capitalize">
             {data.title}
           </h1>
           <div className="lg:text-lg text-[16px] text-muted-foreground my-8 whitespace-pre-wrap">
@@ -86,7 +86,7 @@ const EventDetailPage = () => {
             </div>
             <div className="flex flex-row items-center gap-2 text-lg font-normal">
               <p className="text-[16px]">Organized by</p>
-              <span className="font-bold">{data.userOrganizer.name}</span>
+              <span className="font-bold text-xl capitalize">{data.userOrganizer.name}</span>
             </div>
           </div>
 
@@ -96,14 +96,14 @@ const EventDetailPage = () => {
             <div className="flex flex-row gap-4 items-center text-[16px] font-semibold">
               <CalendarCheck2 size={18} />
               <div className="flex items-center gap-2">
-                <p>Start : {formatDateTime(data.startDate).formattedDate}</p>
+                <p>Start date : {formatDateTime(data.startDate).formattedDate}</p>
                 <p>{formatDateTime(data.startDate).formattedTime}</p>
               </div>
             </div>
             <div className="flex flex-row gap-4 items-center text-[16px] font-semibold">
               <CalendarCheck2 size={18} />
               <div className="flex items-center gap-2">
-                <p>Start : {formatDateTime(data.endDate).formattedDate}</p>
+                <p>End date : {formatDateTime(data.endDate).formattedDate}</p>
                 <p>{formatDateTime(data.endDate).formattedTime}</p>
               </div>
             </div>

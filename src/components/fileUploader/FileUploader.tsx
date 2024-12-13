@@ -22,8 +22,9 @@ export function FileUploader({
 }: FileUploaderProps) {
   const onDrop = useCallback(
     (acceptedFiles: FileWithPath[]) => {
+      // console.log(acceptedFiles);
+      
       // Update files in the parent component
-      console.log(acceptedFiles);
       setFiles(acceptedFiles as File[]);
 
       // Convert the first file to URL and trigger the parent field change

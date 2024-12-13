@@ -47,7 +47,7 @@ const MyTicketsPage: FC = () => {
   return (
     <section className="min-h-[calc(100vh-200px)]">
       <Container>
-        <div className="flex lg:w-[70%] lg:mx-auto items-center justify-between lg:mt-8 mt-4">
+        <div className="flex lg:mx-auto items-center justify-between lg:mt-8 mt-4">
           <h1 className="text-3xl lg:text-4xl font-extrabold">
             My ticket lists
           </h1>

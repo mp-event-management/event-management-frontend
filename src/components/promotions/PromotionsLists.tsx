@@ -4,15 +4,17 @@ import { formatDateTime } from "@/lib/utils";
 import { Promotions } from "@/types/getEvents";
 import React, { FC } from "react";
 import { Button } from "../ui/Button";
+import { useToast } from "@/hooks/use-toast";
 
 type PromotionsProps = {
   promotions: Promotions[];
 };
 
 const PromotionsLists: FC<PromotionsProps> = ({ promotions }) => {
+  const { toast } = useToast();
   const handleCopyCode = (code: string) => {
     navigator.clipboard.writeText(code);
-    alert("Promotion code copied to clipboard!");
+    toast({ title: "Promo code copied to clipboard!" });
   };
 
   return (

@@ -21,7 +21,7 @@ const TicketListCard: FC<TicketListCardProps> = ({ data, customer }) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const handleOpenModal = () => setModalOpen(true);
   const handleCloseModal = () => setModalOpen(false);
-  const customerData = customer;
+  // const customerData = customer;
 
   return (
     <div className="col-span-1">
