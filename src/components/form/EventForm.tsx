@@ -32,9 +32,7 @@ import { Event } from "@/types/getEvents";
 import { updateEvent } from "@/app/actions/updateEvent";
 import { useToast } from "@/hooks/use-toast";
 import { createNewEvent } from "@/app/api/api";
-import {
-  useUploadThing,
-} from "@/utils/uploadthing";
+import { useUploadThing } from "@/utils/uploadthing";
 import { FileUploader } from "../fileUploader/FileUploader";
 
 type EventFormProps = {
@@ -85,13 +83,13 @@ const EventForm: FC<EventFormProps> = ({
     let uploadedEventImagesUrl = values.eventImagesUrl;
 
     if (files.length > 0) {
-      console.log("Files : ",files)
+      console.log("Files : ", files);
       const uploadedImage = await startUpload(files);
 
       if (!uploadedImage) return;
 
       uploadedEventImagesUrl = uploadedImage[0].url;
-      console.log("Uploaded event image : ",uploadedEventImagesUrl)
+      console.log("Uploaded event image : ", uploadedEventImagesUrl);
     }
 
     const ORGANIZER_ID = Number(organizerId);
@@ -203,6 +201,10 @@ const EventForm: FC<EventFormProps> = ({
                   <Textarea
                     placeholder="Description"
                     {...field}
+                    style={{
+                      fontFamily: "monospace", // Optional, for tab-like spacing
+                      whiteSpace: "pre-wrap", // Preserve newlines and spaces
+                    }}
                     className="bg-neutral-100 flex flex-1 placeholder:text-grey-500 placeholder:text-[16px] !text-[16px] px-5 py-3 border-none rounded-2xl focus-visible:ring-transparent"
                   />
                 </FormControl>

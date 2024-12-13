@@ -66,9 +66,9 @@ const EventDetailPage = () => {
           <h1 className="font-extrabold lg:text-[52px] lg:leading-[62px] md:text-4xl md:leading-[52px] text-3xl">
             {data.title}
           </h1>
-          <p className="lg:text-lg text-[16px] text-muted-foreground my-8">
+          <div className="lg:text-lg text-[16px] text-muted-foreground my-8 whitespace-pre-wrap">
             {data.description}
-          </p>
+          </div>
 
           {/* Promotions */}
           <PromotionsLists promotions={data.promotions} />
