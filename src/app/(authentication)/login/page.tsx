@@ -116,7 +116,7 @@ const LoginPage: FC = () => {
           </div>
 
           <Separator className="my-2" />
-          <p className="text-[14px]">Don&#39t have an account?</p>
+          <p className="text-[14px]">Do not have an account?</p>
           <Button variant="outline" asChild>
             <Link href="/register">Register</Link>
           </Button>
