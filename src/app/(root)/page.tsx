@@ -3,7 +3,6 @@
 import Container from "@/components/Container";
 import EmptyState from "@/components/EmptyState";
 import EventListCard from "@/components/lists/EventListCard";
-import { Event } from "@/types/getEvents";
 import { Button } from "@/components/ui/Button";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
@@ -11,6 +10,7 @@ import { useSession } from "next-auth/react";
 import { useQuery } from "@tanstack/react-query";
 import { getAllEvents } from "../api/api";
 import SkeletonEventCard from "@/components/loading/SkeletonEventCard";
+import { Event } from "@/types/eventDetails";
 
 export default function Home() {
   const [events, setEvents] = useState<Event[]>([]);
