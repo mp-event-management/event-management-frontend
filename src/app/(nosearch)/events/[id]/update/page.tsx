@@ -13,6 +13,7 @@ const UpdateEventPage = () => {
   const { data: session } = useSession();
   const organizerId = session?.user.id;
 
+  // Fetch event details data
   const { data: event, isLoading } = useQuery({
     queryKey: ["event", id],
     queryFn: async () => await getEventDetail(id),

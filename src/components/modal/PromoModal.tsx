@@ -20,7 +20,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { promoFormSchema } from "@/lib/validator";
 import { z } from "zod";
-// import { useSession } from "next-auth/react";
 import { createNewPromotion } from "@/app/api/api";
 import { Input } from "../ui/input";
 import { CalendarClockIcon } from "lucide-react";
@@ -36,9 +35,6 @@ type PromoModalProps = {
 
 const PromoModal: FC<PromoModalProps> = ({ eventId }) => {
   const [openModal, setOpenModal] = useState(false);
-  // const { data: session } = useSession();
-  // const accessToken = session?.accessToken;
-
   const router = useRouter();
   const { toast } = useToast();
 
