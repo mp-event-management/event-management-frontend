@@ -1,10 +1,10 @@
 "use client";
 
 import { formatDateTime } from "@/lib/utils";
-import { Promotions } from "@/types/getEvents";
 import React, { FC } from "react";
 import { Button } from "../ui/Button";
 import { useToast } from "@/hooks/use-toast";
+import { Promotions } from "@/types/eventDetails";
 
 type PromotionsProps = {
   promotions: Promotions[];
