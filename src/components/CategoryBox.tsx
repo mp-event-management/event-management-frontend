@@ -1,13 +1,18 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { LucideProps } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import queryString from "query-string";
-import { FC, useCallback } from "react";
+import { FC, ForwardRefExoticComponent, RefAttributes, useCallback } from "react";
 import { IconType } from "react-icons";
 
 interface CategoryBoxProps {
-  icon: IconType;
+  icon:
+    | IconType
+    | ForwardRefExoticComponent<
+        Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
+      >;
   label: string;
   id: string;
   selected: boolean;
