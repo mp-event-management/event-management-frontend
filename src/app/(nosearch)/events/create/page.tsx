@@ -13,7 +13,7 @@ const CreateEventPage: FC = () => {
     <>
       <section className="w-full min-h-[calc(100vh-95px)] lg:max-w-xl lg:mx-auto lg:my-16 mt-6">
         <h1 className="text-2xl lg:text-4xl font-extrabold text-center">
-          Create your event
+          Create your new event
         </h1>
 
         <div
