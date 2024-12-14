@@ -1,5 +1,6 @@
 "use server"
-import { ApiResponse, Event } from "@/types/getEvents";
+
+import { ApiResponse, Event } from "@/types/eventDetails";
 
 const getEventDetail = async (id: string): Promise<ApiResponse<Event>> => {
   try {
