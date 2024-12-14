@@ -15,7 +15,7 @@ const ProfilePage: FC = () => {
 
   const handleCopyCode = (code: string) => {
     navigator.clipboard.writeText(code);
-    toast({ title: "You referral code copied" });
+    toast({ title: "Your referral code copied" });
   };
 
   return (
