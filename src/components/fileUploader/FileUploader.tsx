@@ -1,8 +1,6 @@
 "use client";
 
 import { useCallback, Dispatch, SetStateAction } from "react";
-import type { FileWithPath } from "uploadthing/client";
-
 import { convertFileToUrl } from "@/lib/utils";
 import Image from "next/image";
 import { Upload } from "lucide-react";
@@ -21,7 +19,7 @@ export function FileUploader({
   setFiles,
 }: FileUploaderProps) {
   const onDrop = useCallback(
-    (acceptedFiles: FileWithPath[]) => {
+    (acceptedFiles: File[]) => {
       // console.log(acceptedFiles);
       
       // Update files in the parent component
@@ -39,7 +37,7 @@ export function FileUploader({
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept: {
-      "image/*": [".png", ".jpg", ".jpeg", ".svg"],
+      "image/*": [".png", ".jpg", ".jpeg", ".svg", ".webp"],
     },
   });
 
