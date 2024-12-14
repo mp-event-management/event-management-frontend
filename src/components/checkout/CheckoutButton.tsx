@@ -1,9 +1,9 @@
-import { Event } from "@/types/getEvents";
 import React, { FC, useState } from "react";
 import { Button } from "../ui/Button";
 import Link from "next/link";
 import TransactionModal from "../modal/TransactionModal";
 import { useSession } from "next-auth/react";
+import { Event } from "@/types/eventDetails";
 
 type CheckoutButtonProps = {
   event: Event;
