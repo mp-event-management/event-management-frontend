@@ -11,30 +11,12 @@ import { PlusIcon } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import React, { FC, Suspense, useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 
 const ManageEvents: FC = () => {
-  
-  // Wrap this section with Suspense boundary
-  return (
-    <Suspense
-      fallback={
-        <p className="flex items-center justify-center text-lg font-bold text-rose-500 h-[calc(100vh-280px)] pt-14">
-          Loading...
-        </p>
-      }
-    >
-      <SuspenseQueryHandler />
-    </Suspense>
-  );
-};
-
-// Separate the logic into a Suspense-safe component
-const SuspenseQueryHandler: FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [currentPage, setCurrentpage] = useState(0);
   const [totalPage, setTotalPages] = useState(0);
-
   const searchParams = useSearchParams();
   const { data: session } = useSession();
 
@@ -54,11 +36,10 @@ const SuspenseQueryHandler: FC = () => {
     queryKey: ["events", organizerId, currentPage, dataPerPage, params],
   });
 
-
   useEffect(() => {
     setEvents(data?.data.events);
     setTotalPages(data?.data.totalPages);
-  }, [data]);
+  }, [data, events]);
 
   const handlePrevPage = () => {
     setCurrentpage((prevPage) => prevPage - 1);
@@ -89,7 +70,7 @@ const SuspenseQueryHandler: FC = () => {
           </div>
         ) : events?.length <= 0 ? (
           <EmptyState
-            title="You don't have any event"
+            title="You dont have any event"
             subtitle="Please make a new event first"
             showReset={false}
             height="h-[calc(100vh-280px)]"
@@ -97,15 +78,17 @@ const SuspenseQueryHandler: FC = () => {
         ) : (
           <>
             <div className="pt-12 lg:pt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8">
-              {events?.map((event: Event) => (
-                <EventListCard
-                  isShown={true}
-                  organizerId={session?.user.id}
-                  role={session?.user.roles[0]}
-                  key={event.eventId}
-                  data={event}
-                />
-              ))}
+              {events?.map((event: Event) => {
+                return (
+                  <EventListCard
+                    isShown={true}
+                    organizerId={session?.user.id}
+                    role={session?.user.roles[0]}
+                    key={event.eventId}
+                    data={event}
+                  />
+                );
+              })}
             </div>
             <div className="flex items-center justify-center w-1/3 mx-auto gap-4 mt-20">
               <Button

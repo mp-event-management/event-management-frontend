@@ -5,7 +5,7 @@ import Avatar from "../../Avatar";
 import MenuItem from "./MenuItem";
 import { signOut, useSession } from "next-auth/react";
 import { MenuIcon } from "lucide-react";
-import { redirect } from "next/navigation";
+import {  useRouter } from "next/navigation";
 import Link from "next/link";
 import { Separator } from "../../ui/separator";
 import Image from "next/image";
@@ -13,6 +13,7 @@ import Image from "next/image";
 const UserMenu: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   const { data: session } = useSession();
 
@@ -45,12 +46,12 @@ const UserMenu: FC = () => {
       return (
         <>
           <MenuItem
-            onClick={handleMenuClick(() => redirect("/login"))}
+            onClick={handleMenuClick(() => router.push("/login"))}
             label="Login"
           />
           <Separator />
           <MenuItem
-            onClick={handleMenuClick(() => redirect("/register"))}
+            onClick={handleMenuClick(() => router.push("/register"))}
             label="Register"
           />
         </>
@@ -84,15 +85,15 @@ const UserMenu: FC = () => {
         {session && session?.user.roles.includes("ROLE_ORGANIZER") ? (
           <>
             <MenuItem
-              onClick={handleMenuClick(() => redirect("/profile"))}
+              onClick={handleMenuClick(() => router.push("/profile"))}
               label="Profile"
             />
             <MenuItem
-              onClick={handleMenuClick(() => redirect("/events/manage"))}
+              onClick={handleMenuClick(() => router.push("/events/manage"))}
               label="Manage My Events"
             />
             <MenuItem
-              onClick={handleMenuClick(() => redirect("/dashboard"))}
+              onClick={handleMenuClick(() => router.push("/dashboard"))}
               label="Dashboard"
             />
 
@@ -103,12 +104,12 @@ const UserMenu: FC = () => {
           <>
             <MenuItem
               onClick={handleMenuClick(() => {
-                redirect("/profile");
+                router.push("/profile");
               })}
               label="Profile"
             />
             <MenuItem
-              onClick={handleMenuClick(() => redirect("/my-tickets"))}
+              onClick={handleMenuClick(() => router.push("/my-tickets"))}
               label="My Tickets"
             />
             <Separator />
