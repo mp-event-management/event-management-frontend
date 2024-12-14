@@ -2,7 +2,7 @@ export type ApiResponse<T> = {
   statusCode: number;
   message: string;
   success: boolean;
-  data: T; // The `data` field contains the actual object
+  data: T; // The data field contains the actual object
 };
 
 export type Event = {
