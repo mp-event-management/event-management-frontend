@@ -28,12 +28,12 @@ import { availableCategories } from "@/constant/categories";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { IoPricetagOutline } from "react-icons/io5";
-import { Event } from "@/types/getEvents";
 import { updateEvent } from "@/app/actions/updateEvent";
 import { useToast } from "@/hooks/use-toast";
 import { createNewEvent } from "@/app/api/api";
 import { useUploadThing } from "@/utils/uploadthing";
 import { FileUploader } from "../fileUploader/FileUploader";
+import { Event } from "@/types/eventDetails";
 
 type EventFormProps = {
   type: "Create" | "Update";
