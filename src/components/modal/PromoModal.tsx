@@ -49,22 +49,23 @@ const PromoModal: FC<PromoModalProps> = ({
 
   const initialValues = promoDefaultValue;
 
+  const schema = promoFormSchema(eventStart, eventEnd);
   // Define form.
-  const form = useForm<z.infer<typeof promoFormSchema>>({
-    resolver: zodResolver(promoFormSchema),
+  const form = useForm<z.infer<typeof schema>>({
+    resolver: zodResolver(schema),
     defaultValues: {
       ...initialValues,
       startDate: eventStart || initialValues.startDate,
       endDate: eventEnd || initialValues.endDate,
     },
-    context: { eventStartDate: Date, eventEndDate: Date },
+    context: { eventStartDate, eventEndDate },
   });
 
   // Watch promotionType to conditionally enable / disable fields
   const promotionType = form.watch("promotionType");
 
   // Define submit handler.
-  async function onSubmit(values: z.infer<typeof promoFormSchema>) {
+  async function onSubmit(values: z.infer<typeof schema>) {
     const event = Number(eventId);
     const discountPercentage = Number(values.discountPercentage / 100);
 

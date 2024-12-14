@@ -32,71 +32,74 @@ export const eventFormSchema = z.object({
     .max(800, "Address must be less than 255 characters"),
 });
 
-export const promoFormSchema = z
-  .object({
-    promotionType: z.string().min(1, "Select promotion type"),
-    promotionCode: z
-      .string()
-      .min(6, "Promotion code must be at least 6 characters")
-      .max(20, "Promotion code must be less than 20 characters"),
-    discountPercentage: z
-      .number()
-      .min(1, { message: "Discount percentage must be at least 1" })
-      .max(100, { message: "Discount percentage must not exceed 100" }),
-    availableUses: z.number().optional(),
-    startDate: z.date(),
-    endDate: z.date(),
-  })
-  .refine(
-    (data) =>
-      data.promotionType !== "VOUCHER" ||
-      data.availableUses === undefined ||
-      data.availableUses > 0,
-    {
-      path: ["availableUses"],
-      message: "Available uses must be at least 1",
-    }
-  )
-  .superRefine((data, ctx) => {
-    const { eventStartDate, eventEndDate } = ctx || {};
+type PromoFormContext = {
+  eventStartDate: Date;
+  eventEndDate: Date;
+};
 
-    if (!eventStartDate || !eventEndDate) {
-      return true;
-    }
+export const promoFormSchema = (eventStartDate: Date, eventEndDate: Date) =>
+  z
+    .object({
+      promotionType: z.string().min(1, "Select promotion type"),
+      promotionCode: z
+        .string()
+        .min(6, "Promotion code must be at least 6 characters")
+        .max(20, "Promotion code must be less than 20 characters"),
+      discountPercentage: z
+        .number()
+        .min(1, { message: "Discount percentage must be at least 1" })
+        .max(100, { message: "Discount percentage must not exceed 100" }),
+      availableUses: z.number().optional(),
+      startDate: z.date(),
+      endDate: z.date(),
+    })
+    .refine(
+      (data) =>
+        data.promotionType !== "VOUCHER" ||
+        data.availableUses === undefined ||
+        data.availableUses > 0,
+      {
+        path: ["availableUses"],
+        message: "Available uses must be at least 1",
+      }
+    )
+    .superRefine((data, ctx) => {
+      if (!eventStartDate || !eventEndDate) {
+        return true;
+      }
+      // Promo start date must be >= event start date
+      if (data.startDate < eventStartDate) {
+        ctx.addIssue({
+          path: ["startDate"],
+          message: "Promo start date must be on or after the event start date",
+          code: z.ZodIssueCode.custom,
+        });
+      }
 
-    // Promo start date must be >= event start date
-    if (data.startDate < eventStartDate) {
-      ctx.addIssue({
-        path: ["startDate"],
-        message: "Promo start date must be on or after the event start date",
-        code: z.ZodIssueCode.custom,
-      });
-    }
+      // Promo start date must be < event end date
+      if (data.startDate > eventEndDate) {
+        ctx.addIssue({
+          path: ["startDate"],
+          message: "Promo start date must be set before the event end date",
+          code: z.ZodIssueCode.custom,
+        });
+      }
 
-    // Promo start date must be < event end date
-    if (data.startDate > eventEndDate) {
-      ctx.addIssue({
-        path: ["startDate"],
-        message: "Promo start date must be set before the event end date",
-        code: z.ZodIssueCode.custom,
-      });
-    }
+      // Promo end date must be <= event end date
+      if (data.endDate > eventEndDate) {
+        ctx.addIssue({
+          path: ["endDate"],
+          message: "Promo end date must be on or before the event end date",
+          code: z.ZodIssueCode.custom,
+        });
+      }
 
-    // Promo end date must be <= event end date
-    if (data.endDate > eventEndDate) {
-      ctx.addIssue({
-        path: ["endDate"],
-        message: "Promo end date must be on or before the event end date",
-        code: z.ZodIssueCode.custom,
-      });
-    }
-
-    // Validate that startDate is less than endDate
-    if (data.startDate >= data.endDate) {
-      ctx.addIssue({
-        path: ["endDate"],
-        message: "Promo end date must be after promo start date",
-        code: z.ZodIssueCode.custom,
-      });
-    }
-  });
+      // Validate that startDate is less than endDate
+      if (data.startDate >= data.endDate) {
+        ctx.addIssue({
+          path: ["endDate"],
+          message: "Promo end date must be after promo start date",
+          code: z.ZodIssueCode.custom,
+        });
+      }
+    });
