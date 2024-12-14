@@ -3,7 +3,7 @@ import EmptyState from "@/components/EmptyState";
 import React, { FC } from "react";
 
 const page: FC = () => {
-  const length = -1;
+  const length = -10;
 
   return (
     <section className="min-h-[calc(100vh-200px)]">
