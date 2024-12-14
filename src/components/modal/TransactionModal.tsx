@@ -3,13 +3,13 @@
 import React, { FC, useEffect, useState } from "react";
 import { Button } from "../ui/Button";
 import { Modal } from "flowbite-react";
-import { Event } from "@/types/getEvents";
 import { cn, formatDateTime, formatPrice } from "@/lib/utils";
 import Image from "next/image";
 import { Separator } from "../ui/separator";
 import { createTransaction } from "@/app/api/api";
 import { useToast } from "@/hooks/use-toast";
 import { useSession } from "next-auth/react";
+import { Event } from "@/types/eventDetails";
 
 type TransactionModalProps = {
   isOpen: boolean;
