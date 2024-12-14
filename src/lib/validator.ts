@@ -54,7 +54,49 @@ export const promoFormSchema = z
       data.availableUses > 0,
     {
       path: ["availableUses"],
-      message:
-        "Available uses must be at least 1",
+      message: "Available uses must be at least 1",
     }
-  );
+  )
+  .superRefine((data, ctx) => {
+    const { eventStartDate, eventEndDate } = ctx || {};
+
+    if (!eventStartDate || !eventEndDate) {
+      return true;
+    }
+
+    // Promo start date must be >= event start date
+    if (data.startDate < eventStartDate) {
+      ctx.addIssue({
+        path: ["startDate"],
+        message: "Promo start date must be on or after the event start date",
+        code: z.ZodIssueCode.custom,
+      });
+    }
+
+    // Promo start date must be < event end date
+    if (data.startDate > eventEndDate) {
+      ctx.addIssue({
+        path: ["startDate"],
+        message: "Promo start date must be set before the event end date",
+        code: z.ZodIssueCode.custom,
+      });
+    }
+
+    // Promo end date must be <= event end date
+    if (data.endDate > eventEndDate) {
+      ctx.addIssue({
+        path: ["endDate"],
+        message: "Promo end date must be on or before the event end date",
+        code: z.ZodIssueCode.custom,
+      });
+    }
+
+    // Validate that startDate is less than endDate
+    if (data.startDate >= data.endDate) {
+      ctx.addIssue({
+        path: ["endDate"],
+        message: "Promo end date must be after promo start date",
+        code: z.ZodIssueCode.custom,
+      });
+    }
+  });

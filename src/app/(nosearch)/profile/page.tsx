@@ -24,7 +24,6 @@ const ProfilePage: FC = () => {
         <div className="flex items-center justify-between mt-8">
           <h1 className="text-3xl lg:text-4xl font-extrabold">My profile</h1>
         </div>
-
         <div className="bg-slate-50 h-[calc(100vh-300px)] mt-16 w-full rounded-xl items-center justify-center p-12 flex flex-col gap-12">
           <div className="w-[230px] h-[230px]">
             <Image
@@ -40,8 +39,12 @@ const ProfilePage: FC = () => {
             />
           </div>
           <div className="flex flex-col gap-3 items-center">
-            <h3 className="text-[22px] font-extrabold capitalize">{session?.user.name}</h3>
-            <h4 className="text-[18px] font-bold mb-4">{session?.user.email}</h4>
+            <h3 className="text-[22px] font-extrabold capitalize">
+              {session?.user.name}
+            </h3>
+            <h4 className="text-[18px] font-bold mb-4">
+              {session?.user.email}
+            </h4>
             <p className="text-[16px]">
               {session?.user.roles[0].includes("ROLE_ORGANIZER")
                 ? "ORGANIZER"

@@ -28,22 +28,36 @@ import Dropdown from "./components/Dropdown";
 import { cn } from "@/lib/utils";
 import { MdDiscount } from "react-icons/md";
 import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 type PromoModalProps = {
   eventId?: number;
+  eventStartDate: Date;
+  eventEndDate: Date;
 };
 
-const PromoModal: FC<PromoModalProps> = ({ eventId }) => {
+const PromoModal: FC<PromoModalProps> = ({
+  eventId,
+  eventStartDate,
+  eventEndDate,
+}) => {
   const [openModal, setOpenModal] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
+  const eventStart = new Date(eventStartDate);
+  const eventEnd = new Date(eventEndDate);
 
   const initialValues = promoDefaultValue;
 
   // Define form.
   const form = useForm<z.infer<typeof promoFormSchema>>({
     resolver: zodResolver(promoFormSchema),
-    defaultValues: initialValues,
+    defaultValues: {
+      ...initialValues,
+      startDate: eventStart || initialValues.startDate,
+      endDate: eventEnd || initialValues.endDate,
+    },
+    context: { eventStartDate: Date, eventEndDate: Date },
   });
 
   // Watch promotionType to conditionally enable / disable fields
@@ -170,6 +184,7 @@ const PromoModal: FC<PromoModalProps> = ({ eventId }) => {
                     </FormItem>
                   )}
                 />
+
                 <FormField
                   control={form.control}
                   name="availableUses"
@@ -209,14 +224,14 @@ const PromoModal: FC<PromoModalProps> = ({ eventId }) => {
                 />
               </div>
 
-              <div className="flex flex-col gap-5 md:flex-row">
+              <div className="flex flex-col w-full gap-5 md:flex-row">
                 <FormField
                   control={form.control}
                   name="startDate"
                   render={({ field }) => (
                     <FormItem className="w-full">
                       <FormControl>
-                        <div className="flex items-center h-[54px] w-full overflow-hidden rounded-full bg-neutral-100 px-4 py-2">
+                        <div className="flex items-center h-[54px] w-full overflow-visible rounded-full bg-neutral-100 px-4 py-2">
                           <CalendarClockIcon size={18} />
                           <p className="ml-3 whitespace-nowrap text-[16px] mr-2 text-gray-500">
                             Start Date
@@ -232,7 +247,7 @@ const PromoModal: FC<PromoModalProps> = ({ eventId }) => {
                             timeInputLabel="Time :"
                             dateFormat="MM/dd/yyyy h:mm aa"
                             wrapperClassName="datePicker"
-                            className="bg-neutral-100  placeholder:text-grey-500 placeholder:text-[16px] !text-[16px] border-none !z-[100]"
+                            className="bg-neutral-100  placeholder:text-grey-500 placeholder:text-[16px] !text-[16px] border-none"
                           />
                         </div>
                       </FormControl>
@@ -249,7 +264,7 @@ const PromoModal: FC<PromoModalProps> = ({ eventId }) => {
                   render={({ field }) => (
                     <FormItem className="w-full">
                       <FormControl>
-                        <div className="flex items-center h-[54px] w-full overflow-hidden rounded-full bg-neutral-100 px-4 py-2">
+                        <div className="flex items-center h-[54px] w-full overflow-visible rounded-full bg-neutral-100 px-4 py-2">
                           <CalendarClockIcon size={18} />
                           <p className="ml-3 whitespace-nowrap text-gray-500 mr-2">
                             End Date
@@ -265,7 +280,7 @@ const PromoModal: FC<PromoModalProps> = ({ eventId }) => {
                             timeInputLabel="Time :"
                             dateFormat="MM/dd/yyyy h:mm aa"
                             wrapperClassName="datePicker"
-                            className="bg-neutral-100  placeholder:text-grey-500 placeholder:text-[16px] !text-[16px] border-none !z-[100]"
+                            className="bg-neutral-100  placeholder:text-grey-500 placeholder:text-[16px] !text-[16px] border-none"
                           />
                         </div>
                       </FormControl>

@@ -32,7 +32,11 @@ const EventListCard: FC<EventListCardProps> = ({
             <DeleteConfirmation eventId={data.eventId} />
 
             <div>
-              <PromoModal eventId={data.eventId}/>
+              <PromoModal
+                eventId={data.eventId}
+                eventStartDate={data.startDate}
+                eventEndDate={data.endDate}
+              />
             </div>
 
             <Button variant="secondary" size="sm" asChild>
