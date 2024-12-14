@@ -3,12 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { formatDateTime } from "@/lib/utils";
-import { Event } from "@/types/getEvents";
 import { Edit, Star, TicketIcon } from "lucide-react";
 import { FC } from "react";
 import { Button } from "../ui/Button";
 import DeleteConfirmation from "../deleteEvent/DeleteConfirmation";
 import PromoModal from "../modal/PromoModal";
+import { Event } from "@/types/eventDetails";
 
 interface EventListCardProps {
   data: Event;
