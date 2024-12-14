@@ -48,7 +48,7 @@ const EventDetailPage = () => {
         <Image
           height={600}
           width={600}
-          priority
+          // priority
           alt={data.title}
           src={data.eventImagesUrl}
           className="object-cover h-full w-full"

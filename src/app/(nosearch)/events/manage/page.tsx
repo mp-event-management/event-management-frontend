@@ -5,7 +5,7 @@ import Container from "@/components/Container";
 import EmptyState from "@/components/EmptyState";
 import EventListCard from "@/components/lists/EventListCard";
 import { Button } from "@/components/ui/Button";
-import { Event } from "@/types/getEvents";
+import { Event } from "@/types/eventDetails";
 import { useQuery } from "@tanstack/react-query";
 import { PlusIcon } from "lucide-react";
 import { useSession } from "next-auth/react";
