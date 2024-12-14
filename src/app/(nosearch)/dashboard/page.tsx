@@ -1,3 +1,5 @@
+'use client';
+
 import Container from "@/components/Container";
 import EmptyState from "@/components/EmptyState";
 import React, { FC } from "react";
