@@ -3,7 +3,7 @@
 import { getEventDetail } from "@/app/api/api";
 import EmptyState from "@/components/EmptyState";
 import EventForm from "@/components/form/EventForm";
-import { Event } from "@/types/getEvents";
+import { Event } from "@/types/eventDetails";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
